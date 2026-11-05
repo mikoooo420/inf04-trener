@@ -1,0 +1,113 @@
+[
+  {
+    "id": "nar-001",
+    "difficulty": 1,
+    "question": "Program tłumaczący cały kod źródłowy na kod maszynowy przed uruchomieniem programu to:",
+    "answers": ["interpreter", "kompilator", "debugger", "edytor"],
+    "correct": 1,
+    "explanation": "Kompilator tworzy plik wykonywalny z całego kodu. Interpreter wykonuje kod instrukcja po instrukcji w trakcie działania."
+  },
+  {
+    "id": "nar-002",
+    "difficulty": 2,
+    "question": "Kod źródłowy w języku Java jest kompilowany do:",
+    "answers": ["kodu maszynowego procesora x86", "kodu bajtowego wykonywanego przez maszynę wirtualną JVM", "języka C", "skryptu wykonywanego przez przeglądarkę"],
+    "correct": 1,
+    "explanation": "javac tworzy pliki .class z kodem bajtowym (bytecode), który uruchamia JVM. Dzięki temu programy Javy są przenośne między systemami."
+  },
+  {
+    "id": "nar-003",
+    "difficulty": 2,
+    "question": "Program łączący pliki obiektowe i biblioteki w jeden plik wykonywalny to:",
+    "answers": ["preprocesor", "linker (konsolidator)", "interpreter", "deasembler"],
+    "correct": 1,
+    "explanation": "Linker (konsolidator) scala skompilowane moduły i biblioteki w gotowy program."
+  },
+  {
+    "id": "nar-004",
+    "difficulty": 1,
+    "question": "Polecenie Git zapisujące przygotowane zmiany jako nową wersję w lokalnym repozytorium to:",
+    "answers": ["git push", "git commit", "git pull", "git clone"],
+    "correct": 1,
+    "explanation": "git commit tworzy migawkę zmian w lokalnej historii. git push wysyła commity do repozytorium zdalnego."
+  },
+  {
+    "id": "nar-005",
+    "difficulty": 2,
+    "question": "Polecenie git pull:",
+    "answers": [
+      "wysyła lokalne zmiany na serwer",
+      "pobiera zmiany ze zdalnego repozytorium i scala je z bieżącą gałęzią",
+      "tworzy nową gałąź",
+      "usuwa ostatni commit"
+    ],
+    "correct": 1,
+    "explanation": "git pull to połączenie git fetch (pobranie) i git merge (scalenie)."
+  },
+  {
+    "id": "nar-006",
+    "difficulty": 2,
+    "question": "Do czego służy plik .gitignore?",
+    "answers": [
+      "do zapisania haseł do repozytorium",
+      "do wskazania plików i katalogów, których Git ma nie śledzić",
+      "do opisania historii zmian",
+      "do konfiguracji serwera GitHub"
+    ],
+    "correct": 1,
+    "explanation": "W .gitignore wpisuje się np. katalogi bin/, obj/, node_modules/, pliki tymczasowe i pliki z danymi wrażliwymi."
+  },
+  {
+    "id": "nar-007",
+    "difficulty": 2,
+    "question": "Menedżer pakietów używany na platformie .NET (C#) to:",
+    "answers": ["npm", "pip", "NuGet", "Maven"],
+    "correct": 2,
+    "explanation": "NuGet – .NET, npm – JavaScript, pip – Python, Maven/Gradle – Java."
+  },
+  {
+    "id": "nar-008",
+    "difficulty": 2,
+    "question": "Biblioteka ładowana dynamicznie w czasie działania programu w systemie Windows ma rozszerzenie:",
+    "answers": [".lib", ".dll", ".exe", ".obj"],
+    "correct": 1,
+    "explanation": "DLL (Dynamic-Link Library) jest ładowana w czasie działania i może być współdzielona przez wiele programów. .lib to biblioteka statyczna (lub biblioteka importu)."
+  },
+  {
+    "id": "nar-009",
+    "difficulty": 1,
+    "question": "Zintegrowane środowisko programistyczne to:",
+    "answers": ["API", "IDE", "SDK", "GUI"],
+    "correct": 1,
+    "explanation": "IDE (Integrated Development Environment) łączy edytor, kompilator, debugger i inne narzędzia, np. Visual Studio, IntelliJ IDEA, Android Studio."
+  },
+  {
+    "id": "nar-010",
+    "difficulty": 2,
+    "question": "Różnica między biblioteką a frameworkiem polega na tym, że:",
+    "answers": [
+      "biblioteka jest zawsze płatna, a framework darmowy",
+      "kod programisty wywołuje bibliotekę, a framework wywołuje kod programisty (odwrócenie sterowania)",
+      "framework działa tylko w przeglądarce",
+      "biblioteka nie może zawierać klas"
+    ],
+    "correct": 1,
+    "explanation": "Framework narzuca strukturę aplikacji i sam steruje przepływem, wywołując kod programisty w określonych miejscach (Inversion of Control)."
+  },
+  {
+    "id": "nar-011",
+    "difficulty": 2,
+    "question": "Platforma .NET kompiluje kod C# do języka pośredniego, który następnie wykonuje środowisko:",
+    "answers": ["JVM", "CLR", "V8", "LLVM"],
+    "correct": 1,
+    "explanation": "C# kompiluje się do CIL (IL), a środowisko uruchomieniowe CLR (Common Language Runtime) tłumaczy go kompilatorem JIT na kod maszynowy."
+  },
+  {
+    "id": "nar-012",
+    "difficulty": 2,
+    "question": "Polecenie Git tworzące lokalną kopię istniejącego zdalnego repozytorium to:",
+    "answers": ["git init", "git clone", "git fork", "git copy"],
+    "correct": 1,
+    "explanation": "git clone <adres> pobiera całe repozytorium z historią. git init tworzy nowe, puste repozytorium. Fork to funkcja serwisów (np. GitHub), a nie polecenie Git."
+  }
+]

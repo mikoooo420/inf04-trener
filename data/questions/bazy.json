@@ -1,0 +1,115 @@
+[
+  {
+    "id": "bd-001",
+    "difficulty": 1,
+    "question": "Pole jednoznacznie identyfikujące każdy rekord w tabeli to:",
+    "answers": ["klucz obcy", "klucz główny", "indeks pełnotekstowy", "atrybut opcjonalny"],
+    "correct": 1,
+    "explanation": "Klucz główny (PRIMARY KEY) musi być unikalny i niepusty. Klucz obcy odwołuje się do klucza głównego innej tabeli."
+  },
+  {
+    "id": "bd-002",
+    "difficulty": 2,
+    "question": "Relację wiele-do-wielu (N:M) między tabelami uczniowie i przedmioty realizuje się za pomocą:",
+    "answers": [
+      "jednego klucza obcego w tabeli uczniowie",
+      "tabeli pośredniczącej zawierającej klucze obce do obu tabel",
+      "połączenia tabel w jedną",
+      "indeksu na obu tabelach"
+    ],
+    "correct": 1,
+    "explanation": "Relację N:M rozbija się na dwie relacje 1:N przez tabelę pośredniczącą (np. uczniowie_przedmioty z kolumnami uczen_id i przedmiot_id)."
+  },
+  {
+    "id": "bd-003",
+    "difficulty": 2,
+    "question": "Klauzula SQL służąca do filtrowania grup utworzonych przez GROUP BY (np. warunek na COUNT) to:",
+    "answers": ["WHERE", "HAVING", "ORDER BY", "LIMIT"],
+    "correct": 1,
+    "explanation": "WHERE filtruje wiersze przed grupowaniem, HAVING – grupy po grupowaniu. Warunków na funkcje agregujące nie można umieścić w WHERE.",
+    "tip": "Warunek z COUNT/SUM/AVG → HAVING."
+  },
+  {
+    "id": "bd-004",
+    "difficulty": 2,
+    "question": "Złączenie zwracające wszystkie wiersze z lewej tabeli i pasujące wiersze z prawej (a w miejscu braku dopasowania wartości NULL) to:",
+    "answers": ["INNER JOIN", "LEFT JOIN", "CROSS JOIN", "SELF JOIN"],
+    "correct": 1,
+    "explanation": "LEFT (OUTER) JOIN zachowuje wszystkie wiersze z lewej tabeli. INNER JOIN zwraca tylko dopasowane pary."
+  },
+  {
+    "id": "bd-005",
+    "difficulty": 2,
+    "question": "Co się stanie po wykonaniu polecenia: DELETE FROM uczniowie;",
+    "answers": [
+      "zostanie usunięta tabela uczniowie wraz ze strukturą",
+      "zostaną usunięte wszystkie wiersze tabeli, a jej struktura pozostanie",
+      "zostanie usunięty pierwszy wiersz",
+      "pojawi się błąd składni, bo brakuje WHERE"
+    ],
+    "correct": 1,
+    "explanation": "DELETE bez WHERE usuwa wszystkie rekordy, ale tabela nadal istnieje. Usunięcie całej tabeli to DROP TABLE."
+  },
+  {
+    "id": "bd-006",
+    "difficulty": 2,
+    "question": "Które zapytanie zwróci uczniów, których nazwisko zaczyna się na literę K?",
+    "answers": [
+      "SELECT * FROM uczniowie WHERE nazwisko = 'K%';",
+      "SELECT * FROM uczniowie WHERE nazwisko LIKE 'K%';",
+      "SELECT * FROM uczniowie WHERE nazwisko LIKE '%K';",
+      "SELECT * FROM uczniowie WHERE nazwisko IN ('K');"
+    ],
+    "correct": 1,
+    "explanation": "LIKE z wzorcem 'K%' oznacza: litera K, a potem dowolny ciąg znaków. '%K' oznaczałoby nazwisko kończące się na K."
+  },
+  {
+    "id": "bd-007",
+    "difficulty": 2,
+    "question": "Technika mapowania tabel bazy danych na klasy, a rekordów na obiekty, to:",
+    "answers": ["ORM", "DOM", "CRUD", "DDL"],
+    "correct": 0,
+    "explanation": "ORM (Object-Relational Mapping), np. Entity Framework, Hibernate, SQLAlchemy. CRUD to cztery operacje na danych, DDL – polecenia definiujące strukturę."
+  },
+  {
+    "id": "bd-008",
+    "difficulty": 2,
+    "question": "Litera A w skrócie ACID opisującym właściwości transakcji oznacza:",
+    "answers": ["autoryzację", "atomowość", "asynchroniczność", "agregację"],
+    "correct": 1,
+    "explanation": "Atomowość – transakcja wykonuje się w całości albo wcale. ACID = Atomicity, Consistency, Isolation, Durability."
+  },
+  {
+    "id": "bd-009",
+    "difficulty": 1,
+    "question": "Polecenie SQL należące do grupy DDL (definiowanie struktury) to:",
+    "answers": ["SELECT", "INSERT", "CREATE TABLE", "UPDATE"],
+    "correct": 2,
+    "explanation": "DDL: CREATE, ALTER, DROP. SELECT, INSERT, UPDATE, DELETE należą do DML (operacje na danych)."
+  },
+  {
+    "id": "bd-010",
+    "difficulty": 2,
+    "question": "Jak poprawnie sprawdzić w SQL, że kolumna email nie ma wartości?",
+    "answers": ["WHERE email = NULL", "WHERE email IS NULL", "WHERE email == ''", "WHERE NULL(email)"],
+    "correct": 1,
+    "explanation": "NULL oznacza brak wartości i nie jest równy niczemu (nawet innemu NULL). Sprawdza się go operatorami IS NULL / IS NOT NULL."
+  },
+  {
+    "id": "bd-011",
+    "difficulty": 3,
+    "question": "Ile wierszy zwróci zapytanie, jeśli tabela produkty ma 4 wiersze, a tabela kategorie – 3 wiersze?",
+    "code": { "lang": "sql", "src": "SELECT * FROM produkty CROSS JOIN kategorie;" },
+    "answers": ["3", "4", "7", "12"],
+    "correct": 3,
+    "explanation": "CROSS JOIN to iloczyn kartezjański – każdy wiersz z jednej tabeli łączony z każdym z drugiej: 4 · 3 = 12."
+  },
+  {
+    "id": "bd-012",
+    "difficulty": 2,
+    "question": "Postać normalna wymagająca, aby każde pole zawierało wartości atomowe (niepodzielne), to:",
+    "answers": ["1NF", "2NF", "3NF", "BCNF"],
+    "correct": 0,
+    "explanation": "Pierwsza postać normalna (1NF) wymaga wartości atomowych i braku powtarzających się grup (np. kilku telefonów w jednym polu)."
+  }
+]

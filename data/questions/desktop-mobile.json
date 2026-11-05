@@ -1,0 +1,107 @@
+[
+  {
+    "id": "dm-001",
+    "difficulty": 1,
+    "question": "Model programowania, w którym program reaguje na działania użytkownika, np. kliknięcie przycisku, to programowanie:",
+    "answers": ["strukturalne", "zdarzeniowe", "funkcyjne", "współbieżne"],
+    "correct": 1,
+    "explanation": "Aplikacje z GUI działają zdarzeniowo – kod uruchamia się w odpowiedzi na zdarzenia (Click, TextChanged itp.)."
+  },
+  {
+    "id": "dm-002",
+    "difficulty": 1,
+    "question": "Kontrolka pozwalająca wybrać tylko jedną opcję z grupy wzajemnie wykluczających się opcji to:",
+    "answers": ["CheckBox", "RadioButton", "TextBox", "ListBox"],
+    "correct": 1,
+    "explanation": "RadioButton (przycisk opcji) w grupie pozwala zaznaczyć jedną opcję. CheckBox pozwala zaznaczyć dowolną liczbę opcji niezależnie."
+  },
+  {
+    "id": "dm-003",
+    "difficulty": 2,
+    "question": "W technologii WPF wygląd interfejsu opisuje się deklaratywnie w języku:",
+    "answers": ["HTML", "XAML", "JSON", "YAML"],
+    "correct": 1,
+    "explanation": "XAML (eXtensible Application Markup Language) to oparty na XML język opisu interfejsu w WPF, .NET MAUI i UWP."
+  },
+  {
+    "id": "dm-004",
+    "difficulty": 2,
+    "question": "W systemie Android pojedynczy ekran aplikacji z interfejsem użytkownika reprezentuje komponent:",
+    "answers": ["Service", "Activity", "BroadcastReceiver", "ContentProvider"],
+    "correct": 1,
+    "explanation": "Activity (aktywność) to jeden ekran aplikacji. Service działa w tle bez interfejsu."
+  },
+  {
+    "id": "dm-005",
+    "difficulty": 2,
+    "question": "Która metoda cyklu życia aktywności Android jest wywoływana jako pierwsza, podczas jej tworzenia?",
+    "answers": ["onStart()", "onResume()", "onCreate()", "onPause()"],
+    "correct": 2,
+    "explanation": "Kolejność: onCreate() → onStart() → onResume(). W onCreate() ustawia się layout (setContentView) i pobiera kontrolki."
+  },
+  {
+    "id": "dm-006",
+    "difficulty": 2,
+    "question": "Plik w projekcie Android, w którym deklaruje się aktywności aplikacji i wymagane uprawnienia (np. dostęp do aparatu), to:",
+    "answers": ["build.gradle", "AndroidManifest.xml", "strings.xml", "MainActivity.java"],
+    "correct": 1,
+    "explanation": "AndroidManifest.xml opisuje komponenty aplikacji, uprawnienia, ikonę i nazwę aplikacji."
+  },
+  {
+    "id": "dm-007",
+    "difficulty": 2,
+    "question": "Jednostka zalecana w Androidzie do określania rozmiaru czcionki, uwzględniająca ustawienia użytkownika, to:",
+    "answers": ["px", "dp", "sp", "pt"],
+    "correct": 2,
+    "explanation": "sp (scale-independent pixels) skaluje się z ustawieniem rozmiaru tekstu w systemie. Wymiary elementów podaje się w dp."
+  },
+  {
+    "id": "dm-008",
+    "difficulty": 2,
+    "question": "Kontener WPF układający elementy w wierszach i kolumnach to:",
+    "answers": ["StackPanel", "Grid", "Canvas", "WrapPanel"],
+    "correct": 1,
+    "explanation": "Grid dzieli przestrzeń na wiersze (RowDefinitions) i kolumny (ColumnDefinitions). StackPanel układa elementy jeden pod drugim lub obok siebie."
+  },
+  {
+    "id": "dm-009",
+    "difficulty": 2,
+    "question": "Technologia firmy Microsoft pozwalająca z jednego kodu w C# tworzyć aplikacje na Androida, iOS, Windows i macOS to:",
+    "answers": [".NET MAUI", "Windows Forms", "JavaFX", "Swing"],
+    "correct": 0,
+    "explanation": ".NET MAUI (Multi-platform App UI) to wieloplatformowy framework, następca Xamarin.Forms. Windows Forms działa tylko w Windows."
+  },
+  {
+    "id": "dm-010",
+    "difficulty": 2,
+    "question": "Co należy wpisać w miejsce luki, aby w Androidzie pobrać referencję do przycisku o identyfikatorze btnOk?",
+    "code": { "lang": "java", "src": "Button btn = ________(R.id.btnOk);" },
+    "answers": ["getElementById", "findViewById", "querySelector", "getControl"],
+    "correct": 1,
+    "explanation": "findViewById() wyszukuje widok po identyfikatorze zdefiniowanym w layoucie XML (android:id=\"@+id/btnOk\"). getElementById i querySelector to metody DOM w JavaScript."
+  },
+  {
+    "id": "dm-011",
+    "difficulty": 1,
+    "question": "Kontrolka służąca do wprowadzania tekstu przez użytkownika w aplikacji Windows Forms to:",
+    "answers": ["Label", "TextBox", "PictureBox", "Panel"],
+    "correct": 1,
+    "explanation": "TextBox to pole tekstowe do wprowadzania danych. Label tylko wyświetla tekst. W Androidzie odpowiednikiem TextBox jest EditText."
+  },
+  {
+    "id": "dm-012",
+    "difficulty": 2,
+    "question": "Zdarzenie wywoływane w WinForms/WPF, gdy zmieni się zawartość pola tekstowego, to:",
+    "answers": ["Click", "TextChanged", "Load", "Paint"],
+    "correct": 1,
+    "explanation": "TextChanged pozwala reagować na każdą zmianę wpisywanego tekstu, np. do walidacji na bieżąco."
+  },
+  {
+    "id": "dm-013",
+    "difficulty": 2,
+    "question": "Narzędzie w Android Studio pozwalające uruchomić i przetestować aplikację bez fizycznego telefonu to:",
+    "answers": ["Gradle", "emulator (AVD)", "Logcat", "Lint"],
+    "correct": 1,
+    "explanation": "AVD (Android Virtual Device) to emulator urządzenia z Androidem. Logcat wyświetla logi, Gradle buduje projekt."
+  }
+]

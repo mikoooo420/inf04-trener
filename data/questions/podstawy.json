@@ -1,0 +1,155 @@
+[
+  {
+    "id": "pod-001",
+    "difficulty": 2,
+    "question": "Jakie wartości będą miały zmienne a i b po wykonaniu kodu?",
+    "code": [
+      { "lang": "cpp", "src": "int i = 5;\nint a = i++;\nint b = ++i;" },
+      { "lang": "csharp", "src": "int i = 5;\nint a = i++;\nint b = ++i;" },
+      { "lang": "java", "src": "int i = 5;\nint a = i++;\nint b = ++i;" }
+    ],
+    "answers": ["a = 5, b = 7", "a = 6, b = 7", "a = 5, b = 6", "a = 6, b = 6"],
+    "correct": 0,
+    "explanation": "i++ zwraca starą wartość (a = 5), a potem zwiększa i do 6. ++i najpierw zwiększa i do 7, a potem zwraca tę wartość (b = 7).",
+    "tip": "Postinkrementacja: „najpierw użyj, potem zwiększ”. Preinkrementacja: „najpierw zwiększ, potem użyj”."
+  },
+  {
+    "id": "pod-002",
+    "difficulty": 1,
+    "question": "Pętla, która wykona się co najmniej jeden raz, niezależnie od warunku, to:",
+    "answers": ["for", "while", "do…while", "foreach"],
+    "correct": 2,
+    "explanation": "W pętli do…while warunek jest sprawdzany po wykonaniu ciała pętli, więc ciało wykona się przynajmniej raz."
+  },
+  {
+    "id": "pod-003",
+    "difficulty": 2,
+    "question": "Co wypisze program?",
+    "code": [
+      { "lang": "cpp", "src": "void zmien(int x) {\n    x = 10;\n}\n\nint main() {\n    int a = 3;\n    zmien(a);\n    cout << a;\n}" },
+      { "lang": "csharp", "src": "static void Zmien(int x)\n{\n    x = 10;\n}\n\nint a = 3;\nZmien(a);\nConsole.Write(a);" }
+    ],
+    "answers": ["3", "10", "13", "błąd kompilacji"],
+    "correct": 0,
+    "explanation": "Parametr przekazano przez wartość – funkcja zmienia kopię, oryginalna zmienna a nadal ma wartość 3."
+  },
+  {
+    "id": "pod-004",
+    "difficulty": 2,
+    "question": "Aby funkcja w C++ mogła zmienić wartość zmiennej przekazanej jako argument, parametr należy zadeklarować jako:",
+    "answers": ["int x", "const int x", "int& x", "static int x"],
+    "correct": 2,
+    "explanation": "int& x to referencja – funkcja działa bezpośrednio na oryginalnej zmiennej. W C# odpowiednikiem jest słowo ref."
+  },
+  {
+    "id": "pod-005",
+    "difficulty": 2,
+    "question": "Co zostanie wypisane?",
+    "code": [
+      { "lang": "cpp", "src": "int x = 5;\nint* p = &x;\n*p = *p + 3;\ncout << x;" }
+    ],
+    "answers": ["5", "8", "adres zmiennej x", "3"],
+    "correct": 1,
+    "explanation": "p wskazuje na x. *p to wartość pod tym adresem, więc *p = *p + 3 zmienia x na 8."
+  },
+  {
+    "id": "pod-006",
+    "difficulty": 1,
+    "question": "Typ danych przeznaczony do przechowywania wartości logicznej prawda/fałsz to:",
+    "answers": ["char", "bool", "float", "byte"],
+    "correct": 1,
+    "explanation": "bool (boolean w Javie) przyjmuje tylko wartości true lub false."
+  },
+  {
+    "id": "pod-007",
+    "difficulty": 2,
+    "question": "Przeciążanie funkcji (overloading) polega na:",
+    "answers": [
+      "zdefiniowaniu kilku funkcji o tej samej nazwie, ale różnych listach parametrów",
+      "zdefiniowaniu kilku funkcji o tej samej nazwie, różniących się tylko typem zwracanym",
+      "wywołaniu funkcji przez nią samą",
+      "zastąpieniu metody klasy bazowej w klasie pochodnej"
+    ],
+    "correct": 0,
+    "explanation": "Przeciążone funkcje mają tę samą nazwę, ale różnią się liczbą lub typami parametrów. Sam typ zwracany nie wystarcza. Opis z odpowiedzi D to nadpisywanie (overriding)."
+  },
+  {
+    "id": "pod-008",
+    "difficulty": 2,
+    "question": "Ile razy wykona się ciało pętli?",
+    "code": [
+      { "lang": "cpp", "src": "int i = 10;\nwhile (i < 10) {\n    i++;\n}" },
+      { "lang": "python", "src": "i = 10\nwhile i < 10:\n    i += 1" }
+    ],
+    "answers": ["0", "1", "9", "10"],
+    "correct": 0,
+    "explanation": "Warunek i < 10 jest fałszywy już przy pierwszym sprawdzeniu (10 < 10), a pętla while sprawdza warunek przed obiegiem, więc ciało nie wykona się ani razu."
+  },
+  {
+    "id": "pod-009",
+    "difficulty": 2,
+    "question": "Co wypisze poniższy kod w Pythonie?",
+    "code": { "lang": "python", "src": "print(7 // 2, 7 / 2, 7 % 2, 2 ** 3)" },
+    "answers": ["3 3.5 1 8", "3.5 3 1 6", "3 3 1 8", "3 3.5 1 6"],
+    "correct": 0,
+    "explanation": "// to dzielenie całkowite (3), / zawsze daje float (3.5), % to reszta (1), ** to potęgowanie (2³ = 8)."
+  },
+  {
+    "id": "pod-010",
+    "difficulty": 2,
+    "question": "Co wypisze program?",
+    "code": [
+      { "lang": "cpp", "src": "int x = 2;\nswitch (x) {\n    case 1: cout << \"A\";\n    case 2: cout << \"B\";\n    case 3: cout << \"C\";\n    default: cout << \"D\";\n}" },
+      { "lang": "java", "src": "int x = 2;\nswitch (x) {\n    case 1: System.out.print(\"A\");\n    case 2: System.out.print(\"B\");\n    case 3: System.out.print(\"C\");\n    default: System.out.print(\"D\");\n}" }
+    ],
+    "answers": ["B", "BC", "BCD", "ABCD"],
+    "correct": 2,
+    "explanation": "Brak instrukcji break powoduje, że po wejściu do case 2 wykonanie „przelatuje” przez kolejne przypadki aż do końca switch: wypisze B, C i D.",
+    "tip": "Brak break w switch to klasyczna pułapka w pytaniach „co wypisze program”."
+  },
+  {
+    "id": "pod-011",
+    "difficulty": 1,
+    "question": "Zmienna zadeklarowana wewnątrz funkcji jest zmienną:",
+    "answers": ["globalną", "lokalną", "statyczną klasy", "publiczną"],
+    "correct": 1,
+    "explanation": "Zmienna lokalna istnieje tylko w obrębie bloku/funkcji, w której ją zadeklarowano, i znika po zakończeniu funkcji."
+  },
+  {
+    "id": "pod-012",
+    "difficulty": 2,
+    "question": "W języku Java poprawne porównanie zawartości dwóch napisów s1 i s2 to:",
+    "answers": ["s1 == s2", "s1.equals(s2)", "s1 = s2", "s1.compare(s2) == true"],
+    "correct": 1,
+    "explanation": "Operator == porównuje referencje (czy to ten sam obiekt). Treść napisów porównujemy metodą equals()."
+  },
+  {
+    "id": "pod-013",
+    "difficulty": 3,
+    "question": "Co wypisze program w C#?",
+    "code": { "lang": "csharp", "src": "int a = 0;\nif (a != 0 && 10 / a > 1)\n    Console.Write(\"X\");\nelse\n    Console.Write(\"Y\");" },
+    "answers": ["X", "Y", "zgłoszony zostanie wyjątek DivideByZeroException", "nic"],
+    "correct": 1,
+    "explanation": "Operator && stosuje skrócone wartościowanie: skoro a != 0 jest fałszem, drugi warunek (z dzieleniem przez zero) nie jest obliczany. Wykona się gałąź else."
+  },
+  {
+    "id": "pod-014",
+    "difficulty": 2,
+    "question": "Za automatyczne zwalnianie nieużywanej pamięci w językach C# i Java odpowiada:",
+    "answers": ["destruktor", "garbage collector", "kompilator JIT", "linker"],
+    "correct": 1,
+    "explanation": "Garbage collector (odśmiecacz) wykrywa obiekty, do których nie ma już odwołań, i zwalnia zajmowaną przez nie pamięć."
+  },
+  {
+    "id": "pod-015",
+    "difficulty": 2,
+    "question": "Co wypisze program?",
+    "code": [
+      { "lang": "cpp", "src": "for (int i = 1; i <= 10; i++) {\n    if (i % 3 == 0) continue;\n    if (i > 7) break;\n    cout << i;\n}" },
+      { "lang": "python", "src": "for i in range(1, 11):\n    if i % 3 == 0:\n        continue\n    if i > 7:\n        break\n    print(i, end=\"\")" }
+    ],
+    "answers": ["124578", "12457", "1245", "12345678"],
+    "correct": 1,
+    "explanation": "Liczby podzielne przez 3 są pomijane (continue). Wypisywane są 1, 2, 4, 5, 7. Przy i = 8 warunek i > 7 przerywa pętlę (break)."
+  }
+]

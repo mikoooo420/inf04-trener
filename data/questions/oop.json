@@ -1,0 +1,187 @@
+[
+  {
+    "id": "oop-001",
+    "difficulty": 1,
+    "question": "Metoda wywoływana automatycznie podczas tworzenia obiektu, mająca taką samą nazwę jak klasa i nieposiadająca typu zwracanego, to:",
+    "answers": ["destruktor", "konstruktor", "akcesor", "metoda statyczna"],
+    "correct": 1,
+    "explanation": "Konstruktor inicjalizuje nowy obiekt. Ma nazwę klasy i nie deklaruje typu zwracanego (nawet void).",
+    "tip": "Konstruktor = nazwa klasy, bez typu zwracanego. Destruktor (C++) = ~NazwaKlasy."
+  },
+  {
+    "id": "oop-002",
+    "difficulty": 1,
+    "question": "Ukrywanie wewnętrznego stanu obiektu i udostępnianie go wyłącznie przez metody to:",
+    "answers": ["dziedziczenie", "polimorfizm", "hermetyzacja", "rekurencja"],
+    "correct": 2,
+    "explanation": "Hermetyzacja (enkapsulacja) – pola są prywatne, a dostęp do nich odbywa się przez publiczne metody (gettery, settery) lub właściwości."
+  },
+  {
+    "id": "oop-003",
+    "difficulty": 1,
+    "question": "Składowa klasy oznaczona modyfikatorem private jest dostępna:",
+    "answers": [
+      "tylko wewnątrz tej samej klasy",
+      "w klasie i jej klasach pochodnych",
+      "w całym programie",
+      "tylko w metodach statycznych"
+    ],
+    "correct": 0,
+    "explanation": "private – dostęp tylko w obrębie klasy. Dostęp w klasach pochodnych daje protected, a z każdego miejsca – public."
+  },
+  {
+    "id": "oop-004",
+    "difficulty": 2,
+    "question": "Składowa klasy dostępna w tej klasie oraz w klasach z niej dziedziczących, ale niedostępna z zewnątrz, ma modyfikator:",
+    "answers": ["public", "private", "protected", "static"],
+    "correct": 2,
+    "explanation": "protected otwiera dostęp dla klas pochodnych, ale blokuje go dla pozostałego kodu."
+  },
+  {
+    "id": "oop-005",
+    "difficulty": 2,
+    "question": "Co wypisze program?",
+    "code": [
+      { "lang": "cpp", "src": "class A {\npublic:\n    virtual void f() { cout << \"A\"; }\n};\nclass B : public A {\npublic:\n    void f() override { cout << \"B\"; }\n};\n\nA* p = new B();\np->f();" },
+      { "lang": "csharp", "src": "class A {\n    public virtual void F() { Console.Write(\"A\"); }\n}\nclass B : A {\n    public override void F() { Console.Write(\"B\"); }\n}\n\nA p = new B();\np.F();" },
+      { "lang": "java", "src": "class A {\n    void f() { System.out.print(\"A\"); }\n}\nclass B extends A {\n    @Override\n    void f() { System.out.print(\"B\"); }\n}\n\nA p = new B();\np.f();" }
+    ],
+    "answers": ["A", "B", "AB", "błąd kompilacji"],
+    "correct": 1,
+    "explanation": "Metoda jest wirtualna (w Javie domyślnie), więc o wyborze implementacji decyduje rzeczywisty typ obiektu (B), a nie typ zmiennej. To polimorfizm dynamiczny.",
+    "tip": "Gdy metoda jest virtual/override – patrz na typ OBIEKTU (po new), nie na typ zmiennej."
+  },
+  {
+    "id": "oop-006",
+    "difficulty": 3,
+    "question": "Co wypisze program w C++, jeśli metoda f() w klasie A NIE jest oznaczona jako virtual?",
+    "code": { "lang": "cpp", "src": "class A {\npublic:\n    void f() { cout << \"A\"; }\n};\nclass B : public A {\npublic:\n    void f() { cout << \"B\"; }\n};\n\nA* p = new B();\np->f();" },
+    "answers": ["A", "B", "AB", "błąd wykonania"],
+    "correct": 0,
+    "explanation": "Bez virtual wiązanie jest statyczne – decyduje typ wskaźnika (A*), więc wywoła się A::f()."
+  },
+  {
+    "id": "oop-007",
+    "difficulty": 2,
+    "question": "Klasa, której obiektu nie można utworzyć i która może zawierać metody bez implementacji, to:",
+    "answers": ["klasa statyczna", "klasa abstrakcyjna", "klasa zaprzyjaźniona", "klasa zagnieżdżona"],
+    "correct": 1,
+    "explanation": "Klasa abstrakcyjna służy jako baza – jej metody abstrakcyjne (czysto wirtualne w C++) muszą zostać zaimplementowane w klasach pochodnych."
+  },
+  {
+    "id": "oop-008",
+    "difficulty": 2,
+    "question": "Metoda czysto wirtualna w języku C++ ma postać:",
+    "answers": ["virtual void rysuj();", "virtual void rysuj() = 0;", "abstract void rysuj();", "static void rysuj() = 0;"],
+    "correct": 1,
+    "explanation": "Zapis = 0 oznacza metodę czysto wirtualną. Klasa z taką metodą staje się abstrakcyjna. Słowo abstract występuje w C# i Javie."
+  },
+  {
+    "id": "oop-009",
+    "difficulty": 2,
+    "question": "Pole statyczne klasy:",
+    "answers": [
+      "ma osobną kopię w każdym obiekcie",
+      "jest wspólne dla wszystkich obiektów danej klasy",
+      "nie może zmieniać wartości",
+      "jest dostępne wyłącznie w konstruktorze"
+    ],
+    "correct": 1,
+    "explanation": "Pole static należy do klasy, a nie do obiektu – wszystkie instancje współdzielą jedną wartość (typowy przykład: licznik obiektów). Stałą wartość zapewnia const/final."
+  },
+  {
+    "id": "oop-010",
+    "difficulty": 2,
+    "question": "W języku C# klasa Uczen dziedzicząca po klasie Osoba jest zadeklarowana jako:",
+    "answers": ["class Uczen extends Osoba", "class Uczen : Osoba", "class Uczen(Osoba)", "class Uczen inherits Osoba"],
+    "correct": 1,
+    "explanation": "W C# (i C++) dziedziczenie oznacza dwukropek. extends to składnia Javy, a nawias – Pythona."
+  },
+  {
+    "id": "oop-011",
+    "difficulty": 2,
+    "question": "Nadpisywanie metody (overriding) to:",
+    "answers": [
+      "zdefiniowanie w klasie pochodnej metody o tej samej sygnaturze co w klasie bazowej",
+      "zdefiniowanie w jednej klasie kilku metod o tej samej nazwie i różnych parametrach",
+      "usunięcie metody z klasy bazowej",
+      "wywołanie konstruktora klasy bazowej"
+    ],
+    "correct": 0,
+    "explanation": "Overriding – klasa pochodna podaje własną implementację odziedziczonej metody (ta sama nazwa i parametry). Odpowiedź B opisuje przeciążanie (overloading)."
+  },
+  {
+    "id": "oop-012",
+    "difficulty": 2,
+    "question": "W jakiej kolejności zostaną wypisane komunikaty po utworzeniu obiektu klasy B?",
+    "code": [
+      { "lang": "cpp", "src": "class A {\npublic:\n    A() { cout << \"A\"; }\n};\nclass B : public A {\npublic:\n    B() { cout << \"B\"; }\n};\n\nB obiekt;" },
+      { "lang": "csharp", "src": "class A {\n    public A() { Console.Write(\"A\"); }\n}\nclass B : A {\n    public B() { Console.Write(\"B\"); }\n}\n\nvar obiekt = new B();" }
+    ],
+    "answers": ["AB", "BA", "B", "A"],
+    "correct": 0,
+    "explanation": "Przy tworzeniu obiektu klasy pochodnej najpierw wykonuje się konstruktor klasy bazowej (A), a dopiero potem pochodnej (B)."
+  },
+  {
+    "id": "oop-013",
+    "difficulty": 2,
+    "question": "Interfejs w językach C# i Java:",
+    "answers": [
+      "może przechowywać pola instancji i mieć konstruktor",
+      "określa zestaw metod, które klasa implementująca musi zdefiniować; klasa może implementować wiele interfejsów",
+      "jest tym samym co klasa abstrakcyjna",
+      "może być implementowany tylko przez jedną klasę"
+    ],
+    "correct": 1,
+    "explanation": "Interfejs to kontrakt (zbiór sygnatur metod). Klasa może dziedziczyć tylko po jednej klasie, ale implementować wiele interfejsów."
+  },
+  {
+    "id": "oop-014",
+    "difficulty": 1,
+    "question": "Słowo kluczowe this (w Pythonie self) oznacza:",
+    "answers": ["klasę bazową", "bieżący obiekt, na rzecz którego wywołano metodę", "zmienną globalną", "konstruktor domyślny"],
+    "correct": 1,
+    "explanation": "this to referencja do bieżącego obiektu. Pozwala np. odróżnić pole od parametru o tej samej nazwie: this.imie = imie."
+  },
+  {
+    "id": "oop-015",
+    "difficulty": 2,
+    "question": "Ile wynosi Licznik.ile po wykonaniu kodu?",
+    "code": [
+      { "lang": "java", "src": "class Licznik {\n    static int ile = 0;\n    Licznik() { ile++; }\n}\n\nnew Licznik();\nLicznik b = new Licznik();\nLicznik c = new Licznik();" },
+      { "lang": "csharp", "src": "class Licznik {\n    public static int ile = 0;\n    public Licznik() { ile++; }\n}\n\nnew Licznik();\nvar b = new Licznik();\nvar c = new Licznik();" }
+    ],
+    "answers": ["0", "1", "3", "każdy obiekt ma własną wartość 1"],
+    "correct": 2,
+    "explanation": "Pole statyczne jest wspólne dla wszystkich obiektów. Każdy z trzech konstruktorów zwiększył je o 1 → 3."
+  },
+  {
+    "id": "oop-016",
+    "difficulty": 2,
+    "question": "Relacja „samochód MA silnik” to w projektowaniu obiektowym przykład:",
+    "answers": ["dziedziczenia", "kompozycji", "polimorfizmu", "przeciążania"],
+    "correct": 1,
+    "explanation": "Relacja „ma” (has-a) to kompozycja/agregacja – obiekt zawiera inny obiekt jako pole. Relacja „jest” (is-a) to dziedziczenie."
+  },
+  {
+    "id": "oop-017",
+    "difficulty": 1,
+    "question": "Obiekt to:",
+    "answers": ["szablon opisujący pola i metody", "konkretny egzemplarz (instancja) klasy", "funkcja zwracająca wartość", "plik z kodem źródłowym"],
+    "correct": 1,
+    "explanation": "Klasa jest szablonem, a obiekt – jej konkretną instancją utworzoną w pamięci (np. operatorem new)."
+  },
+  {
+    "id": "oop-018",
+    "difficulty": 3,
+    "question": "Zapis w C++: Uczen(string i, int w, string k) : Osoba(i, w) { klasa = k; } oznacza, że:",
+    "answers": [
+      "konstruktor Uczen przed wykonaniem swojego ciała wywołuje konstruktor klasy bazowej Osoba",
+      "klasa Osoba dziedziczy po klasie Uczen",
+      "konstruktor Uczen zwraca obiekt typu Osoba",
+      "tworzona jest kopia obiektu Osoba"
+    ],
+    "correct": 0,
+    "explanation": "Lista inicjalizacyjna po dwukropku wywołuje konstruktor klasy bazowej z przekazanymi argumentami. W C# odpowiada temu : base(i, w), a w Javie super(i, w)."
+  }
+]

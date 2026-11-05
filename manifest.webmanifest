@@ -1,0 +1,16 @@
+{
+  "name": "INF.04 Trener – nauka do egzaminu zawodowego",
+  "short_name": "INF.04 Trener",
+  "description": "Teoria, quizy CKE, symulacja egzaminu, Code Lab, SQL Lab i arkusze praktyczne do kwalifikacji INF.04.",
+  "lang": "pl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0e1016",
+  "theme_color": "#11131a",
+  "icons": [
+    { "src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./assets/icons/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

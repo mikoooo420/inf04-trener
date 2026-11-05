@@ -1,0 +1,166 @@
+[
+  {
+    "id": "alg-001",
+    "difficulty": 1,
+    "question": "Który blok schematu blokowego służy do zapisania warunku (decyzji)?",
+    "answers": ["Prostokąt", "Romb", "Równoległobok", "Owal"],
+    "correct": 1,
+    "explanation": "Romb to blok decyzyjny – ma jedno wejście i dwa wyjścia (TAK/NIE). Prostokąt to operacja, równoległobok – wejście/wyjście, owal – START/STOP.",
+    "tip": "Bloki schematów pojawiają się na egzaminie bardzo często. Romb = warunek."
+  },
+  {
+    "id": "alg-002",
+    "difficulty": 1,
+    "question": "W schemacie blokowym operację „Wczytaj liczbę n” przedstawia się za pomocą bloku w kształcie:",
+    "answers": ["równoległoboku", "prostokąta", "rombu", "koła"],
+    "correct": 0,
+    "explanation": "Równoległobok oznacza operacje wejścia/wyjścia, czyli wczytywanie i wypisywanie danych."
+  },
+  {
+    "id": "alg-003",
+    "difficulty": 2,
+    "question": "Wyszukiwanie binarne można zastosować do znalezienia elementu w tablicy, która:",
+    "answers": ["zawiera wyłącznie liczby parzyste", "jest posortowana", "ma parzystą liczbę elementów", "zawiera elementy unikalne"],
+    "correct": 1,
+    "explanation": "Wyszukiwanie binarne porównuje szukaną wartość ze środkiem przedziału i odrzuca połowę danych – to działa tylko wtedy, gdy tablica jest uporządkowana.",
+    "tip": "Słowo-klucz w pytaniach: „posortowana / uporządkowana” → wyszukiwanie binarne."
+  },
+  {
+    "id": "alg-004",
+    "difficulty": 2,
+    "question": "Jaka jest złożoność obliczeniowa wyszukiwania binarnego w tablicy n-elementowej?",
+    "answers": ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+    "correct": 2,
+    "explanation": "W każdym kroku przedział zmniejsza się o połowę, więc liczba kroków rośnie logarytmicznie: O(log n)."
+  },
+  {
+    "id": "alg-005",
+    "difficulty": 2,
+    "question": "Sortowanie bąbelkowe ma w najgorszym przypadku złożoność:",
+    "answers": ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
+    "correct": 2,
+    "explanation": "Dwie zagnieżdżone pętle po n elementach dają rzędu n² porównań, czyli O(n²)."
+  },
+  {
+    "id": "alg-006",
+    "difficulty": 2,
+    "question": "Wartownik w algorytmie wyszukiwania liniowego służy do:",
+    "answers": [
+      "posortowania tablicy przed wyszukiwaniem",
+      "uniknięcia sprawdzania w pętli, czy nie przekroczono zakresu tablicy",
+      "zapamiętania indeksu ostatnio znalezionego elementu",
+      "zmniejszenia złożoności do O(log n)"
+    ],
+    "correct": 1,
+    "explanation": "Szukana wartość dopisana na końcu tablicy gwarantuje, że pętla się zatrzyma. Dzięki temu w każdym kroku wystarcza jeden warunek zamiast dwóch. Złożoność pozostaje O(n)."
+  },
+  {
+    "id": "alg-007",
+    "difficulty": 2,
+    "question": "Co zwróci funkcja dla wywołania f(5)?",
+    "code": [
+      { "lang": "cpp", "src": "int f(int n) {\n    if (n <= 1) return 1;\n    return n * f(n - 1);\n}" },
+      { "lang": "python", "src": "def f(n):\n    if n <= 1:\n        return 1\n    return n * f(n - 1)" },
+      { "lang": "csharp", "src": "static int F(int n)\n{\n    if (n <= 1) return 1;\n    return n * F(n - 1);\n}" }
+    ],
+    "answers": ["15", "25", "120", "720"],
+    "correct": 2,
+    "explanation": "To rekurencyjna silnia: 5! = 5·4·3·2·1 = 120."
+  },
+  {
+    "id": "alg-008",
+    "difficulty": 1,
+    "question": "Brak warunku zakończenia (przypadku bazowego) w funkcji rekurencyjnej spowoduje:",
+    "answers": ["błąd kompilacji", "przepełnienie stosu wywołań", "zwrócenie wartości 0", "automatyczne przejście na iterację"],
+    "correct": 1,
+    "explanation": "Funkcja wywołuje się bez końca, każde wywołanie zajmuje miejsce na stosie, aż zabraknie pamięci (stack overflow). Kompilator zwykle tego nie wykryje."
+  },
+  {
+    "id": "alg-009",
+    "difficulty": 2,
+    "question": "Ile wynosi NWD(48, 18) obliczony algorytmem Euklidesa?",
+    "answers": ["2", "3", "6", "9"],
+    "correct": 2,
+    "explanation": "48 % 18 = 12, 18 % 12 = 6, 12 % 6 = 0 → NWD = 6."
+  },
+  {
+    "id": "alg-010",
+    "difficulty": 2,
+    "question": "Ile razy zostanie wypisany tekst „*”?",
+    "code": [
+      { "lang": "cpp", "src": "for (int i = 0; i < 4; i++)\n    for (int j = i; j < 4; j++)\n        cout << \"*\";" },
+      { "lang": "python", "src": "for i in range(4):\n    for j in range(i, 4):\n        print(\"*\", end=\"\")" }
+    ],
+    "answers": ["4", "8", "10", "16"],
+    "correct": 2,
+    "explanation": "Dla i = 0,1,2,3 pętla wewnętrzna wykonuje się kolejno 4, 3, 2, 1 razy. Razem 4+3+2+1 = 10."
+  },
+  {
+    "id": "alg-011",
+    "difficulty": 1,
+    "question": "Liczba doskonała to liczba, która:",
+    "answers": [
+      "dzieli się tylko przez 1 i przez samą siebie",
+      "jest równa sumie swoich dzielników właściwych",
+      "czytana od tyłu jest taka sama",
+      "jest kwadratem liczby całkowitej"
+    ],
+    "correct": 1,
+    "explanation": "Liczba doskonała jest równa sumie dzielników mniejszych od niej, np. 6 = 1+2+3, 28 = 1+2+4+7+14. Opis z odpowiedzi A to liczba pierwsza, z odpowiedzi C – palindrom."
+  },
+  {
+    "id": "alg-012",
+    "difficulty": 2,
+    "question": "Algorytm sita Eratostenesa służy do:",
+    "answers": [
+      "sortowania liczb całkowitych",
+      "wyznaczania liczb pierwszych z zadanego przedziału",
+      "obliczania największego wspólnego dzielnika",
+      "wyszukiwania elementu w tablicy"
+    ],
+    "correct": 1,
+    "explanation": "Sito wykreśla wielokrotności kolejnych liczb pierwszych. Liczby, które pozostaną niewykreślone, są pierwsze."
+  },
+  {
+    "id": "alg-013",
+    "difficulty": 3,
+    "question": "Który algorytm sortowania w najgorszym przypadku ma złożoność O(n log n)?",
+    "answers": ["Sortowanie szybkie (quicksort)", "Sortowanie przez scalanie (merge sort)", "Sortowanie przez wstawianie", "Sortowanie bąbelkowe"],
+    "correct": 1,
+    "explanation": "Merge sort zawsze dzieli dane na połowy, więc ma O(n log n) niezależnie od danych. Quicksort średnio też ma O(n log n), ale w najgorszym przypadku (zły wybór pivota) – O(n²).",
+    "tip": "Rozróżniaj przypadek średni i najgorszy – CKE lubi pytać o quicksort, który w pesymistycznym przypadku spada do O(n²)."
+  },
+  {
+    "id": "alg-014",
+    "difficulty": 2,
+    "question": "Jaki wynik wypisze program?",
+    "code": [
+      { "lang": "cpp", "src": "int a = 17, b = 5;\ncout << a / b << \" \" << a % b;" },
+      { "lang": "java", "src": "int a = 17, b = 5;\nSystem.out.print(a / b + \" \" + a % b);" },
+      { "lang": "csharp", "src": "int a = 17, b = 5;\nConsole.Write(a / b + \" \" + a % b);" }
+    ],
+    "answers": ["3.4 2", "3 2", "3 3", "3.4 0"],
+    "correct": 1,
+    "explanation": "Dzielenie dwóch liczb całkowitych daje wynik całkowity (część ułamkowa jest obcinana): 17/5 = 3. Operator % zwraca resztę: 17 % 5 = 2."
+  },
+  {
+    "id": "alg-015",
+    "difficulty": 1,
+    "question": "Cechą algorytmu NIE jest:",
+    "answers": ["skończoność", "jednoznaczność", "losowość kolejności kroków", "poprawność"],
+    "correct": 2,
+    "explanation": "Algorytm to uporządkowany ciąg jednoznacznych kroków, który kończy się po skończonej liczbie operacji i daje poprawny wynik. Losowa kolejność kroków przeczy definicji."
+  },
+  {
+    "id": "alg-016",
+    "difficulty": 3,
+    "question": "Jaką złożoność ma poniższy fragment kodu?",
+    "code": [
+      { "lang": "cpp", "src": "int i = n;\nwhile (i > 1) {\n    i = i / 2;\n    licznik++;\n}" },
+      { "lang": "python", "src": "i = n\nwhile i > 1:\n    i = i // 2\n    licznik += 1" }
+    ],
+    "answers": ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+    "correct": 1,
+    "explanation": "Zmienna i jest w każdym kroku dzielona przez 2, więc pętla wykona się około log₂(n) razy."
+  }
+]

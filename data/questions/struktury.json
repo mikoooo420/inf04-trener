@@ -1,0 +1,117 @@
+[
+  {
+    "id": "str-001",
+    "difficulty": 1,
+    "question": "Struktura danych działająca według zasady LIFO to:",
+    "answers": ["kolejka", "stos", "lista dwukierunkowa", "drzewo binarne"],
+    "correct": 1,
+    "explanation": "LIFO (Last In, First Out) – ostatni dodany element jest zdejmowany jako pierwszy. Tak działa stos.",
+    "tip": "Stos = LIFO, kolejka = FIFO. Zapamiętaj raz na zawsze."
+  },
+  {
+    "id": "str-002",
+    "difficulty": 1,
+    "question": "Kolejka (queue) to struktura danych typu:",
+    "answers": ["FIFO", "LIFO", "LILO z priorytetem", "losowego dostępu"],
+    "correct": 0,
+    "explanation": "FIFO (First In, First Out) – element dodany jako pierwszy zostaje obsłużony jako pierwszy, jak kolejka w sklepie."
+  },
+  {
+    "id": "str-003",
+    "difficulty": 2,
+    "question": "Na pusty stos wykonano operacje: push(3), push(7), pop(), push(5), push(9), pop(). Jaki element jest teraz na szczycie stosu?",
+    "answers": ["3", "5", "7", "9"],
+    "correct": 1,
+    "explanation": "Po push(3), push(7) stos = [3,7]; pop() zdejmuje 7 → [3]; push(5), push(9) → [3,5,9]; pop() zdejmuje 9 → [3,5]. Szczyt to 5."
+  },
+  {
+    "id": "str-004",
+    "difficulty": 1,
+    "question": "Indeks ostatniego elementu tablicy 10-elementowej w języku C++, C# lub Java wynosi:",
+    "answers": ["10", "9", "11", "1"],
+    "correct": 1,
+    "explanation": "Elementy tablicy numerujemy od 0, więc 10 elementów ma indeksy 0–9."
+  },
+  {
+    "id": "str-005",
+    "difficulty": 2,
+    "question": "Stos jest wykorzystywany przez komputer między innymi do:",
+    "answers": [
+      "przechowywania adresów powrotu i zmiennych lokalnych podczas wywołań funkcji",
+      "kolejkowania zadań wysyłanych do drukarki",
+      "sortowania danych w bazie",
+      "szyfrowania haseł"
+    ],
+    "correct": 0,
+    "explanation": "Stos wywołań przechowuje ramki funkcji (adres powrotu, parametry, zmienne lokalne). Dlatego zbyt głęboka rekurencja powoduje przepełnienie stosu. Kolejka wydruków to przykład kolejki FIFO."
+  },
+  {
+    "id": "str-006",
+    "difficulty": 2,
+    "question": "W liście jednokierunkowej każdy węzeł przechowuje:",
+    "answers": [
+      "wartość oraz wskaźnik do następnego węzła",
+      "wartość oraz wskaźniki do poprzedniego i następnego węzła",
+      "wyłącznie indeks elementu",
+      "wartość oraz wskaźnik do korzenia"
+    ],
+    "correct": 0,
+    "explanation": "Węzeł listy jednokierunkowej zawiera dane i wskaźnik (referencję) do następnego węzła. Lista dwukierunkowa ma dodatkowo wskaźnik do poprzedniego."
+  },
+  {
+    "id": "str-007",
+    "difficulty": 2,
+    "question": "Które przejście drzewa BST zwraca elementy uporządkowane rosnąco?",
+    "answers": ["pre-order", "in-order", "post-order", "wszerz (BFS)"],
+    "correct": 1,
+    "explanation": "In-order odwiedza: lewe poddrzewo → węzeł → prawe poddrzewo. W BST lewe poddrzewo ma mniejsze wartości, prawe większe, więc kolejność jest rosnąca."
+  },
+  {
+    "id": "str-008",
+    "difficulty": 1,
+    "question": "Struktura przechowująca pary klucz–wartość, w której klucze są unikalne, to:",
+    "answers": ["stos", "słownik (mapa)", "kolejka priorytetowa", "tablica dwuwymiarowa"],
+    "correct": 1,
+    "explanation": "Słownik (Dictionary w C#, HashMap w Javie, dict w Pythonie, map w C++) przechowuje pary klucz–wartość z unikalnymi kluczami."
+  },
+  {
+    "id": "str-009",
+    "difficulty": 2,
+    "question": "Jaka jest złożoność dostępu do elementu tablicy po znanym indeksie?",
+    "answers": ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+    "correct": 0,
+    "explanation": "Elementy tablicy leżą w ciągłym obszarze pamięci, więc adres i-tego elementu wylicza się jednym działaniem: adres_początku + i · rozmiar_elementu."
+  },
+  {
+    "id": "str-010",
+    "difficulty": 2,
+    "question": "Do przeszukiwania grafu wszerz (BFS) wykorzystuje się:",
+    "answers": ["stos", "kolejkę", "drzewo BST", "tablicę mieszającą"],
+    "correct": 1,
+    "explanation": "BFS odwiedza wierzchołki warstwami – najpierw sąsiadów, potem sąsiadów sąsiadów – i przechowuje je w kolejce FIFO. DFS (w głąb) używa stosu lub rekurencji."
+  },
+  {
+    "id": "str-011",
+    "difficulty": 2,
+    "question": "Węzeł drzewa, który nie ma żadnych potomków, nazywamy:",
+    "answers": ["korzeniem", "liściem", "rodzicem", "krawędzią"],
+    "correct": 1,
+    "explanation": "Liść to węzeł bez dzieci. Korzeń to węzeł bez rodzica, od którego zaczyna się drzewo."
+  },
+  {
+    "id": "str-012",
+    "difficulty": 2,
+    "question": "Która klasa w języku C# reprezentuje dynamiczną listę elementów, której rozmiar może się zmieniać?",
+    "answers": ["int[]", "List<T>", "Tuple<T>", "string"],
+    "correct": 1,
+    "explanation": "List<T> to dynamiczna tablica – dodajemy elementy metodą Add(), a rozmiar zmienia się automatycznie. Tablica int[] ma stały rozmiar."
+  },
+  {
+    "id": "str-013",
+    "difficulty": 3,
+    "question": "Graf zapisany w postaci tablicy n×n, w której komórka [i][j] mówi, czy istnieje krawędź między wierzchołkami i oraz j, to:",
+    "answers": ["lista sąsiedztwa", "macierz sąsiedztwa", "lista krawędzi", "drzewo rozpinające"],
+    "correct": 1,
+    "explanation": "Macierz sąsiedztwa zajmuje n² komórek i pozwala w O(1) sprawdzić, czy krawędź istnieje. Lista sąsiedztwa oszczędza pamięć przy grafach rzadkich."
+  }
+]

@@ -1,0 +1,120 @@
+[
+  {
+    "id": "dos-001",
+    "difficulty": 1,
+    "question": "Atrybut HTML, który zawiera tekst alternatywny obrazu odczytywany przez czytniki ekranu, to:",
+    "answers": ["title", "alt", "src", "name"],
+    "correct": 1,
+    "explanation": "alt opisuje treść obrazu dla osób niewidomych i wyświetla się, gdy obraz się nie załaduje. Dla grafik czysto dekoracyjnych stosuje się pusty alt=\"\"."
+  },
+  {
+    "id": "dos-002",
+    "difficulty": 2,
+    "question": "Minimalny współczynnik kontrastu zwykłego tekstu względem tła wymagany przez WCAG 2.1 na poziomie AA to:",
+    "answers": ["2:1", "3:1", "4,5:1", "7:1"],
+    "correct": 2,
+    "explanation": "AA: 4,5:1 dla zwykłego tekstu i 3:1 dla dużego. Poziom AAA wymaga 7:1."
+  },
+  {
+    "id": "dos-003",
+    "difficulty": 2,
+    "question": "Cztery główne zasady WCAG to:",
+    "answers": [
+      "szybkość, bezpieczeństwo, estetyka, prostota",
+      "postrzegalność, funkcjonalność, zrozumiałość, solidność",
+      "responsywność, dostępność, wydajność, SEO",
+      "spójność, kontrast, typografia, kolor"
+    ],
+    "correct": 1,
+    "explanation": "Treść ma być postrzegalna, interfejs funkcjonalny (możliwy do obsłużenia), całość zrozumiała, a kod solidny (zgodny z technologiami asystującymi)."
+  },
+  {
+    "id": "dos-004",
+    "difficulty": 2,
+    "question": "Dlaczego informacja o błędzie w formularzu nie powinna być przekazywana wyłącznie kolorem (np. czerwoną ramką)?",
+    "answers": [
+      "bo czerwony kolor jest zarezerwowany dla przycisków",
+      "bo osoby z zaburzeniami widzenia barw lub niewidome mogą jej nie odebrać",
+      "bo przeglądarki nie obsługują kolorowych ramek",
+      "bo WCAG zabrania używania kolorów"
+    ],
+    "correct": 1,
+    "explanation": "Informację przekazaną kolorem trzeba zdublować innym środkiem, np. tekstem komunikatu lub ikoną."
+  },
+  {
+    "id": "dos-005",
+    "difficulty": 1,
+    "question": "Projektowanie stron, których układ dopasowuje się do rozmiaru ekranu urządzenia, to:",
+    "answers": ["RWD", "SEO", "SPA", "CMS"],
+    "correct": 0,
+    "explanation": "RWD (Responsive Web Design) wykorzystuje media queries, elastyczne siatki (Flexbox, Grid) i jednostki względne."
+  },
+  {
+    "id": "dos-006",
+    "difficulty": 2,
+    "question": "Reguła CSS @media (max-width: 600px) { … } zostanie zastosowana, gdy:",
+    "answers": [
+      "szerokość okna jest większa niż 600 px",
+      "szerokość okna jest mniejsza lub równa 600 px",
+      "wysokość okna jest równa 600 px",
+      "zawsze, niezależnie od rozmiaru"
+    ],
+    "correct": 1,
+    "explanation": "max-width: 600px oznacza „do 600 px włącznie” – typowo style dla telefonów."
+  },
+  {
+    "id": "dos-007",
+    "difficulty": 2,
+    "question": "Prawidłowe powiązanie etykiety z polem formularza w HTML, poprawiające dostępność, to:",
+    "answers": [
+      "<label>Imię</label><input id=\"imie\">",
+      "<label for=\"imie\">Imię</label><input id=\"imie\">",
+      "<label name=\"imie\">Imię</label><input name=\"imie\">",
+      "<span for=\"imie\">Imię</span><input id=\"imie\">"
+    ],
+    "correct": 1,
+    "explanation": "Atrybut for etykiety musi odpowiadać id pola. Dzięki temu czytnik ekranu odczyta etykietę, a kliknięcie w nią ustawi fokus w polu."
+  },
+  {
+    "id": "dos-008",
+    "difficulty": 1,
+    "question": "Różnica między UI a UX polega na tym, że:",
+    "answers": [
+      "UI dotyczy wyglądu i elementów interfejsu, a UX – całościowego doświadczenia użytkownika",
+      "UI to część serwerowa, a UX – kliencka",
+      "UX dotyczy tylko kolorów, a UI – czcionek",
+      "to dwa identyczne pojęcia"
+    ],
+    "correct": 0,
+    "explanation": "UI (User Interface) to to, co widać i czego się dotyka. UX (User Experience) to wrażenia z korzystania: łatwość, szybkość, zrozumiałość."
+  },
+  {
+    "id": "dos-009",
+    "difficulty": 2,
+    "question": "Aby strona była dostępna dla osób obsługujących komputer wyłącznie klawiaturą, należy przede wszystkim zapewnić:",
+    "answers": [
+      "animacje przy najechaniu myszą",
+      "możliwość dotarcia do wszystkich elementów interaktywnych klawiszem Tab i widoczny fokus",
+      "większą liczbę obrazków",
+      "ukrycie kursora"
+    ],
+    "correct": 1,
+    "explanation": "Wszystkie funkcje muszą być osiągalne z klawiatury, w logicznej kolejności, z widocznym wskaźnikiem fokusu."
+  },
+  {
+    "id": "dos-010",
+    "difficulty": 2,
+    "question": "Model układu CSS przeznaczony do tworzenia dwuwymiarowych siatek (wiersze i kolumny jednocześnie) to:",
+    "answers": ["Flexbox", "Grid", "float", "position: absolute"],
+    "correct": 1,
+    "explanation": "CSS Grid jest dwuwymiarowy. Flexbox układa elementy w jednym wymiarze (wiersz albo kolumna)."
+  },
+  {
+    "id": "dos-011",
+    "difficulty": 2,
+    "question": "Klikalny prototyp aplikacji przygotowany w narzędziu typu Figma, symulujący działanie interfejsu przed implementacją, to:",
+    "answers": ["wireframe", "prototyp", "repozytorium", "framework"],
+    "correct": 1,
+    "explanation": "Wireframe (makieta) to szkic układu bez szczegółów. Prototyp pozwala przeklikać ścieżki użytkownika i sprawdzić UX przed kodowaniem."
+  }
+]

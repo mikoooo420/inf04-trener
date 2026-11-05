@@ -1,0 +1,1531 @@
+[
+  {
+    "id": "js-001",
+    "group": "Algorytmy liczbowe",
+    "title": "Suma cyfr liczby",
+    "difficulty": 1,
+    "summary": "Pętla, dzielenie całkowite i reszta z dzielenia.",
+    "concepts": [
+      "pętla while",
+      "% i /"
+    ],
+    "prompt": "Napisz funkcję `sumaCyfr(n)`, która zwraca **sumę cyfr** nieujemnej liczby całkowitej `n`.\n\nNie zamieniaj liczby na tekst – użyj operatorów `%` i dzielenia całkowitego (`Math.floor(n / 10)`).",
+    "fn": "sumaCyfr",
+    "starter": "function sumaCyfr(n) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          1234
+        ],
+        "expected": 10
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          9
+        ],
+        "expected": 9
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          1000000
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          987654321
+        ],
+        "expected": 45
+      }
+    ],
+    "hints": [
+      "Ostatnia cyfra liczby to n % 10.",
+      "Po dodaniu cyfry „obetnij” ją: n = Math.floor(n / 10). Powtarzaj, dopóki n > 0."
+    ],
+    "solutions": {
+      "js": "function sumaCyfr(n) {\n    let suma = 0;\n    while (n > 0) {\n        suma += n % 10;\n        n = Math.floor(n / 10);\n    }\n    return suma;\n}",
+      "cpp": "int sumaCyfr(int n) {\n    int suma = 0;\n    while (n > 0) {\n        suma += n % 10;\n        n /= 10;          // dzielenie całkowite\n    }\n    return suma;\n}",
+      "csharp": "static int SumaCyfr(int n)\n{\n    int suma = 0;\n    while (n > 0)\n    {\n        suma += n % 10;\n        n /= 10;\n    }\n    return suma;\n}",
+      "python": "def suma_cyfr(n):\n    suma = 0\n    while n > 0:\n        suma += n % 10\n        n //= 10\n    return suma"
+    }
+  },
+  {
+    "id": "js-002",
+    "group": "Algorytmy liczbowe",
+    "title": "Czy liczba jest pierwsza?",
+    "difficulty": 1,
+    "summary": "Sprawdzanie dzielników do pierwiastka z n.",
+    "concepts": [
+      "pętla for",
+      "warunki"
+    ],
+    "prompt": "Napisz funkcję `czyPierwsza(n)`, która zwraca `true`, jeśli liczba całkowita `n` jest **liczbą pierwszą**, w przeciwnym razie `false`.\n\nLiczba pierwsza jest większa od 1 i dzieli się tylko przez 1 i przez samą siebie. Wystarczy sprawdzać dzielniki od 2 do √n.",
+    "fn": "czyPierwsza",
+    "starter": "function czyPierwsza(n) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          7
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          12
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": true
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          0
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          97
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          91
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          7919
+        ],
+        "expected": true
+      }
+    ],
+    "hints": [
+      "Liczby mniejsze od 2 nie są pierwsze – obsłuż to na początku.",
+      "Pętla: for (let i = 2; i * i <= n; i++) – jeśli n % i === 0, to liczba nie jest pierwsza."
+    ],
+    "solutions": {
+      "js": "function czyPierwsza(n) {\n    if (n < 2) return false;\n    for (let i = 2; i * i <= n; i++) {\n        if (n % i === 0) return false;\n    }\n    return true;\n}",
+      "cpp": "bool czyPierwsza(int n) {\n    if (n < 2) return false;\n    for (int i = 2; i * i <= n; i++)\n        if (n % i == 0) return false;\n    return true;\n}",
+      "csharp": "static bool CzyPierwsza(int n)\n{\n    if (n < 2) return false;\n    for (int i = 2; i * i <= n; i++)\n        if (n % i == 0) return false;\n    return true;\n}",
+      "python": "def czy_pierwsza(n):\n    if n < 2:\n        return False\n    i = 2\n    while i * i <= n:\n        if n % i == 0:\n            return False\n        i += 1\n    return True"
+    }
+  },
+  {
+    "id": "js-003",
+    "group": "Algorytmy liczbowe",
+    "title": "NWD – algorytm Euklidesa",
+    "difficulty": 1,
+    "summary": "Klasyczny algorytm z resztą z dzielenia.",
+    "concepts": [
+      "pętla while",
+      "algorytm Euklidesa"
+    ],
+    "prompt": "Napisz funkcję `nwd(a, b)`, która zwraca **największy wspólny dzielnik** dwóch liczb naturalnych (a, b > 0), korzystając z **algorytmu Euklidesa** w wersji z resztą z dzielenia.",
+    "fn": "nwd",
+    "starter": "function nwd(a, b) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          48,
+          18
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          7,
+          3
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          10,
+          100
+        ],
+        "expected": 10
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          270,
+          192
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          17,
+          17
+        ],
+        "expected": 17
+      },
+      {
+        "args": [
+          1071,
+          462
+        ],
+        "expected": 21
+      }
+    ],
+    "hints": [
+      "Dopóki b ≠ 0: zapamiętaj resztę r = a % b, potem a = b, b = r.",
+      "Gdy b stanie się zerem, wynikiem jest a."
+    ],
+    "solutions": {
+      "js": "function nwd(a, b) {\n    while (b !== 0) {\n        const r = a % b;\n        a = b;\n        b = r;\n    }\n    return a;\n}",
+      "cpp": "int nwd(int a, int b) {\n    while (b != 0) {\n        int r = a % b;\n        a = b;\n        b = r;\n    }\n    return a;\n}",
+      "csharp": "static int Nwd(int a, int b)\n{\n    while (b != 0)\n    {\n        int r = a % b;\n        a = b;\n        b = r;\n    }\n    return a;\n}",
+      "python": "def nwd(a, b):\n    while b != 0:\n        a, b = b, a % b\n    return a"
+    },
+    "explanation": "NWW (najmniejszą wspólną wielokrotność) policzysz ze wzoru a · b / NWD(a, b)."
+  },
+  {
+    "id": "js-004",
+    "group": "Algorytmy liczbowe",
+    "title": "Sito Eratostenesa",
+    "difficulty": 2,
+    "summary": "Wszystkie liczby pierwsze do n – klasyk arkuszy CKE.",
+    "concepts": [
+      "tablica logiczna",
+      "pętle zagnieżdżone"
+    ],
+    "prompt": "Napisz funkcję `sito(n)`, która zwraca **tablicę wszystkich liczb pierwszych** z przedziału `[2, n]` w kolejności rosnącej, wykorzystując **sito Eratostenesa**.\n\n1. Utwórz tablicę `n + 1` wartości `true` (zakładamy, że każda liczba jest pierwsza).\n2. Dla każdej liczby `i` od 2, która nie została wykreślona, wykreśl (ustaw `false`) wszystkie jej wielokrotności.\n3. Zbierz liczby, które pozostały niewykreślone.",
+    "fn": "sito",
+    "starter": "function sito(n) {\n    const pierwsza = new Array(n + 1).fill(true);\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          10
+        ],
+        "expected": [
+          2,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "args": [
+          2
+        ],
+        "expected": [
+          2
+        ]
+      },
+      {
+        "args": [
+          20
+        ],
+        "expected": [
+          2,
+          3,
+          5,
+          7,
+          11,
+          13,
+          17,
+          19
+        ]
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          1
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          30
+        ],
+        "expected": [
+          2,
+          3,
+          5,
+          7,
+          11,
+          13,
+          17,
+          19,
+          23,
+          29
+        ]
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": [
+          2,
+          3
+        ]
+      }
+    ],
+    "hints": [
+      "Wykreślanie wielokrotności i możesz zacząć od i * i: for (let j = i * i; j <= n; j += i).",
+      "Na końcu przejdź pętlą od 2 do n i dodaj do wyniku te indeksy, dla których wartość jest true."
+    ],
+    "solutions": {
+      "js": "function sito(n) {\n    const pierwsza = new Array(n + 1).fill(true);\n    const wynik = [];\n    for (let i = 2; i <= n; i++) {\n        if (!pierwsza[i]) continue;\n        wynik.push(i);\n        for (let j = i * i; j <= n; j += i) pierwsza[j] = false;\n    }\n    return wynik;\n}",
+      "cpp": "vector<int> sito(int n) {\n    vector<bool> pierwsza(n + 1, true);\n    vector<int> wynik;\n    for (int i = 2; i <= n; i++) {\n        if (!pierwsza[i]) continue;\n        wynik.push_back(i);\n        for (long long j = 1LL * i * i; j <= n; j += i) pierwsza[j] = false;\n    }\n    return wynik;\n}",
+      "csharp": "static List<int> Sito(int n)\n{\n    bool[] wykreslona = new bool[n + 1];   // domyślnie false\n    var wynik = new List<int>();\n    for (int i = 2; i <= n; i++)\n    {\n        if (wykreslona[i]) continue;\n        wynik.Add(i);\n        for (long j = (long)i * i; j <= n; j += i) wykreslona[j] = true;\n    }\n    return wynik;\n}",
+      "python": "def sito(n):\n    pierwsza = [True] * (n + 1)\n    wynik = []\n    for i in range(2, n + 1):\n        if not pierwsza[i]:\n            continue\n        wynik.append(i)\n        for j in range(i * i, n + 1, i):\n            pierwsza[j] = False\n    return wynik"
+    }
+  },
+  {
+    "id": "js-005",
+    "group": "Algorytmy liczbowe",
+    "title": "Liczba doskonała",
+    "difficulty": 2,
+    "summary": "Suma dzielników właściwych.",
+    "concepts": [
+      "pętla",
+      "dzielniki"
+    ],
+    "prompt": "Napisz funkcję `czyDoskonala(n)`, która zwraca `true`, jeśli liczba naturalna `n` jest **liczbą doskonałą** – czyli jest równa sumie swoich dzielników właściwych (mniejszych od niej), np. `6 = 1 + 2 + 3`.",
+    "fn": "czyDoskonala",
+    "starter": "function czyDoskonala(n) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          6
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          28
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          12
+        ],
+        "expected": false
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          1
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          496
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          8128
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          100
+        ],
+        "expected": false
+      }
+    ],
+    "hints": [
+      "Zsumuj wszystkie i z przedziału [1, n − 1], dla których n % i === 0.",
+      "Uwaga na n = 1: nie ma dzielników właściwych, suma = 0, więc 1 nie jest doskonała."
+    ],
+    "solutions": {
+      "js": "function czyDoskonala(n) {\n    let suma = 0;\n    for (let i = 1; i < n; i++) {\n        if (n % i === 0) suma += i;\n    }\n    return n > 1 && suma === n;\n}",
+      "cpp": "bool czyDoskonala(int n) {\n    int suma = 0;\n    for (int i = 1; i < n; i++)\n        if (n % i == 0) suma += i;\n    return n > 1 && suma == n;\n}",
+      "csharp": "static bool CzyDoskonala(int n)\n{\n    int suma = 0;\n    for (int i = 1; i < n; i++)\n        if (n % i == 0) suma += i;\n    return n > 1 && suma == n;\n}",
+      "python": "def czy_doskonala(n):\n    suma = sum(i for i in range(1, n) if n % i == 0)\n    return n > 1 and suma == n"
+    }
+  },
+  {
+    "id": "js-006",
+    "group": "Algorytmy liczbowe",
+    "title": "Silnia – iteracyjnie i rekurencyjnie",
+    "difficulty": 1,
+    "summary": "Ta sama funkcja na dwa sposoby.",
+    "concepts": [
+      "rekurencja",
+      "pętla"
+    ],
+    "prompt": "Napisz **dwie** funkcje obliczające silnię liczby naturalnej `n` (0 ≤ n ≤ 18):\n\n- `silniaIter(n)` – z użyciem **pętli**,\n- `silniaRek(n)` – **rekurencyjnie**.\n\nPamiętaj, że `0! = 1`.",
+    "fn": "silniaIter",
+    "starter": "function silniaIter(n) {\n    // Twój kod\n}\n\nfunction silniaRek(n) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          5
+        ],
+        "expected": 120
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": 1
+      },
+      {
+        "expr": "silniaRek(5)",
+        "expected": 120,
+        "name": "silniaRek(5)"
+      },
+      {
+        "expr": "silniaRek(0)",
+        "expected": 1,
+        "name": "silniaRek(0)"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          10
+        ],
+        "expected": 3628800
+      },
+      {
+        "expr": "silniaRek(12)",
+        "expected": 479001600,
+        "name": "silniaRek(12)"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1
+      }
+    ],
+    "hints": [
+      "Wersja iteracyjna: zacznij od wynik = 1 i mnóż przez kolejne liczby od 2 do n.",
+      "Wersja rekurencyjna: warunek zakończenia if (n <= 1) return 1; inaczej return n * silniaRek(n - 1)."
+    ],
+    "solutions": {
+      "js": "function silniaIter(n) {\n    let wynik = 1;\n    for (let i = 2; i <= n; i++) wynik *= i;\n    return wynik;\n}\n\nfunction silniaRek(n) {\n    if (n <= 1) return 1;\n    return n * silniaRek(n - 1);\n}",
+      "cpp": "long long silniaIter(int n) {\n    long long wynik = 1;\n    for (int i = 2; i <= n; i++) wynik *= i;\n    return wynik;\n}\n\nlong long silniaRek(int n) {\n    if (n <= 1) return 1;\n    return n * silniaRek(n - 1);\n}",
+      "csharp": "static long SilniaIter(int n)\n{\n    long wynik = 1;\n    for (int i = 2; i <= n; i++) wynik *= i;\n    return wynik;\n}\n\nstatic long SilniaRek(int n)\n{\n    if (n <= 1) return 1;\n    return n * SilniaRek(n - 1);\n}",
+      "python": "def silnia_iter(n):\n    wynik = 1\n    for i in range(2, n + 1):\n        wynik *= i\n    return wynik\n\n\ndef silnia_rek(n):\n    if n <= 1:\n        return 1\n    return n * silnia_rek(n - 1)"
+    },
+    "explanation": "Do większych silni w C++ i C# użyj typu 64-bitowego (long long / long) – już 13! nie mieści się w int."
+  },
+  {
+    "id": "js-007",
+    "group": "Algorytmy liczbowe",
+    "title": "Ciąg Fibonacciego",
+    "difficulty": 2,
+    "summary": "Wersja iteracyjna w czasie liniowym.",
+    "concepts": [
+      "pętla",
+      "zmienne pomocnicze"
+    ],
+    "prompt": "Napisz funkcję `fib(n)`, która zwraca `n`-ty wyraz ciągu Fibonacciego, gdzie `fib(0) = 0`, `fib(1) = 1`, a każdy kolejny wyraz to suma dwóch poprzednich.\n\nUżyj **pętli** – wersja rekurencyjna dla `n = 50` liczyłaby się bardzo długo (złożoność wykładnicza).",
+    "fn": "fib",
+    "starter": "function fib(n) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          10
+        ],
+        "expected": 55
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          2
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          20
+        ],
+        "expected": 6765
+      },
+      {
+        "args": [
+          50
+        ],
+        "expected": 12586269025
+      }
+    ],
+    "hints": [
+      "Przechowuj dwa ostatnie wyrazy w zmiennych a i b.",
+      "W każdym kroku: [a, b] = [b, a + b]."
+    ],
+    "solutions": {
+      "js": "function fib(n) {\n    let a = 0, b = 1;\n    for (let i = 0; i < n; i++) {\n        [a, b] = [b, a + b];\n    }\n    return a;\n}",
+      "cpp": "long long fib(int n) {\n    long long a = 0, b = 1;\n    for (int i = 0; i < n; i++) {\n        long long t = a + b;\n        a = b;\n        b = t;\n    }\n    return a;\n}",
+      "csharp": "static long Fib(int n)\n{\n    long a = 0, b = 1;\n    for (int i = 0; i < n; i++)\n    {\n        long t = a + b;\n        a = b;\n        b = t;\n    }\n    return a;\n}",
+      "python": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a"
+    }
+  },
+  {
+    "id": "js-008",
+    "group": "Algorytmy liczbowe",
+    "title": "Zamiana na system dwójkowy",
+    "difficulty": 2,
+    "summary": "Dzielenie przez 2 i reszty czytane od końca.",
+    "concepts": [
+      "systemy liczbowe",
+      "napisy"
+    ],
+    "prompt": "Napisz funkcję `naBinarny(n)`, która zamienia nieujemną liczbę całkowitą `n` na napis z jej zapisem w **systemie dwójkowym**, np. `naBinarny(13) → \"1101\"`.\n\nNie używaj gotowej metody `toString(2)` – zaimplementuj algorytm dzielenia przez 2.",
+    "fn": "naBinarny",
+    "starter": "function naBinarny(n) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          13
+        ],
+        "expected": "1101"
+      },
+      {
+        "args": [
+          0
+        ],
+        "expected": "0"
+      },
+      {
+        "args": [
+          8
+        ],
+        "expected": "1000"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          1
+        ],
+        "expected": "1"
+      },
+      {
+        "args": [
+          255
+        ],
+        "expected": "11111111"
+      },
+      {
+        "args": [
+          1024
+        ],
+        "expected": "10000000000"
+      }
+    ],
+    "hints": [
+      "Reszta z dzielenia n % 2 to kolejna cyfra (od końca).",
+      "Doklejaj cyfry na początek napisu: wynik = (n % 2) + wynik. Pamiętaj o przypadku n = 0."
+    ],
+    "solutions": {
+      "js": "function naBinarny(n) {\n    if (n === 0) return '0';\n    let wynik = '';\n    while (n > 0) {\n        wynik = (n % 2) + wynik;\n        n = Math.floor(n / 2);\n    }\n    return wynik;\n}",
+      "cpp": "string naBinarny(int n) {\n    if (n == 0) return \"0\";\n    string wynik = \"\";\n    while (n > 0) {\n        wynik = char('0' + n % 2) + wynik;\n        n /= 2;\n    }\n    return wynik;\n}",
+      "csharp": "static string NaBinarny(int n)\n{\n    if (n == 0) return \"0\";\n    string wynik = \"\";\n    while (n > 0)\n    {\n        wynik = (n % 2) + wynik;\n        n /= 2;\n    }\n    return wynik;\n}",
+      "python": "def na_binarny(n):\n    if n == 0:\n        return \"0\"\n    wynik = \"\"\n    while n > 0:\n        wynik = str(n % 2) + wynik\n        n //= 2\n    return wynik"
+    }
+  },
+  {
+    "id": "js-009",
+    "group": "Tablice, sortowanie i wyszukiwanie",
+    "title": "Sortowanie bąbelkowe",
+    "difficulty": 2,
+    "summary": "Implementacja bez gotowego sort().",
+    "concepts": [
+      "sortowanie",
+      "pętle zagnieżdżone"
+    ],
+    "prompt": "Napisz funkcję `sortujBabelkowo(tab)`, która zwraca tablicę liczb posortowaną **rosnąco** metodą **sortowania bąbelkowego**.\n\nNie używaj metody `sort()` – na egzaminie praktycznym często wymaga się własnej implementacji algorytmu.",
+    "fn": "sortujBabelkowo",
+    "starter": "function sortujBabelkowo(tab) {\n    const t = [...tab];   // kopia – nie zmieniamy oryginału\n    // Twój kod\n    return t;\n}\n",
+    "tests": [
+      {
+        "args": [
+          [
+            5,
+            2,
+            9,
+            1,
+            3
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3,
+          5,
+          9
+        ]
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": [
+          1
+        ]
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          [
+            3,
+            3,
+            1,
+            2,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "args": [
+          [
+            10,
+            9,
+            8,
+            7,
+            6,
+            5
+          ]
+        ],
+        "expected": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      {
+        "args": [
+          [
+            -4,
+            7,
+            0,
+            -1
+          ]
+        ],
+        "expected": [
+          -4,
+          -1,
+          0,
+          7
+        ]
+      }
+    ],
+    "hints": [
+      "Zewnętrzna pętla wykonuje n − 1 przebiegów, wewnętrzna porównuje sąsiadów t[j] i t[j + 1].",
+      "Zamiana elementów w JS: [t[j], t[j + 1]] = [t[j + 1], t[j]]."
+    ],
+    "solutions": {
+      "js": "function sortujBabelkowo(tab) {\n    const t = [...tab];\n    for (let i = 0; i < t.length - 1; i++) {\n        for (let j = 0; j < t.length - 1 - i; j++) {\n            if (t[j] > t[j + 1]) {\n                [t[j], t[j + 1]] = [t[j + 1], t[j]];\n            }\n        }\n    }\n    return t;\n}",
+      "cpp": "void sortujBabelkowo(int t[], int n) {\n    for (int i = 0; i < n - 1; i++)\n        for (int j = 0; j < n - 1 - i; j++)\n            if (t[j] > t[j + 1]) {\n                int tmp = t[j];\n                t[j] = t[j + 1];\n                t[j + 1] = tmp;\n            }\n}",
+      "csharp": "static void SortujBabelkowo(int[] t)\n{\n    for (int i = 0; i < t.Length - 1; i++)\n        for (int j = 0; j < t.Length - 1 - i; j++)\n            if (t[j] > t[j + 1])\n            {\n                (t[j], t[j + 1]) = (t[j + 1], t[j]);\n            }\n}",
+      "python": "def sortuj_babelkowo(tab):\n    t = list(tab)\n    n = len(t)\n    for i in range(n - 1):\n        for j in range(n - 1 - i):\n            if t[j] > t[j + 1]:\n                t[j], t[j + 1] = t[j + 1], t[j]\n    return t"
+    }
+  },
+  {
+    "id": "js-010",
+    "group": "Tablice, sortowanie i wyszukiwanie",
+    "title": "Sortowanie przez wybieranie (malejąco)",
+    "difficulty": 2,
+    "summary": "Szukanie maksimum w nieposortowanej części.",
+    "concepts": [
+      "sortowanie",
+      "indeks maksimum"
+    ],
+    "prompt": "Napisz funkcję `sortujMalejaco(tab)`, która zwraca kopię tablicy posortowaną **malejąco** metodą **sortowania przez wybieranie** (selection sort).\n\nW każdym kroku znajdź **największy** element w nieposortowanej części i zamień go z pierwszym elementem tej części.",
+    "fn": "sortujMalejaco",
+    "starter": "function sortujMalejaco(tab) {\n    const t = [...tab];\n    // Twój kod\n    return t;\n}\n",
+    "tests": [
+      {
+        "args": [
+          [
+            4,
+            8,
+            1,
+            9,
+            3
+          ]
+        ],
+        "expected": [
+          9,
+          8,
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            5
+          ]
+        ],
+        "expected": [
+          5,
+          2,
+          2
+        ]
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        ],
+        "expected": [
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      {
+        "args": [
+          [
+            0,
+            -3,
+            7,
+            -1
+          ]
+        ],
+        "expected": [
+          7,
+          0,
+          -1,
+          -3
+        ]
+      }
+    ],
+    "hints": [
+      "Dla każdego i zapamiętaj indeks największego elementu: let maks = i; potem przeszukaj j od i + 1.",
+      "Po znalezieniu maksimum zamień t[i] z t[maks]."
+    ],
+    "solutions": {
+      "js": "function sortujMalejaco(tab) {\n    const t = [...tab];\n    for (let i = 0; i < t.length - 1; i++) {\n        let maks = i;\n        for (let j = i + 1; j < t.length; j++) {\n            if (t[j] > t[maks]) maks = j;\n        }\n        [t[i], t[maks]] = [t[maks], t[i]];\n    }\n    return t;\n}",
+      "cpp": "void sortujMalejaco(int t[], int n) {\n    for (int i = 0; i < n - 1; i++) {\n        int maks = i;\n        for (int j = i + 1; j < n; j++)\n            if (t[j] > t[maks]) maks = j;\n        swap(t[i], t[maks]);\n    }\n}",
+      "csharp": "static void SortujMalejaco(int[] t)\n{\n    for (int i = 0; i < t.Length - 1; i++)\n    {\n        int maks = i;\n        for (int j = i + 1; j < t.Length; j++)\n            if (t[j] > t[maks]) maks = j;\n        (t[i], t[maks]) = (t[maks], t[i]);\n    }\n}",
+      "python": "def sortuj_malejaco(tab):\n    t = list(tab)\n    for i in range(len(t) - 1):\n        maks = i\n        for j in range(i + 1, len(t)):\n            if t[j] > t[maks]:\n                maks = j\n        t[i], t[maks] = t[maks], t[i]\n    return t"
+    }
+  },
+  {
+    "id": "js-011",
+    "group": "Tablice, sortowanie i wyszukiwanie",
+    "title": "Wyszukiwanie binarne",
+    "difficulty": 2,
+    "summary": "O(log n) na posortowanej tablicy.",
+    "concepts": [
+      "wyszukiwanie binarne",
+      "pętla while"
+    ],
+    "prompt": "Napisz funkcję `szukajBinarnie(tab, x)`, która w tablicy **posortowanej rosnąco** wyszukuje wartość `x` metodą **wyszukiwania binarnego**. Zwróć **indeks** znalezionego elementu albo `-1`, jeśli go nie ma.\n\nWszystkie elementy tablicy są różne.",
+    "fn": "szukajBinarnie",
+    "starter": "function szukajBinarnie(tab, x) {\n    let lewy = 0;\n    let prawy = tab.length - 1;\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            3,
+            5,
+            7,
+            9,
+            11
+          ],
+          7
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          [
+            1,
+            3,
+            5,
+            7,
+            9,
+            11
+          ],
+          4
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            2,
+            4,
+            6
+          ],
+          2
+        ],
+        "expected": 0
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          [],
+          5
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            2,
+            4,
+            6
+          ],
+          6
+        ],
+        "expected": 2
+      },
+      {
+        "args": [
+          [
+            -10,
+            -3,
+            0,
+            4,
+            8,
+            15,
+            23,
+            42
+          ],
+          42
+        ],
+        "expected": 7
+      },
+      {
+        "args": [
+          [
+            5
+          ],
+          5
+        ],
+        "expected": 0
+      }
+    ],
+    "hints": [
+      "Pętla działa, dopóki lewy <= prawy. Środek: Math.floor((lewy + prawy) / 2).",
+      "Jeśli tab[srodek] < x, szukaj w prawej połowie (lewy = srodek + 1), w przeciwnym razie w lewej (prawy = srodek - 1)."
+    ],
+    "solutions": {
+      "js": "function szukajBinarnie(tab, x) {\n    let lewy = 0;\n    let prawy = tab.length - 1;\n    while (lewy <= prawy) {\n        const srodek = Math.floor((lewy + prawy) / 2);\n        if (tab[srodek] === x) return srodek;\n        if (tab[srodek] < x) lewy = srodek + 1;\n        else prawy = srodek - 1;\n    }\n    return -1;\n}",
+      "cpp": "int szukajBinarnie(const vector<int>& tab, int x) {\n    int lewy = 0, prawy = (int)tab.size() - 1;\n    while (lewy <= prawy) {\n        int srodek = (lewy + prawy) / 2;\n        if (tab[srodek] == x) return srodek;\n        if (tab[srodek] < x) lewy = srodek + 1;\n        else prawy = srodek - 1;\n    }\n    return -1;\n}",
+      "csharp": "static int SzukajBinarnie(int[] tab, int x)\n{\n    int lewy = 0, prawy = tab.Length - 1;\n    while (lewy <= prawy)\n    {\n        int srodek = (lewy + prawy) / 2;\n        if (tab[srodek] == x) return srodek;\n        if (tab[srodek] < x) lewy = srodek + 1;\n        else prawy = srodek - 1;\n    }\n    return -1;\n}",
+      "python": "def szukaj_binarnie(tab, x):\n    lewy, prawy = 0, len(tab) - 1\n    while lewy <= prawy:\n        srodek = (lewy + prawy) // 2\n        if tab[srodek] == x:\n            return srodek\n        if tab[srodek] < x:\n            lewy = srodek + 1\n        else:\n            prawy = srodek - 1\n    return -1"
+    }
+  },
+  {
+    "id": "js-012",
+    "group": "Tablice, sortowanie i wyszukiwanie",
+    "title": "Wyszukiwanie z wartownikiem",
+    "difficulty": 2,
+    "summary": "Jeden warunek w pętli zamiast dwóch.",
+    "concepts": [
+      "wyszukiwanie liniowe",
+      "wartownik"
+    ],
+    "prompt": "Napisz funkcję `szukajZWartownikiem(tab, x)`, która zwraca **indeks pierwszego wystąpienia** wartości `x` w tablicy `tab` albo `-1`, jeśli jej nie ma.\n\nZastosuj **wartownika**: dopisz `x` na końcu **kopii** tablicy, a następnie w pętli `while` sprawdzaj tylko jeden warunek: `t[i] !== x`.",
+    "fn": "szukajZWartownikiem",
+    "starter": "function szukajZWartownikiem(tab, x) {\n    const t = [...tab, x];   // kopia z wartownikiem\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          [
+            4,
+            7,
+            1,
+            7
+          ],
+          7
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            4,
+            7,
+            1
+          ],
+          9
+        ],
+        "expected": -1
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          [],
+          3
+        ],
+        "expected": -1
+      },
+      {
+        "args": [
+          [
+            3
+          ],
+          3
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": 4
+      }
+    ],
+    "hints": [
+      "let i = 0; while (t[i] !== x) i++;",
+      "Jeśli pętla zatrzymała się na indeksie równym tab.length, to znalazła wartownika, czyli elementu nie ma."
+    ],
+    "solutions": {
+      "js": "function szukajZWartownikiem(tab, x) {\n    const t = [...tab, x];\n    let i = 0;\n    while (t[i] !== x) i++;\n    return i < tab.length ? i : -1;\n}",
+      "cpp": "int szukajZWartownikiem(int t[], int n, int x) {\n    // tablica t musi mieć miejsce na n + 1 elementów\n    t[n] = x;\n    int i = 0;\n    while (t[i] != x) i++;\n    return i < n ? i : -1;\n}",
+      "csharp": "static int SzukajZWartownikiem(int[] tab, int x)\n{\n    int[] t = new int[tab.Length + 1];\n    Array.Copy(tab, t, tab.Length);\n    t[tab.Length] = x;\n    int i = 0;\n    while (t[i] != x) i++;\n    return i < tab.Length ? i : -1;\n}",
+      "python": "def szukaj_z_wartownikiem(tab, x):\n    t = list(tab) + [x]\n    i = 0\n    while t[i] != x:\n        i += 1\n    return i if i < len(tab) else -1"
+    }
+  },
+  {
+    "id": "js-013",
+    "group": "Tablice, sortowanie i wyszukiwanie",
+    "title": "Minimum i maksimum w jednym przejściu",
+    "difficulty": 1,
+    "summary": "Jedna pętla, dwa wyniki.",
+    "concepts": [
+      "tablice",
+      "min/max"
+    ],
+    "prompt": "Napisz funkcję `minMax(tab)`, która dla **niepustej** tablicy liczb zwraca tablicę dwuelementową `[min, max]`. Przejdź przez tablicę **tylko raz** i nie używaj `Math.min`/`Math.max` z operatorem `...`.",
+    "fn": "minMax",
+    "starter": "function minMax(tab) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          [
+            3,
+            9,
+            -2,
+            7
+          ]
+        ],
+        "expected": [
+          -2,
+          9
+        ]
+      },
+      {
+        "args": [
+          [
+            5
+          ]
+        ],
+        "expected": [
+          5,
+          5
+        ]
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          [
+            -1,
+            -5,
+            -3
+          ]
+        ],
+        "expected": [
+          -5,
+          -1
+        ]
+      },
+      {
+        "args": [
+          [
+            2,
+            2,
+            2,
+            2
+          ]
+        ],
+        "expected": [
+          2,
+          2
+        ]
+      },
+      {
+        "args": [
+          [
+            0,
+            100,
+            50,
+            -100
+          ]
+        ],
+        "expected": [
+          -100,
+          100
+        ]
+      }
+    ],
+    "hints": [
+      "Zainicjuj min i max pierwszym elementem tablicy (nie zerem!).",
+      "W pętli od indeksu 1 aktualizuj min i max."
+    ],
+    "solutions": {
+      "js": "function minMax(tab) {\n    let min = tab[0], max = tab[0];\n    for (let i = 1; i < tab.length; i++) {\n        if (tab[i] < min) min = tab[i];\n        if (tab[i] > max) max = tab[i];\n    }\n    return [min, max];\n}",
+      "cpp": "pair<int, int> minMax(const vector<int>& tab) {\n    int mn = tab[0], mx = tab[0];\n    for (size_t i = 1; i < tab.size(); i++) {\n        if (tab[i] < mn) mn = tab[i];\n        if (tab[i] > mx) mx = tab[i];\n    }\n    return {mn, mx};\n}",
+      "csharp": "static (int min, int max) MinMax(int[] tab)\n{\n    int min = tab[0], max = tab[0];\n    for (int i = 1; i < tab.Length; i++)\n    {\n        if (tab[i] < min) min = tab[i];\n        if (tab[i] > max) max = tab[i];\n    }\n    return (min, max);\n}",
+      "python": "def min_max(tab):\n    mn = mx = tab[0]\n    for x in tab[1:]:\n        if x < mn:\n            mn = x\n        if x > mx:\n            mx = x\n    return [mn, mx]"
+    },
+    "explanation": "Częsty błąd: inicjalizacja max = 0. Dla tablicy samych liczb ujemnych daje zły wynik."
+  },
+  {
+    "id": "js-014",
+    "group": "Napisy",
+    "title": "Palindrom",
+    "difficulty": 1,
+    "summary": "Porównywanie znaków od obu końców.",
+    "concepts": [
+      "napisy",
+      "dwa wskaźniki"
+    ],
+    "prompt": "Napisz funkcję `czyPalindrom(tekst)`, która zwraca `true`, jeśli tekst czytany od tyłu jest taki sam jak od przodu. **Pomiń spacje** i **nie rozróżniaj wielkości liter**.\n\nPrzykład: `\"Kobyła ma mały bok\"` → `true`.",
+    "fn": "czyPalindrom",
+    "starter": "function czyPalindrom(tekst) {\n    const t = tekst.toLowerCase().replaceAll(' ', '');\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          "kajak"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "Kobyła ma mały bok"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "programista"
+        ],
+        "expected": false
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          ""
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "Ala"
+        ],
+        "expected": true
+      },
+      {
+        "args": [
+          "ab"
+        ],
+        "expected": false
+      },
+      {
+        "args": [
+          "A to kanapa pana Kota"
+        ],
+        "expected": true
+      }
+    ],
+    "hints": [
+      "Porównuj t[i] z t[t.length - 1 - i] dla i od 0 do połowy długości.",
+      "Jeśli znajdziesz różnicę – od razu zwróć false."
+    ],
+    "solutions": {
+      "js": "function czyPalindrom(tekst) {\n    const t = tekst.toLowerCase().replaceAll(' ', '');\n    for (let i = 0; i < t.length / 2; i++) {\n        if (t[i] !== t[t.length - 1 - i]) return false;\n    }\n    return true;\n}",
+      "cpp": "bool czyPalindrom(string tekst) {\n    string t;\n    for (char c : tekst)\n        if (c != ' ') t += tolower(c);   // uwaga: tylko znaki ASCII\n    int n = t.size();\n    for (int i = 0; i < n / 2; i++)\n        if (t[i] != t[n - 1 - i]) return false;\n    return true;\n}",
+      "csharp": "static bool CzyPalindrom(string tekst)\n{\n    string t = tekst.ToLower().Replace(\" \", \"\");\n    for (int i = 0; i < t.Length / 2; i++)\n        if (t[i] != t[t.Length - 1 - i]) return false;\n    return true;\n}",
+      "python": "def czy_palindrom(tekst):\n    t = tekst.lower().replace(\" \", \"\")\n    return t == t[::-1]"
+    }
+  },
+  {
+    "id": "js-015",
+    "group": "Napisy",
+    "title": "Szyfr Cezara",
+    "difficulty": 2,
+    "summary": "Arytmetyka na kodach znaków z „zawinięciem”.",
+    "concepts": [
+      "kody ASCII",
+      "operator %"
+    ],
+    "prompt": "Napisz funkcję `szyfrujCezar(tekst, klucz)`, która szyfruje tekst **szyfrem Cezara**: każdą **małą literę alfabetu łacińskiego** (`a`–`z`) przesuwa o `klucz` pozycji w prawo, z zawinięciem (`z` + 1 → `a`). Pozostałe znaki (spacje, cyfry, wielkie litery) pozostaw bez zmian.\n\n`klucz` jest liczbą całkowitą z przedziału 0–25.",
+    "fn": "szyfrujCezar",
+    "starter": "function szyfrujCezar(tekst, klucz) {\n    let wynik = '';\n    // Twój kod\n    return wynik;\n}\n",
+    "tests": [
+      {
+        "args": [
+          "abc",
+          3
+        ],
+        "expected": "def"
+      },
+      {
+        "args": [
+          "xyz",
+          3
+        ],
+        "expected": "abc"
+      },
+      {
+        "args": [
+          "ala ma kota",
+          1
+        ],
+        "expected": "bmb nb lpub"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          "inf04",
+          5
+        ],
+        "expected": "nsk04"
+      },
+      {
+        "args": [
+          "zadanie",
+          0
+        ],
+        "expected": "zadanie"
+      },
+      {
+        "args": [
+          "Hello",
+          2
+        ],
+        "expected": "Hgnnq"
+      }
+    ],
+    "hints": [
+      "Kod znaku: c.charCodeAt(0), znak z kodu: String.fromCharCode(kod). Kod litery 'a' to 97.",
+      "Nowy kod: (kod - 97 + klucz) % 26 + 97 – reszta z dzielenia zapewnia zawinięcie."
+    ],
+    "solutions": {
+      "js": "function szyfrujCezar(tekst, klucz) {\n    let wynik = '';\n    for (const c of tekst) {\n        if (c >= 'a' && c <= 'z') {\n            const kod = (c.charCodeAt(0) - 97 + klucz) % 26 + 97;\n            wynik += String.fromCharCode(kod);\n        } else {\n            wynik += c;\n        }\n    }\n    return wynik;\n}",
+      "cpp": "string szyfrujCezar(const string& tekst, int klucz) {\n    string wynik = tekst;\n    for (char& c : wynik)\n        if (c >= 'a' && c <= 'z')\n            c = (c - 'a' + klucz) % 26 + 'a';\n    return wynik;\n}",
+      "csharp": "static string SzyfrujCezar(string tekst, int klucz)\n{\n    var sb = new StringBuilder();\n    foreach (char c in tekst)\n    {\n        if (c >= 'a' && c <= 'z')\n            sb.Append((char)((c - 'a' + klucz) % 26 + 'a'));\n        else\n            sb.Append(c);\n    }\n    return sb.ToString();\n}",
+      "python": "def szyfruj_cezar(tekst, klucz):\n    wynik = \"\"\n    for c in tekst:\n        if 'a' <= c <= 'z':\n            wynik += chr((ord(c) - ord('a') + klucz) % 26 + ord('a'))\n        else:\n            wynik += c\n    return wynik"
+    },
+    "explanation": "Deszyfrowanie to szyfrowanie z kluczem 26 − klucz."
+  },
+  {
+    "id": "js-016",
+    "group": "Napisy",
+    "title": "Liczenie samogłosek",
+    "difficulty": 1,
+    "summary": "Polskie samogłoski, bez rozróżniania wielkości liter.",
+    "concepts": [
+      "napisy",
+      "includes"
+    ],
+    "prompt": "Napisz funkcję `policzSamogloski(tekst)`, która zwraca **liczbę samogłosek** w tekście. Samogłoski w języku polskim to: `a ą e ę i o ó u y`. Wielkość liter nie ma znaczenia.",
+    "fn": "policzSamogloski",
+    "starter": "function policzSamogloski(tekst) {\n    const samogloski = 'aąeęioóuy';\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          "Programowanie"
+        ],
+        "expected": 6
+      },
+      {
+        "args": [
+          "xyz"
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          ""
+        ],
+        "expected": 0
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          "ĄĘÓ"
+        ],
+        "expected": 3
+      },
+      {
+        "args": [
+          "Zażółć gęślą jaźń"
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          "bcd fgh"
+        ],
+        "expected": 0
+      }
+    ],
+    "hints": [
+      "Zamień tekst na małe litery: tekst.toLowerCase().",
+      "Dla każdego znaku sprawdź samogloski.includes(znak)."
+    ],
+    "solutions": {
+      "js": "function policzSamogloski(tekst) {\n    const samogloski = 'aąeęioóuy';\n    let licznik = 0;\n    for (const c of tekst.toLowerCase()) {\n        if (samogloski.includes(c)) licznik++;\n    }\n    return licznik;\n}",
+      "csharp": "static int PoliczSamogloski(string tekst)\n{\n    const string samogloski = \"aąeęioóuy\";\n    int licznik = 0;\n    foreach (char c in tekst.ToLower())\n        if (samogloski.Contains(c)) licznik++;\n    return licznik;\n}",
+      "python": "def policz_samogloski(tekst):\n    samogloski = \"aąeęioóuy\"\n    return sum(1 for c in tekst.lower() if c in samogloski)",
+      "java": "static int policzSamogloski(String tekst) {\n    String samogloski = \"aąeęioóuy\";\n    int licznik = 0;\n    for (char c : tekst.toLowerCase().toCharArray())\n        if (samogloski.indexOf(c) >= 0) licznik++;\n    return licznik;\n}"
+    },
+    "explanation": "W C++ polskie znaki w UTF-8 zajmują po 2 bajty, dlatego tę wersję podajemy w C#, Javie i Pythonie, które obsługują Unicode w typie znakowym."
+  },
+  {
+    "id": "js-017",
+    "group": "Programowanie obiektowe",
+    "title": "Klasa Prostokat",
+    "difficulty": 1,
+    "summary": "Konstruktor, pola i metody obliczeniowe.",
+    "concepts": [
+      "klasa",
+      "konstruktor",
+      "metody"
+    ],
+    "prompt": "Zdefiniuj klasę `Prostokat`:\n\n- konstruktor przyjmuje długości boków `a` i `b` i zapisuje je w polach obiektu,\n- metoda `pole()` zwraca pole prostokąta,\n- metoda `obwod()` zwraca obwód,\n- metoda `czyKwadrat()` zwraca `true`, gdy boki są równe.",
+    "fn": "Prostokat",
+    "starter": "class Prostokat {\n    constructor(a, b) {\n        // Twój kod\n    }\n\n    // metody pole(), obwod(), czyKwadrat()\n}\n",
+    "tests": [
+      {
+        "expr": "new Prostokat(3, 4).pole()",
+        "expected": 12,
+        "name": "new Prostokat(3, 4).pole()"
+      },
+      {
+        "expr": "new Prostokat(3, 4).obwod()",
+        "expected": 14,
+        "name": "new Prostokat(3, 4).obwod()"
+      },
+      {
+        "expr": "new Prostokat(5, 5).czyKwadrat()",
+        "expected": true,
+        "name": "new Prostokat(5, 5).czyKwadrat()"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "expr": "new Prostokat(2, 7).czyKwadrat()",
+        "expected": false,
+        "name": "czyKwadrat() dla 2×7"
+      },
+      {
+        "expr": "new Prostokat(2.5, 4).pole()",
+        "expected": 10,
+        "name": "pole() dla 2.5×4"
+      },
+      {
+        "expr": "(() => { const p = new Prostokat(1, 1); return [p.a, p.b]; })()",
+        "expected": [
+          1,
+          1
+        ],
+        "name": "pola a i b obiektu"
+      }
+    ],
+    "hints": [
+      "W konstruktorze: this.a = a; this.b = b;",
+      "Metody w klasie JS zapisujemy bez słowa function: pole() { return this.a * this.b; }"
+    ],
+    "solutions": {
+      "js": "class Prostokat {\n    constructor(a, b) {\n        this.a = a;\n        this.b = b;\n    }\n    pole() {\n        return this.a * this.b;\n    }\n    obwod() {\n        return 2 * (this.a + this.b);\n    }\n    czyKwadrat() {\n        return this.a === this.b;\n    }\n}",
+      "cpp": "class Prostokat {\nprivate:\n    double a, b;\npublic:\n    Prostokat(double a, double b) : a(a), b(b) {}\n    double pole() const { return a * b; }\n    double obwod() const { return 2 * (a + b); }\n    bool czyKwadrat() const { return a == b; }\n};",
+      "csharp": "class Prostokat\n{\n    private double a, b;\n\n    public Prostokat(double a, double b)\n    {\n        this.a = a;\n        this.b = b;\n    }\n\n    public double Pole() => a * b;\n    public double Obwod() => 2 * (a + b);\n    public bool CzyKwadrat() => a == b;\n}",
+      "java": "class Prostokat {\n    private double a, b;\n\n    public Prostokat(double a, double b) {\n        this.a = a;\n        this.b = b;\n    }\n\n    public double pole() { return a * b; }\n    public double obwod() { return 2 * (a + b); }\n    public boolean czyKwadrat() { return a == b; }\n}",
+      "python": "class Prostokat:\n    def __init__(self, a, b):\n        self.a = a\n        self.b = b\n\n    def pole(self):\n        return self.a * self.b\n\n    def obwod(self):\n        return 2 * (self.a + self.b)\n\n    def czy_kwadrat(self):\n        return self.a == self.b"
+    }
+  },
+  {
+    "id": "js-018",
+    "group": "Programowanie obiektowe",
+    "title": "Konto bankowe – hermetyzacja",
+    "difficulty": 2,
+    "summary": "Prywatne pole i kontrola poprawności operacji.",
+    "concepts": [
+      "hermetyzacja",
+      "pole prywatne",
+      "walidacja"
+    ],
+    "prompt": "Zdefiniuj klasę `KontoBankowe`:\n\n- konstruktor przyjmuje `wlasciciel` (napis) i opcjonalnie `saldo` (domyślnie 0),\n- saldo przechowuj w **polu prywatnym** `#saldo` – nie może być dostępne z zewnątrz,\n- `wplac(kwota)` – jeśli kwota > 0, dodaje ją do salda i zwraca `true`, w przeciwnym razie zwraca `false`,\n- `wyplac(kwota)` – jeśli kwota > 0 i nie przekracza salda, odejmuje ją i zwraca `true`, inaczej `false`,\n- `getSaldo()` – zwraca aktualne saldo.",
+    "fn": "KontoBankowe",
+    "starter": "class KontoBankowe {\n    #saldo;\n\n    constructor(wlasciciel, saldo = 0) {\n        // Twój kod\n    }\n}\n",
+    "tests": [
+      {
+        "expr": "(() => { const k = new KontoBankowe('Ala', 100); k.wplac(50); return k.getSaldo(); })()",
+        "expected": 150,
+        "name": "wpłata 50 na konto ze 100 → saldo 150"
+      },
+      {
+        "expr": "(() => { const k = new KontoBankowe('Ala', 100); return [k.wyplac(30), k.getSaldo()]; })()",
+        "expected": [
+          true,
+          70
+        ],
+        "name": "wypłata 30 ze 100 → [true, 70]"
+      },
+      {
+        "expr": "(() => { const k = new KontoBankowe('Ola'); return [k.wyplac(10), k.getSaldo()]; })()",
+        "expected": [
+          false,
+          0
+        ],
+        "name": "wypłata z pustego konta → [false, 0]"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "expr": "(() => { const k = new KontoBankowe('Ala', 100); return [k.wplac(-20), k.getSaldo()]; })()",
+        "expected": [
+          false,
+          100
+        ],
+        "name": "wpłata ujemnej kwoty jest odrzucana"
+      },
+      {
+        "expr": "(() => { const k = new KontoBankowe('Ala', 100); return k.saldo === undefined; })()",
+        "expected": true,
+        "name": "saldo nie jest publicznym polem"
+      },
+      {
+        "expr": "(() => { const k = new KontoBankowe('Ala', 50); return [k.wyplac(50), k.getSaldo(), k.wlasciciel]; })()",
+        "expected": [
+          true,
+          0,
+          "Ala"
+        ],
+        "name": "wypłata całego salda"
+      }
+    ],
+    "hints": [
+      "Pole prywatne w JS ma nazwę zaczynającą się od #: this.#saldo = saldo;",
+      "W wyplac sprawdź oba warunki: kwota > 0 && kwota <= this.#saldo."
+    ],
+    "solutions": {
+      "js": "class KontoBankowe {\n    #saldo;\n\n    constructor(wlasciciel, saldo = 0) {\n        this.wlasciciel = wlasciciel;\n        this.#saldo = saldo;\n    }\n\n    wplac(kwota) {\n        if (kwota <= 0) return false;\n        this.#saldo += kwota;\n        return true;\n    }\n\n    wyplac(kwota) {\n        if (kwota <= 0 || kwota > this.#saldo) return false;\n        this.#saldo -= kwota;\n        return true;\n    }\n\n    getSaldo() {\n        return this.#saldo;\n    }\n}",
+      "cpp": "class KontoBankowe {\nprivate:\n    double saldo;\npublic:\n    string wlasciciel;\n\n    KontoBankowe(string wlasciciel, double saldo = 0)\n        : saldo(saldo), wlasciciel(wlasciciel) {}\n\n    bool wplac(double kwota) {\n        if (kwota <= 0) return false;\n        saldo += kwota;\n        return true;\n    }\n\n    bool wyplac(double kwota) {\n        if (kwota <= 0 || kwota > saldo) return false;\n        saldo -= kwota;\n        return true;\n    }\n\n    double getSaldo() const { return saldo; }\n};",
+      "csharp": "class KontoBankowe\n{\n    private decimal saldo;\n    public string Wlasciciel { get; }\n\n    public KontoBankowe(string wlasciciel, decimal saldo = 0)\n    {\n        Wlasciciel = wlasciciel;\n        this.saldo = saldo;\n    }\n\n    public bool Wplac(decimal kwota)\n    {\n        if (kwota <= 0) return false;\n        saldo += kwota;\n        return true;\n    }\n\n    public bool Wyplac(decimal kwota)\n    {\n        if (kwota <= 0 || kwota > saldo) return false;\n        saldo -= kwota;\n        return true;\n    }\n\n    public decimal Saldo => saldo;   // właściwość tylko do odczytu\n}",
+      "python": "class KontoBankowe:\n    def __init__(self, wlasciciel, saldo=0):\n        self.wlasciciel = wlasciciel\n        self.__saldo = saldo          # \"prywatne\" (name mangling)\n\n    def wplac(self, kwota):\n        if kwota <= 0:\n            return False\n        self.__saldo += kwota\n        return True\n\n    def wyplac(self, kwota):\n        if kwota <= 0 or kwota > self.__saldo:\n            return False\n        self.__saldo -= kwota\n        return True\n\n    def get_saldo(self):\n        return self.__saldo"
+    },
+    "explanation": "W C# do kwot pieniężnych stosuje się typ decimal – nie ma błędów zaokrągleń typowych dla double."
+  },
+  {
+    "id": "js-019",
+    "group": "Programowanie obiektowe",
+    "title": "Dziedziczenie i polimorfizm – zwierzęta",
+    "difficulty": 2,
+    "summary": "Klasa bazowa, klasy pochodne i nadpisywanie metod.",
+    "concepts": [
+      "dziedziczenie",
+      "polimorfizm",
+      "super"
+    ],
+    "prompt": "Zdefiniuj klasy:\n\n- `Zwierze` – konstruktor przyjmuje `imie`; metoda `dajGlos()` zwraca `\"...\"`; metoda `przedstaw()` zwraca napis w formacie `\"<imie>: <głos>\"` (korzystając z `dajGlos()`),\n- `Pies` dziedziczy po `Zwierze` i nadpisuje `dajGlos()` – zwraca `\"Hau!\"`,\n- `Kot` dziedziczy po `Zwierze` i nadpisuje `dajGlos()` – zwraca `\"Miau!\"`.\n\nDzięki polimorfizmowi `przedstaw()` wywołane na psie powinno zwrócić np. `\"Burek: Hau!\"`.",
+    "fn": "Zwierze",
+    "starter": "class Zwierze {\n    constructor(imie) {\n        // Twój kod\n    }\n}\n\nclass Pies extends Zwierze {\n}\n\nclass Kot extends Zwierze {\n}\n",
+    "tests": [
+      {
+        "expr": "new Pies('Burek').przedstaw()",
+        "expected": "Burek: Hau!",
+        "name": "new Pies('Burek').przedstaw()"
+      },
+      {
+        "expr": "new Kot('Filemon').przedstaw()",
+        "expected": "Filemon: Miau!",
+        "name": "new Kot('Filemon').przedstaw()"
+      },
+      {
+        "expr": "new Zwierze('Ktoś').dajGlos()",
+        "expected": "...",
+        "name": "new Zwierze('Ktoś').dajGlos()"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "expr": "new Pies('A') instanceof Zwierze",
+        "expected": true,
+        "name": "Pies dziedziczy po Zwierze"
+      },
+      {
+        "expr": "[new Pies('A'), new Kot('B'), new Zwierze('C')].map(z => z.dajGlos())",
+        "expected": [
+          "Hau!",
+          "Miau!",
+          "..."
+        ],
+        "name": "polimorficzne wywołanie dajGlos() w pętli"
+      },
+      {
+        "expr": "Object.prototype.hasOwnProperty.call(Pies.prototype, 'przedstaw')",
+        "expected": false,
+        "name": "przedstaw() zdefiniowane tylko w klasie bazowej"
+      }
+    ],
+    "hints": [
+      "W klasie bazowej: przedstaw() { return `${this.imie}: ${this.dajGlos()}`; }",
+      "Klasy pochodne nie potrzebują konstruktora, jeśli nie dodają pól – odziedziczą konstruktor bazowy. Wystarczy nadpisać dajGlos()."
+    ],
+    "solutions": {
+      "js": "class Zwierze {\n    constructor(imie) {\n        this.imie = imie;\n    }\n    dajGlos() {\n        return '...';\n    }\n    przedstaw() {\n        return `${this.imie}: ${this.dajGlos()}`;\n    }\n}\n\nclass Pies extends Zwierze {\n    dajGlos() {\n        return 'Hau!';\n    }\n}\n\nclass Kot extends Zwierze {\n    dajGlos() {\n        return 'Miau!';\n    }\n}",
+      "cpp": "class Zwierze {\nprotected:\n    string imie;\npublic:\n    Zwierze(string imie) : imie(imie) {}\n    virtual ~Zwierze() {}\n    virtual string dajGlos() const { return \"...\"; }\n    string przedstaw() const { return imie + \": \" + dajGlos(); }\n};\n\nclass Pies : public Zwierze {\npublic:\n    Pies(string imie) : Zwierze(imie) {}\n    string dajGlos() const override { return \"Hau!\"; }\n};\n\nclass Kot : public Zwierze {\npublic:\n    Kot(string imie) : Zwierze(imie) {}\n    string dajGlos() const override { return \"Miau!\"; }\n};",
+      "csharp": "class Zwierze\n{\n    protected string imie;\n    public Zwierze(string imie) { this.imie = imie; }\n    public virtual string DajGlos() => \"...\";\n    public string Przedstaw() => $\"{imie}: {DajGlos()}\";\n}\n\nclass Pies : Zwierze\n{\n    public Pies(string imie) : base(imie) { }\n    public override string DajGlos() => \"Hau!\";\n}\n\nclass Kot : Zwierze\n{\n    public Kot(string imie) : base(imie) { }\n    public override string DajGlos() => \"Miau!\";\n}",
+      "java": "class Zwierze {\n    protected String imie;\n    public Zwierze(String imie) { this.imie = imie; }\n    public String dajGlos() { return \"...\"; }\n    public String przedstaw() { return imie + \": \" + dajGlos(); }\n}\n\nclass Pies extends Zwierze {\n    public Pies(String imie) { super(imie); }\n    @Override\n    public String dajGlos() { return \"Hau!\"; }\n}\n\nclass Kot extends Zwierze {\n    public Kot(String imie) { super(imie); }\n    @Override\n    public String dajGlos() { return \"Miau!\"; }\n}",
+      "python": "class Zwierze:\n    def __init__(self, imie):\n        self.imie = imie\n\n    def daj_glos(self):\n        return \"...\"\n\n    def przedstaw(self):\n        return f\"{self.imie}: {self.daj_glos()}\"\n\n\nclass Pies(Zwierze):\n    def daj_glos(self):\n        return \"Hau!\"\n\n\nclass Kot(Zwierze):\n    def daj_glos(self):\n        return \"Miau!\""
+    },
+    "explanation": "W C++ bez słowa virtual metoda przedstaw() wywołałaby wersję dajGlos() z klasy bazowej. W C# potrzebne są virtual i override."
+  },
+  {
+    "id": "js-020",
+    "group": "Programowanie obiektowe",
+    "title": "Licznik obiektów – pole statyczne",
+    "difficulty": 2,
+    "summary": "Składowa wspólna dla wszystkich instancji.",
+    "concepts": [
+      "static",
+      "konstruktor"
+    ],
+    "prompt": "Zdefiniuj klasę `Uczen` z **polem statycznym** `liczba`, które zlicza, ile obiektów tej klasy utworzono. Konstruktor przyjmuje `imie`, zapisuje je w polu obiektu i zwiększa licznik. Dodaj **metodę statyczną** `ileUczniow()`, która zwraca wartość licznika.\n\nKażdy obiekt ma też otrzymać pole `numer` – kolejny numer z dziennika (pierwszy utworzony uczeń ma numer 1).",
+    "fn": "Uczen",
+    "starter": "class Uczen {\n    static liczba = 0;\n\n    constructor(imie) {\n        // Twój kod\n    }\n}\n",
+    "tests": [
+      {
+        "expr": "(() => { new Uczen('A'); new Uczen('B'); return Uczen.ileUczniow(); })()",
+        "expected": 2,
+        "name": "po utworzeniu 2 uczniów ileUczniow() = 2"
+      },
+      {
+        "expr": "(() => { const a = new Uczen('Ala'); const b = new Uczen('Bartek'); return [a.numer, b.numer, b.imie]; })()",
+        "expected": [
+          1,
+          2,
+          "Bartek"
+        ],
+        "name": "kolejne numery z dziennika"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "expr": "(() => { for (let i = 0; i < 5; i++) new Uczen('X'); return Uczen.liczba; })()",
+        "expected": 5,
+        "name": "5 obiektów → Uczen.liczba = 5"
+      },
+      {
+        "expr": "(() => { const u = new Uczen('Ola'); return u.liczba === undefined && typeof Uczen.ileUczniow === 'function'; })()",
+        "expected": true,
+        "name": "licznik należy do klasy, nie do obiektu"
+      }
+    ],
+    "hints": [
+      "Do pola statycznego odwołujesz się przez nazwę klasy: Uczen.liczba++.",
+      "Metoda statyczna: static ileUczniow() { return Uczen.liczba; }"
+    ],
+    "solutions": {
+      "js": "class Uczen {\n    static liczba = 0;\n\n    constructor(imie) {\n        this.imie = imie;\n        Uczen.liczba++;\n        this.numer = Uczen.liczba;\n    }\n\n    static ileUczniow() {\n        return Uczen.liczba;\n    }\n}",
+      "cpp": "class Uczen {\npublic:\n    static int liczba;\n    string imie;\n    int numer;\n\n    Uczen(string imie) : imie(imie) {\n        liczba++;\n        numer = liczba;\n    }\n\n    static int ileUczniow() { return liczba; }\n};\n\nint Uczen::liczba = 0;   // definicja pola statycznego poza klasą",
+      "csharp": "class Uczen\n{\n    public static int Liczba { get; private set; } = 0;\n    public string Imie { get; }\n    public int Numer { get; }\n\n    public Uczen(string imie)\n    {\n        Imie = imie;\n        Liczba++;\n        Numer = Liczba;\n    }\n\n    public static int IleUczniow() => Liczba;\n}",
+      "java": "class Uczen {\n    static int liczba = 0;\n    String imie;\n    int numer;\n\n    Uczen(String imie) {\n        this.imie = imie;\n        liczba++;\n        numer = liczba;\n    }\n\n    static int ileUczniow() { return liczba; }\n}",
+      "python": "class Uczen:\n    liczba = 0          # atrybut klasy (wspólny)\n\n    def __init__(self, imie):\n        self.imie = imie\n        Uczen.liczba += 1\n        self.numer = Uczen.liczba\n\n    @staticmethod\n    def ile_uczniow():\n        return Uczen.liczba"
+    },
+    "explanation": "W C++ pole statyczne trzeba dodatkowo zdefiniować poza klasą (int Uczen::liczba = 0;) – to częsty błąd linkera."
+  }
+]

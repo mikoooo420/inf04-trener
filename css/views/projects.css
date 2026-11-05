@@ -1,0 +1,52 @@
+/* =========================================================
+   ARKUSZE PRAKTYCZNE + PIASKOWNICA WEB
+   ========================================================= */
+
+.project-layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: var(--sp-5); align-items: start; }
+.project-main > * + * { margin-top: var(--sp-5); }
+.project-side { position: sticky; top: calc(var(--topbar-h) + var(--sp-4)); }
+.score-card .timer { display: inline-block; margin: var(--sp-2) 0 var(--sp-3); font-size: var(--fs-2xl); }
+.score-card hr { margin: var(--sp-4) 0; }
+.score-card__value strong { font-size: var(--fs-2xl); font-variant-numeric: tabular-nums; }
+.score-card__value { margin: var(--sp-1) 0 var(--sp-2); }
+.score-pass { color: var(--success); font-weight: 700; }
+.part-nav { display: flex; flex-direction: column; gap: 2px; font-size: var(--fs-sm); }
+.part-nav a { color: var(--text-muted); text-decoration: none; padding: .3rem .4rem; border-radius: var(--radius-sm); }
+.part-nav a:hover { color: var(--accent); background: var(--surface-2); }
+
+@media (max-width: 1000px) {
+  .project-layout { grid-template-columns: 1fr; }
+  .project-side { position: static; order: -1; }
+}
+
+.part { scroll-margin-top: calc(var(--topbar-h) + 1rem); }
+.part__head { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-4); flex-wrap: wrap; }
+.part__head h2 { margin: 0; flex: 1; }
+.part__num { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--accent); color: var(--accent-contrast); font-weight: 900; }
+.part .prose { font-size: var(--fs-md); }
+
+.criteria { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.criteria li { margin: 0; padding: var(--sp-2) var(--sp-3); border-radius: var(--radius); }
+.criteria li:hover { background: var(--surface-2); }
+.criteria input:checked + span { color: var(--text-muted); text-decoration: line-through; text-decoration-color: var(--success); }
+
+.solution-box { margin-top: var(--sp-4); border: 1px dashed var(--border-strong); border-radius: var(--radius); padding: var(--sp-3) var(--sp-4); }
+.solution-box summary { cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: var(--sp-2); color: var(--text-muted); }
+.solution-box[open] summary { margin-bottom: var(--sp-3); }
+
+.code-tabs { margin: var(--sp-4) 0; }
+.code-tabs__bar { display: flex; align-items: flex-end; gap: var(--sp-2); }
+.code-tabs__bar .tabs { flex: 1; margin-bottom: 0; }
+.code-tabs pre { position: relative; border-top-left-radius: 0; border-top-right-radius: 0; font-size: .85rem; max-height: 480px; }
+
+/* ---------- Piaskownica ---------- */
+.sandbox__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-4); }
+.sandbox__col { min-width: 0; display: flex; flex-direction: column; }
+.sandbox__col .tabs { margin-bottom: var(--sp-2); }
+.sandbox__editor .editor { min-height: 360px; }
+.sandbox__preview-head { display: flex; align-items: center; justify-content: space-between; min-height: 42px; margin-bottom: var(--sp-2); border-bottom: 1px solid var(--border); }
+.sandbox__frame { width: 100%; height: 360px; border: 1px solid var(--border); border-radius: var(--radius); background: #fff; }
+.sandbox__checks { margin-top: var(--sp-3); }
+.sandbox .console__body { max-height: 120px; }
+
+@media (max-width: 1200px) { .sandbox__grid { grid-template-columns: 1fr; } }

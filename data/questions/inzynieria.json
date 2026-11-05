@@ -1,0 +1,125 @@
+[
+  {
+    "id": "inz-001",
+    "difficulty": 1,
+    "question": "Model cyklu życia oprogramowania, w którym kolejne etapy (analiza, projekt, implementacja, testy, wdrożenie) są realizowane sekwencyjnie, jeden po drugim, to model:",
+    "answers": ["spiralny", "kaskadowy", "przyrostowy", "zwinny (Agile)"],
+    "correct": 1,
+    "explanation": "Model kaskadowy (wodospadowy) zakłada liniową kolejność etapów – następny zaczyna się po zakończeniu poprzedniego. Trudno w nim wprowadzać zmiany w trakcie."
+  },
+  {
+    "id": "inz-002",
+    "difficulty": 2,
+    "question": "Model wytwarzania oprogramowania kładący szczególny nacisk na analizę ryzyka w każdym cyklu to model:",
+    "answers": ["kaskadowy", "spiralny", "V", "prototypowy"],
+    "correct": 1,
+    "explanation": "Model spiralny (Boehma) składa się z kolejnych pętli, a w każdej z nich przeprowadza się analizę ryzyka."
+  },
+  {
+    "id": "inz-003",
+    "difficulty": 1,
+    "question": "W metodyce Scrum iteracja o stałej długości (zwykle 1–4 tygodnie), kończąca się działającym przyrostem produktu, to:",
+    "answers": ["backlog", "sprint", "milestone", "release candidate"],
+    "correct": 1,
+    "explanation": "Sprint to podstawowa iteracja w Scrumie. Product Backlog to lista wymagań, a nie iteracja."
+  },
+  {
+    "id": "inz-004",
+    "difficulty": 2,
+    "question": "Kto w Scrumie odpowiada za priorytety w Product Backlogu i maksymalizację wartości produktu?",
+    "answers": ["Scrum Master", "Product Owner", "zespół deweloperski", "kierownik projektu"],
+    "correct": 1,
+    "explanation": "Product Owner zarządza Product Backlogiem i decyduje o kolejności prac. Scrum Master dba o przestrzeganie zasad Scruma i usuwa przeszkody."
+  },
+  {
+    "id": "inz-005",
+    "difficulty": 1,
+    "question": "Wymaganiem niefunkcjonalnym jest:",
+    "answers": [
+      "użytkownik może dodać produkt do koszyka",
+      "aplikacja wysyła e-mail z potwierdzeniem zamówienia",
+      "strona główna ładuje się w czasie krótszym niż 2 sekundy",
+      "administrator może usunąć konto użytkownika"
+    ],
+    "correct": 2,
+    "explanation": "Wymagania niefunkcjonalne opisują cechy systemu (wydajność, bezpieczeństwo, dostępność), a nie konkretne funkcje. Pozostałe odpowiedzi to wymagania funkcjonalne."
+  },
+  {
+    "id": "inz-006",
+    "difficulty": 1,
+    "question": "Diagram UML przedstawiający aktorów (ludziki) oraz funkcje systemu (elipsy) to diagram:",
+    "answers": ["klas", "sekwencji", "przypadków użycia", "stanów"],
+    "correct": 2,
+    "explanation": "Diagram przypadków użycia pokazuje, kto (aktor) korzysta z jakich funkcji systemu (przypadki użycia w elipsach)."
+  },
+  {
+    "id": "inz-007",
+    "difficulty": 2,
+    "question": "Na diagramie klas UML znak „−” przed nazwą pola oznacza, że pole jest:",
+    "answers": ["publiczne", "prywatne", "chronione", "statyczne"],
+    "correct": 1,
+    "explanation": "Oznaczenia widoczności w UML: + public, − private, # protected, ~ package. Składowe statyczne są podkreślone.",
+    "tip": "Zapamiętaj: + publiczne, − prywatne, # chronione."
+  },
+  {
+    "id": "inz-008",
+    "difficulty": 2,
+    "question": "Wzorzec projektowy gwarantujący, że klasa ma tylko jedną instancję, i zapewniający globalny punkt dostępu do niej, to:",
+    "answers": ["Fabryka", "Singleton", "Obserwator", "Adapter"],
+    "correct": 1,
+    "explanation": "Singleton ma prywatny konstruktor i statyczną metodę/właściwość zwracającą jedyną instancję."
+  },
+  {
+    "id": "inz-009",
+    "difficulty": 2,
+    "question": "Wzorzec, w którym obiekty-subskrybenci są automatycznie powiadamiane o zmianie stanu obiektu obserwowanego, to:",
+    "answers": ["Obserwator (Observer)", "Dekorator", "Strategia", "Budowniczy"],
+    "correct": 0,
+    "explanation": "Obserwator realizuje mechanizm publikuj–subskrybuj; na nim opiera się obsługa zdarzeń w GUI."
+  },
+  {
+    "id": "inz-010",
+    "difficulty": 2,
+    "question": "We wzorcu architektonicznym MVC za prezentację danych użytkownikowi odpowiada:",
+    "answers": ["Model", "View (widok)", "Controller (kontroler)", "baza danych"],
+    "correct": 1,
+    "explanation": "Model – dane i logika biznesowa, View – prezentacja, Controller – obsługa żądań/akcji użytkownika i koordynacja."
+  },
+  {
+    "id": "inz-011",
+    "difficulty": 2,
+    "question": "Refaktoryzacja kodu to:",
+    "answers": [
+      "dodanie nowej funkcjonalności do programu",
+      "poprawa struktury i czytelności kodu bez zmiany jego zewnętrznego działania",
+      "przepisanie programu w innym języku",
+      "usunięcie wszystkich komentarzy z kodu"
+    ],
+    "correct": 1,
+    "explanation": "Refaktoryzacja zmienia wewnętrzną budowę kodu (nazwy, podział na funkcje, usunięcie duplikacji), ale zachowuje jego działanie. Bezpiecznie robi się ją przy wsparciu testów."
+  },
+  {
+    "id": "inz-012",
+    "difficulty": 2,
+    "question": "Zasada DRY oznacza:",
+    "answers": ["nie powtarzaj się (unikaj duplikowania kodu)", "pisz najprostszy możliwy kod", "nie implementuj funkcji na zapas", "każda klasa ma jedną odpowiedzialność"],
+    "correct": 0,
+    "explanation": "DRY – Don't Repeat Yourself. Odpowiedź B to KISS, C – YAGNI, D – zasada pojedynczej odpowiedzialności (S z SOLID)."
+  },
+  {
+    "id": "inz-013",
+    "difficulty": 3,
+    "question": "Na diagramie klas UML wypełniony (czarny) romb przy końcu linii oznacza relację:",
+    "answers": ["agregacji", "kompozycji", "dziedziczenia", "zależności"],
+    "correct": 1,
+    "explanation": "Pełny romb to kompozycja – część nie istnieje bez całości (np. Dom–Pokój). Pusty romb oznacza agregację, a pusty trójkąt – dziedziczenie."
+  },
+  {
+    "id": "inz-014",
+    "difficulty": 1,
+    "question": "Codzienne, krótkie (do 15 minut) spotkanie zespołu w Scrumie to:",
+    "answers": ["Sprint Review", "Daily Scrum", "Retrospektywa", "Sprint Planning"],
+    "correct": 1,
+    "explanation": "Daily Scrum (stand-up) służy synchronizacji zespołu i planowaniu pracy na najbliższe 24 godziny."
+  }
+]

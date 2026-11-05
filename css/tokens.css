@@ -1,0 +1,146 @@
+/* =========================================================
+   TOKENY PROJEKTOWE – jedyne miejsce, gdzie definiujemy kolory,
+   odstępy i typografię. Komponenty używają wyłącznie zmiennych.
+   ========================================================= */
+
+:root {
+  /* Typografia */
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", "Fira Code", Consolas, "SFMono-Regular", Menlo, monospace;
+  --fs-xs: .75rem;
+  --fs-sm: .875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 1.75rem;
+  --fs-3xl: 2.25rem;
+  --lh-tight: 1.25;
+  --lh-base: 1.65;
+  --font-scale: 1;
+
+  /* Odstępy (skala 4px) */
+  --sp-1: .25rem;
+  --sp-2: .5rem;
+  --sp-3: .75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+
+  /* Kształty */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Layout */
+  --topbar-h: 60px;
+  --sidebar-w: 260px;
+  --content-max: 1100px;
+  --reading-max: 74ch;
+
+  /* Ruch */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --dur-fast: 120ms;
+  --dur: 220ms;
+
+  /* Z-index */
+  --z-sidebar: 30;
+  --z-topbar: 40;
+  --z-modal: 80;
+  --z-toast: 90;
+}
+
+/* ---------- MOTYW CIEMNY (domyślny) ---------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e1016;
+  --bg-elev: #141720;
+  --surface: #181c26;
+  --surface-2: #1f2430;
+  --surface-3: #283040;
+  --border: #2a3040;
+  --border-strong: #3a4256;
+
+  --text: #e6e9f0;
+  --text-muted: #a3aabb;
+  --text-faint: #737c90;
+
+  --accent: #7b93ff;
+  --accent-strong: #9aadff;
+  --accent-bg: rgba(123, 147, 255, .14);
+  --accent-contrast: #0e1016;
+
+  --success: #4ad295;
+  --success-bg: rgba(74, 210, 149, .13);
+  --danger: #ff7a7a;
+  --danger-bg: rgba(255, 122, 122, .13);
+  --warning: #ffcf5c;
+  --warning-bg: rgba(255, 207, 92, .12);
+  --info: #5cc8ff;
+  --info-bg: rgba(92, 200, 255, .12);
+  --trap: #ff9a62;
+  --trap-bg: rgba(255, 154, 98, .12);
+
+  --code-bg: #11141b;
+  --code-text: #dfe4ee;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .25);
+  --focus: 0 0 0 3px rgba(123, 147, 255, .55);
+
+  /* Kolory składni (highlight.js + edytor) */
+  --tok-keyword: #c792ea;
+  --tok-string: #c3e88d;
+  --tok-number: #f78c6c;
+  --tok-comment: #6b7590;
+  --tok-title: #82aaff;
+  --tok-type: #ffcb6b;
+  --tok-attr: #89ddff;
+  --tok-meta: #ff9cac;
+}
+
+/* ---------- MOTYW JASNY ---------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f5f6f8;
+  --bg-elev: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f0f2f6;
+  --surface-3: #e4e8ef;
+  --border: #dfe3ea;
+  --border-strong: #c7cdd8;
+
+  --text: #161a23;
+  --text-muted: #4f5869;
+  --text-faint: #7c8596;
+
+  --accent: #3b55e6;
+  --accent-strong: #2a41c4;
+  --accent-bg: rgba(59, 85, 230, .09);
+  --accent-contrast: #ffffff;
+
+  --success: #13814f;
+  --success-bg: rgba(19, 129, 79, .1);
+  --danger: #c62f3b;
+  --danger-bg: rgba(198, 47, 59, .09);
+  --warning: #9a6400;
+  --warning-bg: rgba(230, 160, 0, .13);
+  --info: #0a6aa3;
+  --info-bg: rgba(10, 106, 163, .09);
+  --trap: #b4470e;
+  --trap-bg: rgba(220, 100, 30, .1);
+
+  --code-bg: #f6f8fb;
+  --code-text: #1d2330;
+  --shadow: 0 1px 2px rgba(20, 30, 50, .06), 0 8px 24px rgba(20, 30, 50, .08);
+  --focus: 0 0 0 3px rgba(59, 85, 230, .35);
+
+  --tok-keyword: #8a2bb9;
+  --tok-string: #2f7d1f;
+  --tok-number: #b5520c;
+  --tok-comment: #7b8494;
+  --tok-title: #2349c9;
+  --tok-type: #966200;
+  --tok-attr: #0b72a0;
+  --tok-meta: #b8325a;
+}

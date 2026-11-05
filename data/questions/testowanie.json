@@ -1,0 +1,145 @@
+[
+  {
+    "id": "tst-001",
+    "difficulty": 1,
+    "question": "Testy wykonywane bez znajomości kodu źródłowego, na podstawie specyfikacji (dane wejściowe → oczekiwane wyjście), to testy:",
+    "answers": ["białej skrzynki", "czarnej skrzynki", "jednostkowe", "statyczne"],
+    "correct": 1,
+    "explanation": "W testach czarnej skrzynki tester nie zagląda do kodu – sprawdza zachowanie programu z zewnątrz. Testy białej skrzynki opierają się na znajomości kodu.",
+    "tip": "Czarna skrzynka = nie widzę kodu. Biała skrzynka = widzę kod."
+  },
+  {
+    "id": "tst-002",
+    "difficulty": 1,
+    "question": "Testy sprawdzające, czy po wprowadzeniu zmian w kodzie nie przestały działać wcześniej poprawne funkcje, to testy:",
+    "answers": ["regresyjne", "akceptacyjne", "wydajnościowe", "dymne"],
+    "correct": 0,
+    "explanation": "Testy regresyjne powtarza się po każdej zmianie, aby wykryć niezamierzone skutki uboczne (regresję)."
+  },
+  {
+    "id": "tst-003",
+    "difficulty": 1,
+    "question": "Testowanie pojedynczej metody lub klasy w izolacji od reszty systemu to testy:",
+    "answers": ["systemowe", "integracyjne", "jednostkowe", "akceptacyjne"],
+    "correct": 2,
+    "explanation": "Testy jednostkowe (unit tests) sprawdzają najmniejsze fragmenty kodu. Integracyjne sprawdzają współpracę modułów, systemowe – całość."
+  },
+  {
+    "id": "tst-004",
+    "difficulty": 2,
+    "question": "Testy beta to testy przeprowadzane:",
+    "answers": [
+      "przez programistów na etapie implementacji",
+      "przez wybraną grupę użytkowników końcowych przed oficjalnym wydaniem",
+      "automatycznie po każdym commicie",
+      "wyłącznie na kodzie źródłowym bez uruchamiania"
+    ],
+    "correct": 1,
+    "explanation": "Testy alfa przeprowadza się u producenta, testy beta – u wybranych użytkowników zewnętrznych, w rzeczywistym środowisku."
+  },
+  {
+    "id": "tst-005",
+    "difficulty": 2,
+    "question": "Funkcja przyjmuje wiek z przedziału 18–65. Które wartości wybierzesz, stosując analizę wartości brzegowych?",
+    "answers": ["30, 40, 50", "17, 18, 65, 66", "0, 100", "18, 30, 65"],
+    "correct": 1,
+    "explanation": "Analiza wartości brzegowych testuje granice przedziału i wartości tuż poza nimi, bo tam najczęściej pojawiają się błędy (np. > zamiast >=)."
+  },
+  {
+    "id": "tst-006",
+    "difficulty": 2,
+    "question": "W debuggerze Visual Studio polecenie Step Into (F11):",
+    "answers": [
+      "wykonuje bieżącą linię bez wchodzenia do wywoływanych funkcji",
+      "wchodzi do wnętrza wywoływanej funkcji i zatrzymuje się na jej pierwszej instrukcji",
+      "kończy działanie programu",
+      "przechodzi do następnego punktu przerwania"
+    ],
+    "correct": 1,
+    "explanation": "Step Into wchodzi do funkcji, Step Over (F10) wykonuje ją w całości, a Continue (F5) uruchamia program do następnego breakpointu."
+  },
+  {
+    "id": "tst-007",
+    "difficulty": 1,
+    "question": "Punkt przerwania (breakpoint) w debuggerze służy do:",
+    "answers": [
+      "zatrzymania wykonania programu w wybranej linii",
+      "trwałego usunięcia linii kodu",
+      "automatycznej naprawy błędu",
+      "skompilowania programu w trybie Release"
+    ],
+    "correct": 0,
+    "explanation": "Breakpoint wstrzymuje program w wybranym miejscu, dzięki czemu można podejrzeć wartości zmiennych i dalej wykonywać kod krok po kroku."
+  },
+  {
+    "id": "tst-008",
+    "difficulty": 2,
+    "question": "Program kompiluje się i działa bez komunikatów o błędach, ale zwraca niepoprawne wyniki. To przykład błędu:",
+    "answers": ["składniowego", "logicznego", "kompilacji", "linkowania"],
+    "correct": 1,
+    "explanation": "Błąd logiczny nie przerywa działania programu – kod robi coś innego, niż zamierzał programista. Wykrywa się go testami i debuggerem."
+  },
+  {
+    "id": "tst-009",
+    "difficulty": 2,
+    "question": "Blok finally w konstrukcji try–catch–finally wykonuje się:",
+    "answers": ["tylko gdy wystąpi wyjątek", "tylko gdy wyjątek nie wystąpi", "zawsze, niezależnie od wystąpienia wyjątku", "nigdy, jeśli jest blok catch"],
+    "correct": 2,
+    "explanation": "finally wykonuje się zawsze – dlatego umieszcza się w nim zwalnianie zasobów (zamknięcie pliku, połączenia)."
+  },
+  {
+    "id": "tst-010",
+    "difficulty": 2,
+    "question": "Co wypisze program?",
+    "code": [
+      { "lang": "csharp", "src": "try\n{\n    int[] t = new int[3];\n    t[3] = 1;\n    Console.Write(\"A\");\n}\ncatch (IndexOutOfRangeException)\n{\n    Console.Write(\"B\");\n}\nfinally\n{\n    Console.Write(\"C\");\n}" },
+      { "lang": "java", "src": "try {\n    int[] t = new int[3];\n    t[3] = 1;\n    System.out.print(\"A\");\n} catch (ArrayIndexOutOfBoundsException e) {\n    System.out.print(\"B\");\n} finally {\n    System.out.print(\"C\");\n}" },
+      { "lang": "python", "src": "try:\n    t = [0, 0, 0]\n    t[3] = 1\n    print(\"A\", end=\"\")\nexcept IndexError:\n    print(\"B\", end=\"\")\nfinally:\n    print(\"C\", end=\"\")" }
+    ],
+    "answers": ["AC", "BC", "ABC", "B"],
+    "correct": 1,
+    "explanation": "t[3] wychodzi poza tablicę 3-elementową (indeksy 0–2), więc zgłaszany jest wyjątek – „A” się nie wypisze. Wykona się catch (B) i zawsze finally (C)."
+  },
+  {
+    "id": "tst-011",
+    "difficulty": 2,
+    "question": "W teście jednostkowym zapis Assert.AreEqual(5, wynik) służy do:",
+    "answers": [
+      "przypisania zmiennej wynik wartości 5",
+      "sprawdzenia, czy wartość zmiennej wynik jest równa oczekiwanej wartości 5",
+      "wypisania wyniku na konsolę",
+      "zgłoszenia wyjątku, gdy wynik jest równy 5"
+    ],
+    "correct": 1,
+    "explanation": "Asercja porównuje wartość oczekiwaną (5) z rzeczywistą. Jeśli są różne, test kończy się niepowodzeniem."
+  },
+  {
+    "id": "tst-012",
+    "difficulty": 2,
+    "question": "Komentarz dokumentujący w języku Java, z którego narzędzie Javadoc generuje dokumentację, rozpoczyna się od:",
+    "answers": ["//", "/*", "/**", "///"],
+    "correct": 2,
+    "explanation": "Javadoc rozpoznaje komentarze /** … */ z tagami @param, @return. W C# do tego samego służą komentarze /// z XML-em."
+  },
+  {
+    "id": "tst-013",
+    "difficulty": 3,
+    "question": "Podejście TDD (Test-Driven Development) zakłada cykl:",
+    "answers": [
+      "kod → test → wdrożenie",
+      "napisz test, który nie przechodzi → napisz kod, aby test przeszedł → refaktoryzuj",
+      "projekt → kod → testy akceptacyjne",
+      "testy wykonuje się tylko po zakończeniu projektu"
+    ],
+    "correct": 1,
+    "explanation": "TDD to cykl Red–Green–Refactor: najpierw test (czerwony), potem minimalny kod (zielony), na końcu poprawa kodu."
+  },
+  {
+    "id": "tst-014",
+    "difficulty": 2,
+    "question": "Analiza kodu bez jego uruchamiania (np. przegląd kodu, linter) to testowanie:",
+    "answers": ["dynamiczne", "statyczne", "obciążeniowe", "akceptacyjne"],
+    "correct": 1,
+    "explanation": "Testowanie statyczne nie wymaga wykonania programu. Dynamiczne polega na uruchamianiu kodu."
+  }
+]

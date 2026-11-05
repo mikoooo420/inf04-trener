@@ -1,0 +1,122 @@
+[
+  {
+    "id": "web-001",
+    "difficulty": 1,
+    "question": "Metoda HTTP służąca w REST API do pobrania zasobu to:",
+    "answers": ["POST", "GET", "PUT", "DELETE"],
+    "correct": 1,
+    "explanation": "GET pobiera dane, POST tworzy nowy zasób, PUT go aktualizuje (zastępuje), DELETE usuwa."
+  },
+  {
+    "id": "web-002",
+    "difficulty": 1,
+    "question": "Kod odpowiedzi HTTP 404 oznacza:",
+    "answers": ["błąd wewnętrzny serwera", "brak autoryzacji", "nie znaleziono zasobu", "poprawne wykonanie żądania"],
+    "correct": 2,
+    "explanation": "404 Not Found – zasób nie istnieje. 500 to błąd serwera, 401 – brak uwierzytelnienia, 200 – sukces."
+  },
+  {
+    "id": "web-003",
+    "difficulty": 2,
+    "question": "Kody odpowiedzi HTTP z zakresu 5xx oznaczają:",
+    "answers": ["sukces", "przekierowanie", "błąd po stronie klienta", "błąd po stronie serwera"],
+    "correct": 3,
+    "explanation": "2xx – sukces, 3xx – przekierowanie, 4xx – błąd klienta, 5xx – błąd serwera."
+  },
+  {
+    "id": "web-004",
+    "difficulty": 2,
+    "question": "Co zostanie wyświetlone w elemencie o id „wynik”, jeśli użytkownik wpisał w pola liczby 2 i 3?",
+    "code": { "lang": "javascript", "src": "const a = document.getElementById('a').value;\nconst b = document.getElementById('b').value;\ndocument.getElementById('wynik').textContent = a + b;" },
+    "answers": ["5", "23", "NaN", "undefined"],
+    "correct": 1,
+    "explanation": "Właściwość value zwraca napis, więc + skleja teksty: \"2\" + \"3\" = \"23\". Trzeba zamienić je na liczby: Number(a) + Number(b).",
+    "tip": "value z pola formularza to zawsze napis – częsta pułapka w zadaniach webowych."
+  },
+  {
+    "id": "web-005",
+    "difficulty": 1,
+    "question": "Format wymiany danych zapisywany jako pary \"klucz\": wartość w nawiasach klamrowych, powszechnie używany w REST API, to:",
+    "answers": ["XML", "CSV", "JSON", "YAML"],
+    "correct": 2,
+    "explanation": "JSON (JavaScript Object Notation) używa obiektów { } i tablic [ ]; klucze zapisuje się w podwójnych cudzysłowach."
+  },
+  {
+    "id": "web-006",
+    "difficulty": 2,
+    "question": "Framework frontendowy tworzony przez Google, oparty na języku TypeScript, z dwukierunkowym wiązaniem danych, to:",
+    "answers": ["React", "Angular", "Vue.js", "Django"],
+    "correct": 1,
+    "explanation": "Angular (Google) używa TypeScriptu i oferuje dwukierunkowe wiązanie danych. React to biblioteka Meta, Vue – niezależny projekt, Django – backend w Pythonie."
+  },
+  {
+    "id": "web-007",
+    "difficulty": 2,
+    "question": "W bibliotece React dane przekazywane do komponentu z komponentu nadrzędnego, przeznaczone tylko do odczytu, to:",
+    "answers": ["state", "props", "hooks", "refs"],
+    "correct": 1,
+    "explanation": "props to parametry komponentu (tylko do odczytu). state to wewnętrzny, zmienny stan komponentu (np. useState)."
+  },
+  {
+    "id": "web-008",
+    "difficulty": 2,
+    "question": "Aplikacja internetowa, która ładuje jedną stronę HTML i dynamicznie podmienia jej zawartość bez przeładowania, to:",
+    "answers": ["MPA", "SPA", "CMS", "API"],
+    "correct": 1,
+    "explanation": "SPA (Single Page Application) – zawartością zarządza JavaScript, przejścia między widokami nie wymagają przeładowania strony."
+  },
+  {
+    "id": "web-009",
+    "difficulty": 2,
+    "question": "Która metoda JavaScript zwraca pierwszy element pasujący do selektora CSS?",
+    "answers": ["document.getElementsByClassName()", "document.querySelector()", "document.querySelectorAll()", "document.getElementByTag()"],
+    "correct": 1,
+    "explanation": "querySelector() zwraca pierwszy pasujący element, querySelectorAll() – wszystkie (NodeList). getElementByTag nie istnieje (jest getElementsByTagName)."
+  },
+  {
+    "id": "web-010",
+    "difficulty": 2,
+    "question": "Wynikiem wyrażenia w JavaScript 5 === \"5\" jest:",
+    "answers": ["true", "false", "undefined", "błąd składni"],
+    "correct": 1,
+    "explanation": "Operator === porównuje wartość i typ bez konwersji – liczba i napis są różnymi typami. Natomiast 5 == \"5\" dałoby true (konwersja typów)."
+  },
+  {
+    "id": "web-011",
+    "difficulty": 2,
+    "question": "Domyślny port protokołu HTTPS to:",
+    "answers": ["21", "80", "443", "8080"],
+    "correct": 2,
+    "explanation": "HTTPS – port 443, HTTP – port 80, FTP – port 21."
+  },
+  {
+    "id": "web-012",
+    "difficulty": 2,
+    "question": "Słowo kluczowe await w JavaScript:",
+    "answers": [
+      "tworzy nowy wątek",
+      "wstrzymuje wykonanie funkcji async do momentu rozwiązania obietnicy (Promise)",
+      "deklaruje stałą",
+      "blokuje całą przeglądarkę do czasu odpowiedzi serwera"
+    ],
+    "correct": 1,
+    "explanation": "await można użyć w funkcji async – czeka na wynik Promise, nie blokując przy tym interfejsu przeglądarki."
+  },
+  {
+    "id": "web-013",
+    "difficulty": 1,
+    "question": "Za styl i wygląd strony internetowej (kolory, czcionki, układ) odpowiada:",
+    "answers": ["HTML", "CSS", "JavaScript", "HTTP"],
+    "correct": 1,
+    "explanation": "HTML – struktura, CSS – wygląd, JavaScript – zachowanie/interakcje."
+  },
+  {
+    "id": "web-014",
+    "difficulty": 3,
+    "question": "Co wypisze kod w konsoli?",
+    "code": { "lang": "javascript", "src": "const liczby = [1, 2, 3, 4, 5];\nconst wynik = liczby.filter(x => x % 2 === 1).map(x => x * 10);\nconsole.log(wynik);" },
+    "answers": ["[10, 30, 50]", "[20, 40]", "[10, 20, 30, 40, 50]", "[1, 3, 5]"],
+    "correct": 0,
+    "explanation": "filter zostawia liczby nieparzyste [1, 3, 5], a map mnoży każdą przez 10 → [10, 30, 50]."
+  }
+]

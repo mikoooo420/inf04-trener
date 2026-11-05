@@ -1,0 +1,134 @@
+[
+  {
+    "id": "bez-001",
+    "difficulty": 1,
+    "question": "Licencja pozwalająca na bezpłatne używanie programu, ale bez dostępu do kodu źródłowego i prawa do jego modyfikacji, to:",
+    "answers": ["GNU GPL", "freeware", "shareware", "public domain"],
+    "correct": 1,
+    "explanation": "Freeware jest darmowe, ale zwykle zamknięte. Shareware to wersja próbna z ograniczeniami. GPL daje dostęp do kodu."
+  },
+  {
+    "id": "bez-002",
+    "difficulty": 2,
+    "question": "Licencja, która wymaga, aby zmodyfikowana i rozpowszechniana wersja programu była udostępniona na tej samej licencji wraz z kodem źródłowym (copyleft), to:",
+    "answers": ["MIT", "GNU GPL", "BSD", "EULA"],
+    "correct": 1,
+    "explanation": "GNU GPL to licencja copyleft. MIT i BSD są liberalne – pozwalają włączyć kod do zamkniętego oprogramowania.",
+    "tip": "GPL = copyleft = trzeba udostępnić kod zmodyfikowanej wersji."
+  },
+  {
+    "id": "bez-003",
+    "difficulty": 2,
+    "question": "Oprogramowanie w wersji OEM to oprogramowanie:",
+    "answers": [
+      "dostępne za darmo z kodem źródłowym",
+      "sprzedawane razem z nowym sprzętem i przypisane do tego urządzenia",
+      "w wersji próbnej na 30 dni",
+      "finansowane z reklam"
+    ],
+    "correct": 1,
+    "explanation": "Licencja OEM jest dołączana do sprzętu (np. Windows na nowym laptopie) i co do zasady nie można jej przenieść na inny komputer."
+  },
+  {
+    "id": "bez-004",
+    "difficulty": 2,
+    "question": "Atak polegający na wpisaniu w pole logowania fragmentu ' OR '1'='1 to:",
+    "answers": ["XSS", "SQL Injection", "DDoS", "phishing"],
+    "correct": 1,
+    "explanation": "SQL Injection modyfikuje zapytanie SQL sklejane z danymi użytkownika. Obrona: zapytania parametryzowane (prepared statements)."
+  },
+  {
+    "id": "bez-005",
+    "difficulty": 2,
+    "question": "Najskuteczniejszą ochroną przed atakiem SQL Injection jest:",
+    "answers": [
+      "ukrycie adresu serwera bazy danych",
+      "stosowanie zapytań parametryzowanych (prepared statements)",
+      "szyfrowanie kodu źródłowego aplikacji",
+      "walidacja danych wyłącznie w JavaScript po stronie klienta"
+    ],
+    "correct": 1,
+    "explanation": "Parametry są przekazywane do bazy oddzielnie od treści zapytania, więc nie mogą zmienić jego struktury. Walidacja tylko po stronie klienta jest łatwa do obejścia."
+  },
+  {
+    "id": "bez-006",
+    "difficulty": 2,
+    "question": "Atak polegający na umieszczeniu na stronie złośliwego skryptu JavaScript, który wykona się w przeglądarkach innych użytkowników, to:",
+    "answers": ["XSS (Cross-Site Scripting)", "SQL Injection", "brute force", "man-in-the-middle"],
+    "correct": 0,
+    "explanation": "XSS wykorzystuje brak kodowania (escapowania) danych wyświetlanych na stronie. Ochrona: escapowanie wyjścia, textContent zamiast innerHTML, nagłówek Content-Security-Policy."
+  },
+  {
+    "id": "bez-007",
+    "difficulty": 2,
+    "question": "Hasła użytkowników w bazie danych należy przechowywać jako:",
+    "answers": [
+      "zwykły tekst, aby można je było przypomnieć użytkownikowi",
+      "tekst zaszyfrowany kluczem zapisanym w kodzie aplikacji",
+      "skrót (hash) obliczony algorytmem przeznaczonym do haseł, np. bcrypt lub Argon2, z solą",
+      "skrót MD5 bez soli"
+    ],
+    "correct": 2,
+    "explanation": "Hasła hashuje się wolnymi algorytmami z solą (bcrypt, scrypt, Argon2, PBKDF2). MD5 i SHA-1 są za szybkie i podatne na ataki."
+  },
+  {
+    "id": "bez-008",
+    "difficulty": 2,
+    "question": "Sól (salt) w kontekście przechowywania haseł to:",
+    "answers": [
+      "losowy ciąg dodawany do hasła przed obliczeniem skrótu",
+      "klucz prywatny serwera",
+      "maksymalna długość hasła",
+      "algorytm szyfrowania symetrycznego"
+    ],
+    "correct": 0,
+    "explanation": "Sól sprawia, że dwa identyczne hasła mają różne hashe, co uniemożliwia użycie gotowych tablic tęczowych."
+  },
+  {
+    "id": "bez-009",
+    "difficulty": 2,
+    "question": "Szyfrowanie, w którym do zaszyfrowania i odszyfrowania wiadomości używa się tego samego klucza, to szyfrowanie:",
+    "answers": ["asymetryczne", "symetryczne", "jednokierunkowe", "hybrydowe"],
+    "correct": 1,
+    "explanation": "Symetryczne (np. AES) – jeden wspólny klucz. Asymetryczne (np. RSA) – para kluczy: publiczny i prywatny."
+  },
+  {
+    "id": "bez-010",
+    "difficulty": 2,
+    "question": "Autorskie prawa osobiste do programu komputerowego:",
+    "answers": [
+      "można sprzedać innej firmie",
+      "wygasają po 5 latach",
+      "są niezbywalne i nieograniczone w czasie",
+      "przysługują wyłącznie użytkownikowi programu"
+    ],
+    "correct": 2,
+    "explanation": "Prawa osobiste (np. do autorstwa) są niezbywalne. Przenieść (sprzedać) można autorskie prawa majątkowe."
+  },
+  {
+    "id": "bez-011",
+    "difficulty": 2,
+    "question": "Zgodnie z zasadą minimalizacji danych RODO aplikacja powinna:",
+    "answers": [
+      "zbierać jak najwięcej danych na przyszłość",
+      "zbierać tylko dane niezbędne do realizacji określonego celu",
+      "przechowywać dane bez ograniczeń czasowych",
+      "udostępniać dane partnerom bez zgody użytkownika"
+    ],
+    "correct": 1,
+    "explanation": "Minimalizacja danych – przetwarzamy tylko te dane, które są adekwatne i niezbędne do celu, w jakim je zebrano."
+  },
+  {
+    "id": "bez-012",
+    "difficulty": 2,
+    "question": "Oznaczenie licencji Creative Commons BY-NC oznacza, że utwór można wykorzystywać:",
+    "answers": [
+      "dowolnie, także komercyjnie, bez podawania autora",
+      "z podaniem autora, ale bez użytku komercyjnego",
+      "tylko bez wprowadzania zmian",
+      "wyłącznie w celach komercyjnych"
+    ],
+    "correct": 1,
+    "explanation": "BY – wymagane uznanie autorstwa, NC (NonCommercial) – zakaz użytku komercyjnego. ND oznaczałoby zakaz zmian, SA – udostępnianie na tych samych warunkach."
+  }
+]

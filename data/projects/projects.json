@@ -1,0 +1,936 @@
+[
+  {
+    "id": "proj-01",
+    "title": "Schronisko „Łapa” – losowanie i formularz adopcji",
+    "difficulty": 1,
+    "durationMin": 180,
+    "summary": "Klasa z tablicą liczb losowych i wyszukiwaniem z wartownikiem + formularz adopcji z walidacją.",
+    "intro": "Schronisko dla zwierząt „Łapa” potrzebuje dwóch prostych programów: narzędzia konsolowego do losowania numerów boksów oraz formularza zgłoszenia adopcji na stronę internetową.\n\n**Wykonaj kolejno:** aplikację konsolową, aplikację webową oraz dokumentację. Aplikację konsolową napisz w wybranym języku (C++, C#, Java lub Python) w swoim IDE. Aplikację webową możesz wykonać bezpośrednio w środowisku poniżej – testy automatyczne sprawdzą jej działanie.\n\n> [!INFO]\n> To arkusz treningowy przygotowany na wzór zadań egzaminacyjnych. Kryteria oceniania to samoocena – zaznacz te, które Twoja praca spełnia.",
+    "parts": [
+      {
+        "id": "p1-console",
+        "title": "Aplikacja konsolowa",
+        "type": "checklist",
+        "minutes": 70,
+        "brief": "Napisz program konsolowy z klasą **`Losowanie`**:\n\n- pole **prywatne**: tablica 10 liczb całkowitych,\n- metoda `wypelnij()` – wypełnia tablicę liczbami pseudolosowymi z zakresu **1–100**,\n- metoda `wypisz()` – wypisuje zawartość tablicy w jednej linii, liczby oddzielone przecinkami,\n- metoda `szukaj(x)` – zwraca **indeks pierwszego wystąpienia** liczby `x` w tablicy lub `-1`, jeśli jej nie ma. Zastosuj **algorytm z wartownikiem**,\n- metoda `ileParzystych()` – zwraca liczbę parzystych elementów tablicy.\n\nW programie głównym:\n\n1. utwórz obiekt klasy `Losowanie`, wypełnij tablicę i wypisz ją,\n2. poproś użytkownika o liczbę do wyszukania (komunikat: `Podaj liczbę do wyszukania:`),\n3. wypisz `Liczba X jest na pozycji Y` albo `Nie znaleziono liczby X`,\n4. wypisz `Liczb parzystych: N`.\n\nAlgorytmy wyszukiwania i zliczania zaimplementuj samodzielnie – bez gotowych funkcji bibliotecznych (np. `find`, `IndexOf`, `count`).",
+        "starters": {
+          "cpp": "#include <iostream>\n#include <cstdlib>\n#include <ctime>\nusing namespace std;\n\nclass Losowanie {\nprivate:\n    int tab[11];   // 10 liczb + miejsce na wartownika\n    const int N = 10;\npublic:\n    void wypelnij() { /* TODO */ }\n    void wypisz() { /* TODO */ }\n    int szukaj(int x) { /* TODO */ return -1; }\n    int ileParzystych() { /* TODO */ return 0; }\n};\n\nint main() {\n    srand(time(nullptr));\n    // TODO\n    return 0;\n}\n",
+          "csharp": "using System;\n\nclass Losowanie\n{\n    private int[] tab = new int[11];   // 10 liczb + wartownik\n    private const int N = 10;\n    private static readonly Random rnd = new Random();\n\n    public void Wypelnij() { /* TODO */ }\n    public void Wypisz() { /* TODO */ }\n    public int Szukaj(int x) { /* TODO */ return -1; }\n    public int IleParzystych() { /* TODO */ return 0; }\n}\n\nclass Program\n{\n    static void Main()\n    {\n        // TODO\n    }\n}\n",
+          "python": "import random\n\n\nclass Losowanie:\n    N = 10\n\n    def __init__(self):\n        self.__tab = []\n\n    def wypelnij(self):\n        pass  # TODO\n\n    def wypisz(self):\n        pass  # TODO\n\n    def szukaj(self, x):\n        return -1  # TODO\n\n    def ile_parzystych(self):\n        return 0  # TODO\n\n\nif __name__ == \"__main__\":\n    pass  # TODO\n"
+        },
+        "criteria": [
+          {
+            "id": "p1-c1",
+            "text": "Zdefiniowano klasę Losowanie z prywatną tablicą liczb całkowitych",
+            "points": 1
+          },
+          {
+            "id": "p1-c2",
+            "text": "Metoda wypelnij() losuje 10 liczb z zakresu 1–100 (oba końce możliwe)",
+            "points": 1
+          },
+          {
+            "id": "p1-c3",
+            "text": "Metoda wypisz() wypisuje liczby w jednej linii oddzielone przecinkami",
+            "points": 1
+          },
+          {
+            "id": "p1-c4",
+            "text": "Metoda szukaj() stosuje wartownika (dopisanie x na końcu i pętla z jednym warunkiem)",
+            "points": 2
+          },
+          {
+            "id": "p1-c5",
+            "text": "szukaj() zwraca indeks pierwszego wystąpienia lub -1",
+            "points": 1
+          },
+          {
+            "id": "p1-c6",
+            "text": "Metoda ileParzystych() poprawnie zlicza liczby parzyste bez funkcji bibliotecznych",
+            "points": 1
+          },
+          {
+            "id": "p1-c7",
+            "text": "Program główny: komunikat o wczytaniu, wczytanie liczby, poprawne komunikaty wyniku",
+            "points": 2
+          },
+          {
+            "id": "p1-c8",
+            "text": "Kod jest czytelny: wcięcia, sensowne nazwy, brak zbędnego kodu",
+            "points": 1
+          }
+        ],
+        "solution": {
+          "cpp": "#include <iostream>\n#include <cstdlib>\n#include <ctime>\nusing namespace std;\n\nclass Losowanie {\nprivate:\n    static const int N = 10;\n    int tab[N + 1];   // +1 na wartownika\npublic:\n    void wypelnij() {\n        for (int i = 0; i < N; i++)\n            tab[i] = rand() % 100 + 1;\n    }\n\n    void wypisz() {\n        for (int i = 0; i < N; i++)\n            cout << tab[i] << (i < N - 1 ? \", \" : \"\\n\");\n    }\n\n    int szukaj(int x) {\n        tab[N] = x;              // wartownik\n        int i = 0;\n        while (tab[i] != x) i++;\n        return i < N ? i : -1;\n    }\n\n    int ileParzystych() {\n        int ile = 0;\n        for (int i = 0; i < N; i++)\n            if (tab[i] % 2 == 0) ile++;\n        return ile;\n    }\n};\n\nint main() {\n    srand(time(nullptr));\n    Losowanie los;\n    los.wypelnij();\n    los.wypisz();\n\n    int x;\n    cout << \"Podaj liczbę do wyszukania: \";\n    cin >> x;\n    int poz = los.szukaj(x);\n    if (poz != -1) cout << \"Liczba \" << x << \" jest na pozycji \" << poz << endl;\n    else cout << \"Nie znaleziono liczby \" << x << endl;\n\n    cout << \"Liczb parzystych: \" << los.ileParzystych() << endl;\n    return 0;\n}\n",
+          "csharp": "using System;\n\nclass Losowanie\n{\n    private const int N = 10;\n    private int[] tab = new int[N + 1];\n    private static readonly Random rnd = new Random();\n\n    public void Wypelnij()\n    {\n        for (int i = 0; i < N; i++)\n            tab[i] = rnd.Next(1, 101);   // górna granica wyłączna\n    }\n\n    public void Wypisz()\n    {\n        for (int i = 0; i < N; i++)\n            Console.Write(tab[i] + (i < N - 1 ? \", \" : \"\\n\"));\n    }\n\n    public int Szukaj(int x)\n    {\n        tab[N] = x;\n        int i = 0;\n        while (tab[i] != x) i++;\n        return i < N ? i : -1;\n    }\n\n    public int IleParzystych()\n    {\n        int ile = 0;\n        for (int i = 0; i < N; i++)\n            if (tab[i] % 2 == 0) ile++;\n        return ile;\n    }\n}\n\nclass Program\n{\n    static void Main()\n    {\n        var los = new Losowanie();\n        los.Wypelnij();\n        los.Wypisz();\n\n        Console.Write(\"Podaj liczbę do wyszukania: \");\n        int x = int.Parse(Console.ReadLine());\n        int poz = los.Szukaj(x);\n        Console.WriteLine(poz != -1\n            ? $\"Liczba {x} jest na pozycji {poz}\"\n            : $\"Nie znaleziono liczby {x}\");\n\n        Console.WriteLine($\"Liczb parzystych: {los.IleParzystych()}\");\n    }\n}\n",
+          "python": "import random\n\n\nclass Losowanie:\n    N = 10\n\n    def __init__(self):\n        self.__tab = [0] * (Losowanie.N + 1)\n\n    def wypelnij(self):\n        for i in range(Losowanie.N):\n            self.__tab[i] = random.randint(1, 100)   # oba końce włącznie\n\n    def wypisz(self):\n        print(\", \".join(str(x) for x in self.__tab[:Losowanie.N]))\n\n    def szukaj(self, x):\n        self.__tab[Losowanie.N] = x      # wartownik\n        i = 0\n        while self.__tab[i] != x:\n            i += 1\n        return i if i < Losowanie.N else -1\n\n    def ile_parzystych(self):\n        ile = 0\n        for i in range(Losowanie.N):\n            if self.__tab[i] % 2 == 0:\n                ile += 1\n        return ile\n\n\nif __name__ == \"__main__\":\n    los = Losowanie()\n    los.wypelnij()\n    los.wypisz()\n    x = int(input(\"Podaj liczbę do wyszukania: \"))\n    poz = los.szukaj(x)\n    if poz != -1:\n        print(f\"Liczba {x} jest na pozycji {poz}\")\n    else:\n        print(f\"Nie znaleziono liczby {x}\")\n    print(f\"Liczb parzystych: {los.ile_parzystych()}\")\n"
+        }
+      },
+      {
+        "id": "p1-web",
+        "title": "Aplikacja webowa – formularz adopcji",
+        "type": "web",
+        "minutes": 80,
+        "brief": "Przygotuj stronę z formularzem zgłoszenia adopcji. Wymagane elementy (identyfikatory muszą być **dokładnie** takie jak poniżej):\n\n| Element | Identyfikator | Uwagi |\n|---|---|---|\n| Nagłówek `<h1>` | – | tekst: **Adoptuj pupila** |\n| Pole tekstowe | `imie` | `type=\"text\"` |\n| Pole liczbowe | `wiek` | `type=\"number\"` |\n| Lista rozwijana | `gatunek` | opcje o wartościach i tekstach: **pies**, **kot**, **królik** |\n| Pole wyboru | `regulamin` | `type=\"checkbox\"`, etykieta „Akceptuję regulamin” |\n| Przycisk | `zatwierdz` | tekst **Zatwierdź**, kolor tła `#2E7D32`, tekst biały |\n| Akapit na komunikat | `komunikat` | początkowo pusty |\n\nPo kliknięciu przycisku skrypt sprawdza dane **w podanej kolejności** i wpisuje do akapitu `komunikat`:\n\n1. jeśli regulamin nie jest zaakceptowany → `Zaakceptuj regulamin`,\n2. jeśli wiek jest mniejszy niż 18 → `Musisz być pełnoletni`,\n3. w przeciwnym razie → `Dziękujemy, <imię>! Skontaktujemy się w sprawie adopcji: <gatunek>`.\n\nUżyj przycisku `type=\"button\"` z obsługą zdarzenia `click` – formularz nie może przeładowywać strony.",
+        "starter": {
+          "html": "<h1>Adoptuj pupila</h1>\n\n<!-- TODO: pola formularza -->\n\n<p id=\"komunikat\"></p>\n",
+          "css": "body {\n    font-family: Arial, sans-serif;\n    background: #F5F5F5;\n}\n\n/* TODO: styl przycisku #zatwierdz */\n",
+          "js": "// TODO: obsługa kliknięcia przycisku #zatwierdz\n"
+        },
+        "checks": [
+          {
+            "name": "Nagłówek h1 z tekstem „Adoptuj pupila”",
+            "steps": [
+              {
+                "expectText": "h1",
+                "equals": "Adoptuj pupila"
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "Pole #imie typu text",
+            "steps": [
+              {
+                "exists": "#imie",
+                "tag": "input",
+                "type": "text"
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "Pole #wiek typu number",
+            "steps": [
+              {
+                "exists": "#wiek",
+                "tag": "input",
+                "type": "number"
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "Lista #gatunek ma 3 opcje",
+            "steps": [
+              {
+                "exists": "#gatunek",
+                "tag": "select"
+              },
+              {
+                "expectCount": "#gatunek option",
+                "equals": 3
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "Pole wyboru #regulamin",
+            "steps": [
+              {
+                "exists": "#regulamin",
+                "tag": "input",
+                "type": "checkbox"
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "Przycisk #zatwierdz ma zielone tło (#2E7D32)",
+            "points": 1,
+            "steps": [
+              {
+                "exists": "#zatwierdz"
+              },
+              {
+                "expectStyle": "#zatwierdz",
+                "prop": "backgroundColor",
+                "equals": "rgb(46, 125, 50)"
+              }
+            ]
+          },
+          {
+            "name": "Brak zgody na regulamin → „Zaakceptuj regulamin”",
+            "points": 2,
+            "steps": [
+              {
+                "set": "#imie",
+                "value": "Ola"
+              },
+              {
+                "set": "#wiek",
+                "value": "20"
+              },
+              {
+                "check": "#regulamin",
+                "checked": false
+              },
+              {
+                "click": "#zatwierdz"
+              },
+              {
+                "expectText": "#komunikat",
+                "equals": "Zaakceptuj regulamin"
+              }
+            ]
+          },
+          {
+            "name": "Wiek 16 → „Musisz być pełnoletni”",
+            "points": 2,
+            "steps": [
+              {
+                "set": "#imie",
+                "value": "Kuba"
+              },
+              {
+                "set": "#wiek",
+                "value": "16"
+              },
+              {
+                "check": "#regulamin",
+                "checked": true
+              },
+              {
+                "click": "#zatwierdz"
+              },
+              {
+                "expectText": "#komunikat",
+                "equals": "Musisz być pełnoletni"
+              }
+            ]
+          },
+          {
+            "name": "Poprawne dane → podziękowanie z imieniem i gatunkiem",
+            "points": 2,
+            "steps": [
+              {
+                "set": "#imie",
+                "value": "Anna"
+              },
+              {
+                "set": "#wiek",
+                "value": "25"
+              },
+              {
+                "select": "#gatunek",
+                "value": "kot"
+              },
+              {
+                "check": "#regulamin",
+                "checked": true
+              },
+              {
+                "click": "#zatwierdz"
+              },
+              {
+                "expectText": "#komunikat",
+                "equals": "Dziękujemy, Anna! Skontaktujemy się w sprawie adopcji: kot"
+              }
+            ]
+          },
+          {
+            "name": "Wiek dokładnie 18 jest akceptowany",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#imie",
+                "value": "Ewa"
+              },
+              {
+                "set": "#wiek",
+                "value": "18"
+              },
+              {
+                "select": "#gatunek",
+                "value": "pies"
+              },
+              {
+                "check": "#regulamin",
+                "checked": true
+              },
+              {
+                "click": "#zatwierdz"
+              },
+              {
+                "expectText": "#komunikat",
+                "contains": "Dziękujemy, Ewa!"
+              }
+            ]
+          }
+        ],
+        "criteria": [
+          {
+            "id": "p1-w1",
+            "text": "Pola formularza mają etykiety <label> powiązane atrybutem for",
+            "points": 1
+          },
+          {
+            "id": "p1-w2",
+            "text": "Kod JS jest w osobnej funkcji, a wiek zamieniany na liczbę (Number/parseInt)",
+            "points": 1
+          }
+        ],
+        "solution": {
+          "html": "<h1>Adoptuj pupila</h1>\n\n<label for=\"imie\">Imię:</label>\n<input type=\"text\" id=\"imie\"><br>\n\n<label for=\"wiek\">Wiek:</label>\n<input type=\"number\" id=\"wiek\"><br>\n\n<label for=\"gatunek\">Gatunek:</label>\n<select id=\"gatunek\">\n    <option value=\"pies\">pies</option>\n    <option value=\"kot\">kot</option>\n    <option value=\"królik\">królik</option>\n</select><br>\n\n<input type=\"checkbox\" id=\"regulamin\">\n<label for=\"regulamin\">Akceptuję regulamin</label><br>\n\n<button type=\"button\" id=\"zatwierdz\">Zatwierdź</button>\n<p id=\"komunikat\"></p>\n",
+          "css": "body {\n    font-family: Arial, sans-serif;\n    background: #F5F5F5;\n}\n\n#zatwierdz {\n    background-color: #2E7D32;\n    color: white;\n    border: none;\n    padding: 8px 16px;\n}\n",
+          "js": "function zatwierdz() {\n    const imie = document.getElementById('imie').value;\n    const wiek = Number(document.getElementById('wiek').value);\n    const gatunek = document.getElementById('gatunek').value;\n    const regulamin = document.getElementById('regulamin').checked;\n    const komunikat = document.getElementById('komunikat');\n\n    if (!regulamin) {\n        komunikat.textContent = 'Zaakceptuj regulamin';\n    } else if (wiek < 18) {\n        komunikat.textContent = 'Musisz być pełnoletni';\n    } else {\n        komunikat.textContent = `Dziękujemy, ${imie}! Skontaktujemy się w sprawie adopcji: ${gatunek}`;\n    }\n}\n\ndocument.getElementById('zatwierdz').addEventListener('click', zatwierdz);\n"
+        }
+      },
+      {
+        "id": "p1-doc",
+        "title": "Dokumentacja",
+        "type": "checklist",
+        "minutes": 20,
+        "brief": "1. Do metody `szukaj` dodaj **komentarz nagłówkowy** w formacie:\n\n```\n/*******************************************\n * nazwa funkcji:   <nazwa>\n * opis funkcji:    <co robi funkcja>\n * parametry:       <nazwa – opis> lub brak\n * zwracany typ i opis: <typ – opis> lub brak\n * autor:           <numer zdającego>\n ******************************************/\n```\n\n2. Wykonaj **zrzuty ekranu** obu aplikacji (konsolowej i webowej) pokazujące działanie dla przykładowych danych. Nazwij je zgodnie z poleceniem, np. `konsola.png`, `web1.png`, `web2.png`.\n3. W pliku `testy.txt` zapisz: nazwę systemu operacyjnego, nazwy środowisk programistycznych i ich wersje, użyte języki programowania oraz opis przeprowadzonych testów (dane wejściowe → otrzymany wynik).\n\n> [!CKE]\n> Dokumentacja to najłatwiejsze punkty na egzaminie. Zostaw sobie na nią co najmniej 15 minut przed końcem czasu.",
+        "criteria": [
+          {
+            "id": "p1-d1",
+            "text": "Komentarz nagłówkowy metody szukaj zawiera nazwę, opis, parametry i typ zwracany",
+            "points": 2
+          },
+          {
+            "id": "p1-d2",
+            "text": "W komentarzu podano autora (numer zdającego)",
+            "points": 1
+          },
+          {
+            "id": "p1-d3",
+            "text": "Zrzut ekranu aplikacji konsolowej pokazuje poprawne działanie",
+            "points": 1
+          },
+          {
+            "id": "p1-d4",
+            "text": "Zrzuty ekranu aplikacji webowej pokazują oba scenariusze (poprawny i błąd walidacji)",
+            "points": 1
+          },
+          {
+            "id": "p1-d5",
+            "text": "Plik testy.txt zawiera system operacyjny, IDE z wersjami i języki programowania",
+            "points": 1
+          },
+          {
+            "id": "p1-d6",
+            "text": "Plik testy.txt opisuje przeprowadzone testy (dane → wynik)",
+            "points": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "proj-02",
+    "title": "Dziennik ucznia – klasa Uczen i kalkulator średniej",
+    "difficulty": 2,
+    "durationMin": 180,
+    "summary": "Klasa z kolekcją ocen, walidacją i polem statycznym + kalkulator średniej z parsowaniem danych.",
+    "intro": "Szkoła chce prostego modułu dziennika. Twoje zadanie to aplikacja konsolowa z klasą `Uczen` oraz strona internetowa liczącą średnią ocen z wpisanego ciągu.\n\nWykonaj kolejno wszystkie części. Nazwy klas, metod i identyfikatorów muszą być **dokładnie** takie jak w poleceniu.",
+    "parts": [
+      {
+        "id": "p2-console",
+        "title": "Aplikacja konsolowa",
+        "type": "checklist",
+        "minutes": 75,
+        "brief": "Napisz klasę **`Uczen`**:\n\n- pola prywatne: `imie`, `nazwisko`, kolekcja ocen (lista/tablica dynamiczna liczb całkowitych),\n- **pole statyczne** `liczbaUczniow` – licznik utworzonych obiektów,\n- konstruktor z parametrami `imie` i `nazwisko` – zwiększa licznik,\n- metoda `dodajOcene(ocena)` – dodaje ocenę **tylko** z zakresu 1–6 i zwraca `true`; dla niepoprawnej oceny nic nie dodaje i zwraca `false`,\n- metoda `srednia()` – zwraca średnią ocen jako liczbę rzeczywistą; gdy brak ocen, zwraca 0,\n- metoda `czyPromocja()` – zwraca `true`, gdy uczeń ma co najmniej jedną ocenę i **żadna** nie jest równa 1,\n- metoda `wypisz()` – wypisuje `Imię Nazwisko, średnia: X.XX` (średnia z dwoma miejscami po przecinku).\n\nW programie głównym utwórz **dwóch** uczniów, dodaj każdemu kilka ocen (w tym jedną niepoprawną, np. 7 – wypisz komunikat `Niepoprawna ocena`), wypisz obu uczniów, informację o promocji i liczbę utworzonych uczniów.",
+        "starters": {
+          "cpp": "#include <iostream>\n#include <vector>\n#include <iomanip>\nusing namespace std;\n\nclass Uczen {\nprivate:\n    string imie, nazwisko;\n    vector<int> oceny;\npublic:\n    static int liczbaUczniow;\n    Uczen(string imie, string nazwisko) { /* TODO */ }\n    bool dodajOcene(int ocena) { /* TODO */ return false; }\n    double srednia() { /* TODO */ return 0; }\n    bool czyPromocja() { /* TODO */ return false; }\n    void wypisz() { /* TODO */ }\n};\n\nint Uczen::liczbaUczniow = 0;\n\nint main() {\n    // TODO\n    return 0;\n}\n",
+          "csharp": "using System;\nusing System.Collections.Generic;\n\nclass Uczen\n{\n    private string imie, nazwisko;\n    private List<int> oceny = new List<int>();\n    public static int LiczbaUczniow = 0;\n\n    public Uczen(string imie, string nazwisko) { /* TODO */ }\n    public bool DodajOcene(int ocena) { /* TODO */ return false; }\n    public double Srednia() { /* TODO */ return 0; }\n    public bool CzyPromocja() { /* TODO */ return false; }\n    public void Wypisz() { /* TODO */ }\n}\n\nclass Program\n{\n    static void Main()\n    {\n        // TODO\n    }\n}\n",
+          "python": "class Uczen:\n    liczba_uczniow = 0\n\n    def __init__(self, imie, nazwisko):\n        pass  # TODO\n\n    def dodaj_ocene(self, ocena):\n        return False  # TODO\n\n    def srednia(self):\n        return 0  # TODO\n\n    def czy_promocja(self):\n        return False  # TODO\n\n    def wypisz(self):\n        pass  # TODO\n\n\nif __name__ == \"__main__\":\n    pass  # TODO\n"
+        },
+        "criteria": [
+          {
+            "id": "p2-c1",
+            "text": "Klasa Uczen z prywatnymi polami imie, nazwisko i kolekcją ocen",
+            "points": 1
+          },
+          {
+            "id": "p2-c2",
+            "text": "Pole statyczne liczbaUczniow zwiększane w konstruktorze",
+            "points": 1
+          },
+          {
+            "id": "p2-c3",
+            "text": "dodajOcene() przyjmuje tylko oceny 1–6 i zwraca true/false",
+            "points": 2
+          },
+          {
+            "id": "p2-c4",
+            "text": "srednia() zwraca liczbę rzeczywistą (bez dzielenia całkowitego!) i 0 dla braku ocen",
+            "points": 2
+          },
+          {
+            "id": "p2-c5",
+            "text": "czyPromocja() zwraca false dla braku ocen lub oceny 1",
+            "points": 1
+          },
+          {
+            "id": "p2-c6",
+            "text": "wypisz() formatuje średnią z dokładnością do 2 miejsc",
+            "points": 1
+          },
+          {
+            "id": "p2-c7",
+            "text": "Program główny realizuje scenariusz z dwoma uczniami i komunikatem „Niepoprawna ocena”",
+            "points": 2
+          }
+        ],
+        "solution": {
+          "cpp": "#include <iostream>\n#include <vector>\n#include <iomanip>\nusing namespace std;\n\nclass Uczen {\nprivate:\n    string imie, nazwisko;\n    vector<int> oceny;\npublic:\n    static int liczbaUczniow;\n\n    Uczen(string imie, string nazwisko) : imie(imie), nazwisko(nazwisko) {\n        liczbaUczniow++;\n    }\n\n    bool dodajOcene(int ocena) {\n        if (ocena < 1 || ocena > 6) return false;\n        oceny.push_back(ocena);\n        return true;\n    }\n\n    double srednia() {\n        if (oceny.empty()) return 0;\n        int suma = 0;\n        for (int o : oceny) suma += o;\n        return (double)suma / oceny.size();   // rzutowanie!\n    }\n\n    bool czyPromocja() {\n        if (oceny.empty()) return false;\n        for (int o : oceny)\n            if (o == 1) return false;\n        return true;\n    }\n\n    void wypisz() {\n        cout << imie << \" \" << nazwisko << \", średnia: \"\n             << fixed << setprecision(2) << srednia() << endl;\n    }\n};\n\nint Uczen::liczbaUczniow = 0;\n\nint main() {\n    Uczen a(\"Ola\", \"Bielecka\");\n    Uczen b(\"Igor\", \"Duda\");\n\n    for (int o : {5, 6, 4}) a.dodajOcene(o);\n    for (int o : {3, 1, 7})\n        if (!b.dodajOcene(o)) cout << \"Niepoprawna ocena\" << endl;\n\n    a.wypisz();\n    cout << (a.czyPromocja() ? \"Promocja\" : \"Brak promocji\") << endl;\n    b.wypisz();\n    cout << (b.czyPromocja() ? \"Promocja\" : \"Brak promocji\") << endl;\n    cout << \"Liczba uczniów: \" << Uczen::liczbaUczniow << endl;\n    return 0;\n}\n",
+          "csharp": "using System;\nusing System.Collections.Generic;\n\nclass Uczen\n{\n    private string imie, nazwisko;\n    private List<int> oceny = new List<int>();\n    public static int LiczbaUczniow = 0;\n\n    public Uczen(string imie, string nazwisko)\n    {\n        this.imie = imie;\n        this.nazwisko = nazwisko;\n        LiczbaUczniow++;\n    }\n\n    public bool DodajOcene(int ocena)\n    {\n        if (ocena < 1 || ocena > 6) return false;\n        oceny.Add(ocena);\n        return true;\n    }\n\n    public double Srednia()\n    {\n        if (oceny.Count == 0) return 0;\n        int suma = 0;\n        foreach (int o in oceny) suma += o;\n        return (double)suma / oceny.Count;\n    }\n\n    public bool CzyPromocja()\n    {\n        if (oceny.Count == 0) return false;\n        foreach (int o in oceny)\n            if (o == 1) return false;\n        return true;\n    }\n\n    public void Wypisz()\n    {\n        Console.WriteLine($\"{imie} {nazwisko}, średnia: {Srednia():F2}\");\n    }\n}\n\nclass Program\n{\n    static void Main()\n    {\n        var a = new Uczen(\"Ola\", \"Bielecka\");\n        var b = new Uczen(\"Igor\", \"Duda\");\n\n        foreach (int o in new[] { 5, 6, 4 }) a.DodajOcene(o);\n        foreach (int o in new[] { 3, 1, 7 })\n            if (!b.DodajOcene(o)) Console.WriteLine(\"Niepoprawna ocena\");\n\n        a.Wypisz();\n        Console.WriteLine(a.CzyPromocja() ? \"Promocja\" : \"Brak promocji\");\n        b.Wypisz();\n        Console.WriteLine(b.CzyPromocja() ? \"Promocja\" : \"Brak promocji\");\n        Console.WriteLine($\"Liczba uczniów: {Uczen.LiczbaUczniow}\");\n    }\n}\n",
+          "python": "class Uczen:\n    liczba_uczniow = 0\n\n    def __init__(self, imie, nazwisko):\n        self.__imie = imie\n        self.__nazwisko = nazwisko\n        self.__oceny = []\n        Uczen.liczba_uczniow += 1\n\n    def dodaj_ocene(self, ocena):\n        if ocena < 1 or ocena > 6:\n            return False\n        self.__oceny.append(ocena)\n        return True\n\n    def srednia(self):\n        if not self.__oceny:\n            return 0\n        return sum(self.__oceny) / len(self.__oceny)\n\n    def czy_promocja(self):\n        return len(self.__oceny) > 0 and 1 not in self.__oceny\n\n    def wypisz(self):\n        print(f\"{self.__imie} {self.__nazwisko}, średnia: {self.srednia():.2f}\")\n\n\nif __name__ == \"__main__\":\n    a = Uczen(\"Ola\", \"Bielecka\")\n    b = Uczen(\"Igor\", \"Duda\")\n    for o in (5, 6, 4):\n        a.dodaj_ocene(o)\n    for o in (3, 1, 7):\n        if not b.dodaj_ocene(o):\n            print(\"Niepoprawna ocena\")\n    for u in (a, b):\n        u.wypisz()\n        print(\"Promocja\" if u.czy_promocja() else \"Brak promocji\")\n    print(f\"Liczba uczniów: {Uczen.liczba_uczniow}\")\n"
+        }
+      },
+      {
+        "id": "p2-web",
+        "title": "Aplikacja webowa – kalkulator średniej",
+        "type": "web",
+        "minutes": 75,
+        "brief": "Przygotuj stronę, która liczy średnią z ocen wpisanych po przecinku.\n\n| Element | Identyfikator | Uwagi |\n|---|---|---|\n| Pole tekstowe | `oceny` | `type=\"text\"`, placeholder `np. 5,4,6` |\n| Przycisk | `licz` | tekst **Oblicz** |\n| Akapit | `wynik` | wynik obliczeń |\n| Akapit | `status` | informacja o promocji |\n\nPo kliknięciu **Oblicz**:\n\n1. podziel tekst po przecinkach, usuń spacje wokół wartości i zamień je na liczby,\n2. jeśli pole jest puste albo **którakolwiek** wartość nie jest liczbą całkowitą z zakresu 1–6 → w `wynik` wpisz `Niepoprawne dane`, a `status` wyczyść,\n3. w przeciwnym razie w `wynik` wpisz `Średnia: X.XX` (dwa miejsca po przecinku, np. `Średnia: 5.00`), a w `status` – `Promocja`, jeśli nie ma żadnej jedynki, lub `Brak promocji`.\n\nDodatkowo: gdy jest promocja, akapit `status` ma mieć kolor tekstu **zielony** (`green`), a gdy jej brak – **czerwony** (`red`).",
+        "starter": {
+          "html": "<h1>Kalkulator średniej</h1>\n\n<!-- TODO -->\n",
+          "css": "body {\n    font-family: Arial, sans-serif;\n    max-width: 480px;\n}\n",
+          "js": "// TODO: obsługa przycisku #licz\n"
+        },
+        "checks": [
+          {
+            "name": "Pole #oceny i przycisk #licz istnieją",
+            "steps": [
+              {
+                "exists": "#oceny",
+                "tag": "input"
+              },
+              {
+                "exists": "#licz"
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "Akapity #wynik i #status istnieją",
+            "steps": [
+              {
+                "exists": "#wynik"
+              },
+              {
+                "exists": "#status"
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "„5,4,6” → Średnia: 5.00 i Promocja",
+            "points": 2,
+            "steps": [
+              {
+                "set": "#oceny",
+                "value": "5,4,6"
+              },
+              {
+                "click": "#licz"
+              },
+              {
+                "expectText": "#wynik",
+                "equals": "Średnia: 5.00"
+              },
+              {
+                "expectText": "#status",
+                "equals": "Promocja"
+              }
+            ]
+          },
+          {
+            "name": "Spacje są ignorowane: „ 3 , 4 ” → 3.50",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#oceny",
+                "value": " 3 , 4 "
+              },
+              {
+                "click": "#licz"
+              },
+              {
+                "expectText": "#wynik",
+                "equals": "Średnia: 3.50"
+              }
+            ]
+          },
+          {
+            "name": "Jedynka → Brak promocji",
+            "points": 2,
+            "steps": [
+              {
+                "set": "#oceny",
+                "value": "1,5,5"
+              },
+              {
+                "click": "#licz"
+              },
+              {
+                "expectText": "#wynik",
+                "equals": "Średnia: 3.67"
+              },
+              {
+                "expectText": "#status",
+                "equals": "Brak promocji"
+              }
+            ]
+          },
+          {
+            "name": "Ocena spoza zakresu → Niepoprawne dane",
+            "points": 2,
+            "steps": [
+              {
+                "set": "#oceny",
+                "value": "4,7"
+              },
+              {
+                "click": "#licz"
+              },
+              {
+                "expectText": "#wynik",
+                "equals": "Niepoprawne dane"
+              },
+              {
+                "expectText": "#status",
+                "equals": ""
+              }
+            ]
+          },
+          {
+            "name": "Tekst zamiast liczby → Niepoprawne dane",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#oceny",
+                "value": "5,abc"
+              },
+              {
+                "click": "#licz"
+              },
+              {
+                "expectText": "#wynik",
+                "equals": "Niepoprawne dane"
+              }
+            ]
+          },
+          {
+            "name": "Puste pole → Niepoprawne dane",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#oceny",
+                "value": ""
+              },
+              {
+                "click": "#licz"
+              },
+              {
+                "expectText": "#wynik",
+                "equals": "Niepoprawne dane"
+              }
+            ]
+          },
+          {
+            "name": "Kolor statusu: zielony przy promocji",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#oceny",
+                "value": "6,6"
+              },
+              {
+                "click": "#licz"
+              },
+              {
+                "expectStyle": "#status",
+                "prop": "color",
+                "equals": "rgb(0, 128, 0)"
+              }
+            ]
+          },
+          {
+            "name": "Kolor statusu: czerwony przy braku promocji",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#oceny",
+                "value": "1,2"
+              },
+              {
+                "click": "#licz"
+              },
+              {
+                "expectStyle": "#status",
+                "prop": "color",
+                "equals": "rgb(255, 0, 0)"
+              }
+            ]
+          }
+        ],
+        "criteria": [
+          {
+            "id": "p2-w1",
+            "text": "Pole ma placeholder „np. 5,4,6” i etykietę",
+            "points": 1
+          }
+        ],
+        "solution": {
+          "html": "<h1>Kalkulator średniej</h1>\n\n<label for=\"oceny\">Oceny:</label>\n<input type=\"text\" id=\"oceny\" placeholder=\"np. 5,4,6\">\n<button type=\"button\" id=\"licz\">Oblicz</button>\n\n<p id=\"wynik\"></p>\n<p id=\"status\"></p>\n",
+          "css": "body {\n    font-family: Arial, sans-serif;\n    max-width: 480px;\n}\n",
+          "js": "document.getElementById('licz').addEventListener('click', () => {\n    const tekst = document.getElementById('oceny').value;\n    const wynik = document.getElementById('wynik');\n    const status = document.getElementById('status');\n\n    const oceny = tekst.split(',').map(s => s.trim());\n    const poprawne = tekst.trim() !== '' &&\n        oceny.every(s => /^[1-6]$/.test(s));\n\n    if (!poprawne) {\n        wynik.textContent = 'Niepoprawne dane';\n        status.textContent = '';\n        return;\n    }\n\n    const liczby = oceny.map(Number);\n    const suma = liczby.reduce((a, b) => a + b, 0);\n    wynik.textContent = 'Średnia: ' + (suma / liczby.length).toFixed(2);\n\n    const promocja = !liczby.includes(1);\n    status.textContent = promocja ? 'Promocja' : 'Brak promocji';\n    status.style.color = promocja ? 'green' : 'red';\n});\n"
+        }
+      },
+      {
+        "id": "p2-doc",
+        "title": "Dokumentacja",
+        "type": "checklist",
+        "minutes": 20,
+        "brief": "1. Do metody `srednia` dodaj **komentarz nagłówkowy** w formacie:\n\n```\n/*******************************************\n * nazwa funkcji:   <nazwa>\n * opis funkcji:    <co robi funkcja>\n * parametry:       <nazwa – opis> lub brak\n * zwracany typ i opis: <typ – opis> lub brak\n * autor:           <numer zdającego>\n ******************************************/\n```\n\n2. Wykonaj **zrzuty ekranu** obu aplikacji (konsolowej i webowej) pokazujące działanie dla przykładowych danych. Nazwij je zgodnie z poleceniem, np. `konsola.png`, `web1.png`, `web2.png`.\n3. W pliku `testy.txt` zapisz: nazwę systemu operacyjnego, nazwy środowisk programistycznych i ich wersje, użyte języki programowania oraz opis przeprowadzonych testów (dane wejściowe → otrzymany wynik).\n\n> [!CKE]\n> Dokumentacja to najłatwiejsze punkty na egzaminie. Zostaw sobie na nią co najmniej 15 minut przed końcem czasu.",
+        "criteria": [
+          {
+            "id": "p2-d1",
+            "text": "Komentarz nagłówkowy metody srednia zawiera nazwę, opis, parametry i typ zwracany",
+            "points": 2
+          },
+          {
+            "id": "p2-d2",
+            "text": "W komentarzu podano autora (numer zdającego)",
+            "points": 1
+          },
+          {
+            "id": "p2-d3",
+            "text": "Zrzut ekranu aplikacji konsolowej pokazuje poprawne działanie",
+            "points": 1
+          },
+          {
+            "id": "p2-d4",
+            "text": "Zrzuty ekranu aplikacji webowej pokazują oba scenariusze (poprawny i błąd walidacji)",
+            "points": 1
+          },
+          {
+            "id": "p2-d5",
+            "text": "Plik testy.txt zawiera system operacyjny, IDE z wersjami i języki programowania",
+            "points": 1
+          },
+          {
+            "id": "p2-d6",
+            "text": "Plik testy.txt opisuje przeprowadzone testy (dane → wynik)",
+            "points": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "proj-03",
+    "title": "Bezpieczne dane – szyfr Cezara i generator haseł",
+    "difficulty": 3,
+    "durationMin": 180,
+    "summary": "Klasa Szyfrator z szyfrowaniem i deszyfrowaniem + generator haseł z opcjami i testami losowości.",
+    "intro": "Firma szkoli pracowników z bezpieczeństwa. Przygotuj program konsolowy demonstrujący szyfr Cezara oraz stronę internetową z generatorem haseł.\n\nTo najtrudniejszy arkusz treningowy – zwróć uwagę na przypadki brzegowe (zawijanie alfabetu, granice długości hasła).",
+    "parts": [
+      {
+        "id": "p3-console",
+        "title": "Aplikacja konsolowa",
+        "type": "checklist",
+        "minutes": 75,
+        "brief": "Napisz klasę **`Szyfrator`**:\n\n- pole prywatne `klucz` (liczba całkowita), ustawiane w konstruktorze; konstruktor sprowadza klucz do zakresu 0–25 (np. klucz 29 działa jak 3, a −1 jak 25),\n- metoda `szyfruj(tekst)` – zwraca tekst zaszyfrowany szyfrem Cezara: **małe** litery `a–z` przesuwa o klucz w prawo z zawinięciem, **wielkie** litery `A–Z` – analogicznie w obrębie wielkich liter, pozostałe znaki bez zmian,\n- metoda `deszyfruj(tekst)` – odwraca szyfrowanie.\n\nW programie głównym wczytaj tekst i klucz od użytkownika, wypisz tekst zaszyfrowany oraz – dla sprawdzenia – odszyfrowany.\n\nPrzykład: klucz `3`, tekst `Ala ma Kota!` → `Dod pd Nrwd!`.",
+        "starters": {
+          "cpp": "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Szyfrator {\nprivate:\n    int klucz;\n    char przesun(char c, int k) { /* TODO */ return c; }\npublic:\n    Szyfrator(int klucz) { /* TODO */ }\n    string szyfruj(string tekst) { /* TODO */ return tekst; }\n    string deszyfruj(string tekst) { /* TODO */ return tekst; }\n};\n\nint main() {\n    // TODO\n    return 0;\n}\n",
+          "csharp": "using System;\nusing System.Text;\n\nclass Szyfrator\n{\n    private int klucz;\n    public Szyfrator(int klucz) { /* TODO */ }\n    private char Przesun(char c, int k) { /* TODO */ return c; }\n    public string Szyfruj(string tekst) { /* TODO */ return tekst; }\n    public string Deszyfruj(string tekst) { /* TODO */ return tekst; }\n}\n\nclass Program\n{\n    static void Main()\n    {\n        // TODO\n    }\n}\n",
+          "python": "class Szyfrator:\n    def __init__(self, klucz):\n        pass  # TODO\n\n    def szyfruj(self, tekst):\n        return tekst  # TODO\n\n    def deszyfruj(self, tekst):\n        return tekst  # TODO\n\n\nif __name__ == \"__main__\":\n    pass  # TODO\n"
+        },
+        "criteria": [
+          {
+            "id": "p3-c1",
+            "text": "Klasa Szyfrator z prywatnym polem klucz",
+            "points": 1
+          },
+          {
+            "id": "p3-c2",
+            "text": "Konstruktor normalizuje klucz do 0–25 (także dla wartości ujemnych)",
+            "points": 2
+          },
+          {
+            "id": "p3-c3",
+            "text": "szyfruj() poprawnie przesuwa małe litery z zawinięciem",
+            "points": 2
+          },
+          {
+            "id": "p3-c4",
+            "text": "szyfruj() poprawnie przesuwa wielkie litery, inne znaki bez zmian",
+            "points": 1
+          },
+          {
+            "id": "p3-c5",
+            "text": "deszyfruj() odtwarza tekst oryginalny (bez duplikowania kodu – np. wspólna metoda pomocnicza)",
+            "points": 2
+          },
+          {
+            "id": "p3-c6",
+            "text": "Program główny wczytuje cały tekst ze spacjami (getline / ReadLine / input)",
+            "points": 1
+          }
+        ],
+        "solution": {
+          "cpp": "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Szyfrator {\nprivate:\n    int klucz;\n\n    char przesun(char c, int k) {\n        if (c >= 'a' && c <= 'z') return 'a' + (c - 'a' + k) % 26;\n        if (c >= 'A' && c <= 'Z') return 'A' + (c - 'A' + k) % 26;\n        return c;\n    }\n\n    string przetworz(const string& tekst, int k) {\n        string wynik = tekst;\n        for (char& c : wynik) c = przesun(c, k);\n        return wynik;\n    }\n\npublic:\n    Szyfrator(int klucz) {\n        this->klucz = ((klucz % 26) + 26) % 26;   // obsługa ujemnych\n    }\n\n    string szyfruj(const string& tekst) { return przetworz(tekst, klucz); }\n    string deszyfruj(const string& tekst) { return przetworz(tekst, 26 - klucz); }\n};\n\nint main() {\n    string tekst;\n    int klucz;\n    cout << \"Podaj tekst: \";\n    getline(cin, tekst);\n    cout << \"Podaj klucz: \";\n    cin >> klucz;\n\n    Szyfrator s(klucz);\n    string zaszyfrowany = s.szyfruj(tekst);\n    cout << \"Zaszyfrowany: \" << zaszyfrowany << endl;\n    cout << \"Odszyfrowany: \" << s.deszyfruj(zaszyfrowany) << endl;\n    return 0;\n}\n",
+          "csharp": "using System;\nusing System.Text;\n\nclass Szyfrator\n{\n    private int klucz;\n\n    public Szyfrator(int klucz)\n    {\n        this.klucz = ((klucz % 26) + 26) % 26;\n    }\n\n    private static char Przesun(char c, int k)\n    {\n        if (c >= 'a' && c <= 'z') return (char)('a' + (c - 'a' + k) % 26);\n        if (c >= 'A' && c <= 'Z') return (char)('A' + (c - 'A' + k) % 26);\n        return c;\n    }\n\n    private static string Przetworz(string tekst, int k)\n    {\n        var sb = new StringBuilder();\n        foreach (char c in tekst) sb.Append(Przesun(c, k));\n        return sb.ToString();\n    }\n\n    public string Szyfruj(string tekst) => Przetworz(tekst, klucz);\n    public string Deszyfruj(string tekst) => Przetworz(tekst, 26 - klucz);\n}\n\nclass Program\n{\n    static void Main()\n    {\n        Console.Write(\"Podaj tekst: \");\n        string tekst = Console.ReadLine();\n        Console.Write(\"Podaj klucz: \");\n        int klucz = int.Parse(Console.ReadLine());\n\n        var s = new Szyfrator(klucz);\n        string zaszyfrowany = s.Szyfruj(tekst);\n        Console.WriteLine($\"Zaszyfrowany: {zaszyfrowany}\");\n        Console.WriteLine($\"Odszyfrowany: {s.Deszyfruj(zaszyfrowany)}\");\n    }\n}\n",
+          "python": "class Szyfrator:\n    def __init__(self, klucz):\n        self.__klucz = klucz % 26          # w Pythonie % zawsze daje wynik >= 0\n\n    @staticmethod\n    def __przesun(c, k):\n        if 'a' <= c <= 'z':\n            return chr(ord('a') + (ord(c) - ord('a') + k) % 26)\n        if 'A' <= c <= 'Z':\n            return chr(ord('A') + (ord(c) - ord('A') + k) % 26)\n        return c\n\n    def __przetworz(self, tekst, k):\n        return \"\".join(Szyfrator.__przesun(c, k) for c in tekst)\n\n    def szyfruj(self, tekst):\n        return self.__przetworz(tekst, self.__klucz)\n\n    def deszyfruj(self, tekst):\n        return self.__przetworz(tekst, 26 - self.__klucz)\n\n\nif __name__ == \"__main__\":\n    tekst = input(\"Podaj tekst: \")\n    klucz = int(input(\"Podaj klucz: \"))\n    s = Szyfrator(klucz)\n    z = s.szyfruj(tekst)\n    print(\"Zaszyfrowany:\", z)\n    print(\"Odszyfrowany:\", s.deszyfruj(z))\n"
+        }
+      },
+      {
+        "id": "p3-web",
+        "title": "Aplikacja webowa – generator haseł",
+        "type": "web",
+        "minutes": 75,
+        "brief": "Przygotuj stronę generującą losowe hasło.\n\n| Element | Identyfikator | Uwagi |\n|---|---|---|\n| Pole liczbowe | `dlugosc` | `type=\"number\"`, wartość domyślna **12** |\n| Pole wyboru | `duze` | „Wielkie litery” |\n| Pole wyboru | `cyfry` | „Cyfry” |\n| Pole wyboru | `znaki` | „Znaki specjalne” (`!@#$%&*`) |\n| Przycisk | `generuj` | tekst **Generuj** |\n| Element `<output>` lub `<p>` | `haslo` | wygenerowane hasło |\n\nZasady:\n\n1. Hasło **zawsze** może zawierać małe litery `a–z`. Zaznaczenie pól dodaje do puli wielkie litery, cyfry i/lub znaki specjalne.\n2. Jeśli długość jest mniejsza niż **4** lub większa niż **32** (albo nie jest liczbą), w `haslo` wpisz `Długość musi być z zakresu 4–32`.\n3. Jeśli dana kategoria jest zaznaczona, hasło musi zawierać **co najmniej jeden** znak z tej kategorii (losowanie „na ślepo” z puli tego nie gwarantuje!).\n4. Do losowania możesz użyć `Math.random()` (na egzaminie wystarczy; w prawdziwych aplikacjach używa się `crypto.getRandomValues()`).",
+        "starter": {
+          "html": "<h1>Generator haseł</h1>\n\n<!-- TODO -->\n",
+          "css": "body {\n    font-family: Arial, sans-serif;\n}\n\n#haslo {\n    font-family: monospace;\n    font-size: 1.4em;\n}\n",
+          "js": "const MALE = 'abcdefghijklmnopqrstuvwxyz';\nconst DUZE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';\nconst CYFRY = '0123456789';\nconst ZNAKI = '!@#$%&*';\n\n// TODO\n"
+        },
+        "checks": [
+          {
+            "name": "Pole #dlugosc ma domyślną wartość 12",
+            "steps": [
+              {
+                "exists": "#dlugosc",
+                "tag": "input",
+                "type": "number"
+              },
+              {
+                "expectValue": "#dlugosc",
+                "equals": "12"
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "Pola wyboru #duze, #cyfry, #znaki",
+            "steps": [
+              {
+                "exists": "#duze",
+                "type": "checkbox"
+              },
+              {
+                "exists": "#cyfry",
+                "type": "checkbox"
+              },
+              {
+                "exists": "#znaki",
+                "type": "checkbox"
+              }
+            ],
+            "points": 1
+          },
+          {
+            "name": "Bez opcji: 12 małych liter",
+            "points": 2,
+            "steps": [
+              {
+                "set": "#dlugosc",
+                "value": "12"
+              },
+              {
+                "check": "#duze",
+                "checked": false
+              },
+              {
+                "check": "#cyfry",
+                "checked": false
+              },
+              {
+                "check": "#znaki",
+                "checked": false
+              },
+              {
+                "click": "#generuj"
+              },
+              {
+                "expectText": "#haslo",
+                "matches": "^[a-z]{12}$"
+              }
+            ]
+          },
+          {
+            "name": "Długość 20 + cyfry → 20 znaków, co najmniej jedna cyfra",
+            "points": 2,
+            "steps": [
+              {
+                "set": "#dlugosc",
+                "value": "20"
+              },
+              {
+                "check": "#duze",
+                "checked": false
+              },
+              {
+                "check": "#cyfry",
+                "checked": true
+              },
+              {
+                "check": "#znaki",
+                "checked": false
+              },
+              {
+                "click": "#generuj"
+              },
+              {
+                "expectText": "#haslo",
+                "matches": "^(?=.*[0-9])[a-z0-9]{20}$"
+              }
+            ]
+          },
+          {
+            "name": "Wszystkie opcje przy długości 4 → każda kategoria obecna",
+            "points": 3,
+            "steps": [
+              {
+                "set": "#dlugosc",
+                "value": "4"
+              },
+              {
+                "check": "#duze",
+                "checked": true
+              },
+              {
+                "check": "#cyfry",
+                "checked": true
+              },
+              {
+                "check": "#znaki",
+                "checked": true
+              },
+              {
+                "click": "#generuj"
+              },
+              {
+                "expectText": "#haslo",
+                "matches": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&*])[a-zA-Z0-9!@#$%&*]{4}$"
+              }
+            ]
+          },
+          {
+            "name": "Długość 3 → komunikat o błędzie",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#dlugosc",
+                "value": "3"
+              },
+              {
+                "click": "#generuj"
+              },
+              {
+                "expectText": "#haslo",
+                "equals": "Długość musi być z zakresu 4–32"
+              }
+            ]
+          },
+          {
+            "name": "Długość 33 → komunikat o błędzie",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#dlugosc",
+                "value": "33"
+              },
+              {
+                "click": "#generuj"
+              },
+              {
+                "expectText": "#haslo",
+                "equals": "Długość musi być z zakresu 4–32"
+              }
+            ]
+          },
+          {
+            "name": "Długość 32 z wielkimi literami i cyframi",
+            "points": 1,
+            "steps": [
+              {
+                "set": "#dlugosc",
+                "value": "32"
+              },
+              {
+                "check": "#duze",
+                "checked": true
+              },
+              {
+                "check": "#cyfry",
+                "checked": true
+              },
+              {
+                "check": "#znaki",
+                "checked": false
+              },
+              {
+                "click": "#generuj"
+              },
+              {
+                "expectText": "#haslo",
+                "matches": "^[a-zA-Z0-9]{32}$"
+              }
+            ]
+          }
+        ],
+        "criteria": [
+          {
+            "id": "p3-w1",
+            "text": "Kod JS podzielony na funkcje (np. losowyZnak(pula), generujHaslo(dlugosc, opcje))",
+            "points": 1
+          },
+          {
+            "id": "p3-w2",
+            "text": "Gwarantowane znaki z kategorii są wstawiane w losowe miejsca (hasło przetasowane)",
+            "points": 1
+          }
+        ],
+        "solution": {
+          "html": "<h1>Generator haseł</h1>\n\n<label for=\"dlugosc\">Długość:</label>\n<input type=\"number\" id=\"dlugosc\" value=\"12\" min=\"4\" max=\"32\"><br>\n\n<input type=\"checkbox\" id=\"duze\"> <label for=\"duze\">Wielkie litery</label><br>\n<input type=\"checkbox\" id=\"cyfry\"> <label for=\"cyfry\">Cyfry</label><br>\n<input type=\"checkbox\" id=\"znaki\"> <label for=\"znaki\">Znaki specjalne</label><br>\n\n<button type=\"button\" id=\"generuj\">Generuj</button>\n<p>Hasło: <output id=\"haslo\"></output></p>\n",
+          "css": "body {\n    font-family: Arial, sans-serif;\n}\n\n#haslo {\n    font-family: monospace;\n    font-size: 1.4em;\n}\n",
+          "js": "const MALE = 'abcdefghijklmnopqrstuvwxyz';\nconst DUZE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';\nconst CYFRY = '0123456789';\nconst ZNAKI = '!@#$%&*';\n\nfunction losowyZnak(pula) {\n    return pula[Math.floor(Math.random() * pula.length)];\n}\n\nfunction przetasuj(tab) {\n    for (let i = tab.length - 1; i > 0; i--) {\n        const j = Math.floor(Math.random() * (i + 1));\n        [tab[i], tab[j]] = [tab[j], tab[i]];\n    }\n    return tab;\n}\n\nfunction generujHaslo(dlugosc, opcje) {\n    let pula = MALE;\n    const wymagane = [losowyZnak(MALE)];\n    if (opcje.duze) { pula += DUZE; wymagane.push(losowyZnak(DUZE)); }\n    if (opcje.cyfry) { pula += CYFRY; wymagane.push(losowyZnak(CYFRY)); }\n    if (opcje.znaki) { pula += ZNAKI; wymagane.push(losowyZnak(ZNAKI)); }\n\n    const znaki = [...wymagane];\n    while (znaki.length < dlugosc) znaki.push(losowyZnak(pula));\n    return przetasuj(znaki).join('');\n}\n\ndocument.getElementById('generuj').addEventListener('click', () => {\n    const dlugosc = Number(document.getElementById('dlugosc').value);\n    const wynik = document.getElementById('haslo');\n\n    if (!Number.isInteger(dlugosc) || dlugosc < 4 || dlugosc > 32) {\n        wynik.textContent = 'Długość musi być z zakresu 4–32';\n        return;\n    }\n\n    wynik.textContent = generujHaslo(dlugosc, {\n        duze: document.getElementById('duze').checked,\n        cyfry: document.getElementById('cyfry').checked,\n        znaki: document.getElementById('znaki').checked,\n    });\n});\n"
+        }
+      },
+      {
+        "id": "p3-doc",
+        "title": "Dokumentacja",
+        "type": "checklist",
+        "minutes": 20,
+        "brief": "1. Do metody `szyfruj` dodaj **komentarz nagłówkowy** w formacie:\n\n```\n/*******************************************\n * nazwa funkcji:   <nazwa>\n * opis funkcji:    <co robi funkcja>\n * parametry:       <nazwa – opis> lub brak\n * zwracany typ i opis: <typ – opis> lub brak\n * autor:           <numer zdającego>\n ******************************************/\n```\n\n2. Wykonaj **zrzuty ekranu** obu aplikacji (konsolowej i webowej) pokazujące działanie dla przykładowych danych. Nazwij je zgodnie z poleceniem, np. `konsola.png`, `web1.png`, `web2.png`.\n3. W pliku `testy.txt` zapisz: nazwę systemu operacyjnego, nazwy środowisk programistycznych i ich wersje, użyte języki programowania oraz opis przeprowadzonych testów (dane wejściowe → otrzymany wynik).\n\n> [!CKE]\n> Dokumentacja to najłatwiejsze punkty na egzaminie. Zostaw sobie na nią co najmniej 15 minut przed końcem czasu.",
+        "criteria": [
+          {
+            "id": "p3-d1",
+            "text": "Komentarz nagłówkowy metody szyfruj zawiera nazwę, opis, parametry i typ zwracany",
+            "points": 2
+          },
+          {
+            "id": "p3-d2",
+            "text": "W komentarzu podano autora (numer zdającego)",
+            "points": 1
+          },
+          {
+            "id": "p3-d3",
+            "text": "Zrzut ekranu aplikacji konsolowej pokazuje poprawne działanie",
+            "points": 1
+          },
+          {
+            "id": "p3-d4",
+            "text": "Zrzuty ekranu aplikacji webowej pokazują oba scenariusze (poprawny i błąd walidacji)",
+            "points": 1
+          },
+          {
+            "id": "p3-d5",
+            "text": "Plik testy.txt zawiera system operacyjny, IDE z wersjami i języki programowania",
+            "points": 1
+          },
+          {
+            "id": "p3-d6",
+            "text": "Plik testy.txt opisuje przeprowadzone testy (dane → wynik)",
+            "points": 1
+          }
+        ]
+      }
+    ]
+  }
+]

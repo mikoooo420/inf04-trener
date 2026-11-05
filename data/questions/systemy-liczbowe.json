@@ -1,0 +1,112 @@
+[
+  {
+    "id": "sys-001",
+    "difficulty": 1,
+    "question": "Liczba 1011₂ zapisana w systemie dziesiętnym to:",
+    "answers": ["9", "11", "13", "10"],
+    "correct": 1,
+    "explanation": "1·8 + 0·4 + 1·2 + 1·1 = 11."
+  },
+  {
+    "id": "sys-002",
+    "difficulty": 1,
+    "question": "Liczba 25₁₀ zapisana w systemie dwójkowym to:",
+    "answers": ["11001", "10011", "11010", "10101"],
+    "correct": 0,
+    "explanation": "25 = 16 + 8 + 1 → 11001₂. Kontrola: 1·16 + 1·8 + 0·4 + 0·2 + 1·1 = 25."
+  },
+  {
+    "id": "sys-003",
+    "difficulty": 2,
+    "question": "Liczba FF₁₆ w systemie dziesiętnym to:",
+    "answers": ["15", "155", "255", "256"],
+    "correct": 2,
+    "explanation": "F = 15, więc 15·16 + 15 = 255. To maksymalna wartość jednego bajtu bez znaku."
+  },
+  {
+    "id": "sys-004",
+    "difficulty": 2,
+    "question": "Liczba 10101110₂ zapisana szesnastkowo to:",
+    "answers": ["AE", "BE", "A6", "5E"],
+    "correct": 0,
+    "explanation": "Dzielimy na tetrady: 1010 = A, 1110 = E → AE₁₆.",
+    "tip": "Każda cyfra HEX to dokładnie 4 bity – zamiana BIN↔HEX jest natychmiastowa."
+  },
+  {
+    "id": "sys-005",
+    "difficulty": 2,
+    "question": "Jaki jest zakres liczb całkowitych zapisanych w kodzie U2 na 8 bitach?",
+    "answers": ["od 0 do 255", "od −127 do 127", "od −128 do 127", "od −255 do 255"],
+    "correct": 2,
+    "explanation": "Na n bitach w U2 zakres to od −2ⁿ⁻¹ do 2ⁿ⁻¹ − 1, czyli dla 8 bitów: od −128 do 127."
+  },
+  {
+    "id": "sys-006",
+    "difficulty": 3,
+    "question": "Liczba −6 zapisana w kodzie U2 na 8 bitach to:",
+    "answers": ["10000110", "11111001", "11111010", "00000110"],
+    "correct": 2,
+    "explanation": "6 = 00000110 → negacja bitów: 11111001 → +1: 11111010. Odpowiedź A to zapis ZM (znak-moduł), B – zapis U1."
+  },
+  {
+    "id": "sys-007",
+    "difficulty": 1,
+    "question": "Ile różnych wartości można zapisać na 10 bitach?",
+    "answers": ["10", "100", "512", "1024"],
+    "correct": 3,
+    "explanation": "Na n bitach można zapisać 2ⁿ wartości: 2¹⁰ = 1024."
+  },
+  {
+    "id": "sys-008",
+    "difficulty": 2,
+    "question": "Kodowanie znaków, które jest zgodne z ASCII, ma zmienną długość (1–4 bajty) i jest standardem w internecie, to:",
+    "answers": ["UTF-8", "UTF-32", "ISO 8859-2", "Windows-1250"],
+    "correct": 0,
+    "explanation": "UTF-8 koduje znaki Unicode na 1–4 bajtach; pierwsze 128 znaków jest identycznych z ASCII."
+  },
+  {
+    "id": "sys-009",
+    "difficulty": 2,
+    "question": "Wynik operacji bitowej 12 & 10 (AND) to:",
+    "answers": ["8", "14", "6", "2"],
+    "correct": 0,
+    "explanation": "12 = 1100₂, 10 = 1010₂. AND daje 1 tylko tam, gdzie oba bity są jedynkami: 1000₂ = 8. OR dałby 14, XOR – 6."
+  },
+  {
+    "id": "sys-010",
+    "difficulty": 2,
+    "question": "Przesunięcie bitowe liczby całkowitej o 1 w lewo (x << 1) odpowiada:",
+    "answers": ["podzieleniu x przez 2", "pomnożeniu x przez 2", "zanegowaniu x", "dodaniu 1 do x"],
+    "correct": 1,
+    "explanation": "Przesunięcie w lewo o jedną pozycję mnoży liczbę przez 2 (dopisuje 0 na końcu zapisu dwójkowego). Przesunięcie w prawo to dzielenie całkowite przez 2."
+  },
+  {
+    "id": "sys-011",
+    "difficulty": 2,
+    "question": "Dlaczego w wielu językach wyrażenie 0.1 + 0.2 == 0.3 zwraca false?",
+    "answers": [
+      "bo operator == nie działa dla liczb",
+      "bo liczby 0.1 i 0.2 nie mają dokładnej reprezentacji w systemie dwójkowym",
+      "bo wynik jest zaokrąglany do liczby całkowitej",
+      "bo kompilator zamienia 0.3 na tekst"
+    ],
+    "correct": 1,
+    "explanation": "W standardzie IEEE 754 większość ułamków dziesiętnych jest przybliżana, więc wynik to 0.30000000000000004. Liczby zmiennoprzecinkowe porównuje się z tolerancją."
+  },
+  {
+    "id": "sys-012",
+    "difficulty": 1,
+    "question": "Ile bitów ma jeden bajt?",
+    "answers": ["4", "8", "16", "10"],
+    "correct": 1,
+    "explanation": "1 bajt = 8 bitów."
+  },
+  {
+    "id": "sys-013",
+    "difficulty": 2,
+    "question": "Liczba 17₈ (ósemkowo) w systemie dziesiętnym to:",
+    "answers": ["15", "17", "23", "13"],
+    "correct": 0,
+    "explanation": "1·8 + 7 = 15."
+  }
+]

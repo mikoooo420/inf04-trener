@@ -1,0 +1,128 @@
+{
+  "version": "1.0.0",
+  "groups": [
+    { "id": "fundamenty", "title": "Fundamenty programowania" },
+    { "id": "obiektowosc", "title": "Programowanie obiektowe i inżynieria" },
+    { "id": "aplikacje", "title": "Tworzenie aplikacji" },
+    { "id": "srodowisko", "title": "Środowisko pracy, prawo i bezpieczeństwo" }
+  ],
+  "topics": [
+    {
+      "id": "algorytmy",
+      "group": "fundamenty",
+      "title": "Algorytmy i złożoność",
+      "description": "Sposoby zapisu algorytmów, złożoność obliczeniowa, sortowanie, wyszukiwanie, rekurencja i klasyczne algorytmy z arkuszy.",
+      "icon": "layers",
+      "minutes": 18,
+      "examWeight": 5
+    },
+    {
+      "id": "struktury",
+      "group": "fundamenty",
+      "title": "Struktury danych",
+      "description": "Tablica, lista, stos, kolejka, drzewo, graf, słownik – kiedy której użyć i jak działają.",
+      "icon": "database",
+      "minutes": 12,
+      "examWeight": 3
+    },
+    {
+      "id": "podstawy",
+      "group": "fundamenty",
+      "title": "Podstawy programowania",
+      "description": "Typy danych, operatory, instrukcje sterujące, funkcje, przekazywanie parametrów, wskaźniki i referencje.",
+      "icon": "code",
+      "minutes": 16,
+      "examWeight": 4
+    },
+    {
+      "id": "systemy-liczbowe",
+      "group": "fundamenty",
+      "title": "Systemy liczbowe i reprezentacja danych",
+      "description": "BIN, OCT, DEC, HEX, kod U2, liczby zmiennoprzecinkowe, kodowanie znaków (ASCII, Unicode, UTF-8).",
+      "icon": "formula",
+      "minutes": 12,
+      "examWeight": 2
+    },
+    {
+      "id": "oop",
+      "group": "obiektowosc",
+      "title": "Programowanie obiektowe",
+      "description": "Klasa i obiekt, konstruktory, hermetyzacja, dziedziczenie, polimorfizm, klasy abstrakcyjne i interfejsy.",
+      "icon": "layers",
+      "minutes": 20,
+      "examWeight": 6
+    },
+    {
+      "id": "inzynieria",
+      "group": "obiektowosc",
+      "title": "Inżynieria oprogramowania",
+      "description": "Cykl życia oprogramowania, metodyki (kaskadowa, Scrum), UML, wzorce projektowe, czysty kod.",
+      "icon": "project",
+      "minutes": 15,
+      "examWeight": 4
+    },
+    {
+      "id": "testowanie",
+      "group": "obiektowosc",
+      "title": "Testowanie, debugowanie i dokumentacja",
+      "description": "Rodzaje i poziomy testów, testy jednostkowe, debugger, obsługa wyjątków, dokumentowanie kodu.",
+      "icon": "check",
+      "minutes": 15,
+      "examWeight": 4
+    },
+    {
+      "id": "desktop-mobile",
+      "group": "aplikacje",
+      "title": "Aplikacje desktopowe i mobilne",
+      "description": "Programowanie zdarzeniowe, kontrolki, układy (layouty), WPF/WinForms, Android, .NET MAUI.",
+      "icon": "project",
+      "minutes": 14,
+      "examWeight": 3
+    },
+    {
+      "id": "web",
+      "group": "aplikacje",
+      "title": "Aplikacje webowe i frameworki",
+      "description": "HTML/CSS/JS w praktyce, DOM, SPA, React/Angular/Vue, protokół HTTP, REST API, JSON.",
+      "icon": "code",
+      "minutes": 16,
+      "examWeight": 3
+    },
+    {
+      "id": "bazy",
+      "group": "aplikacje",
+      "title": "Bazy danych w aplikacjach",
+      "description": "Model relacyjny, klucze, podstawy SQL, złączenia, ORM, łączenie aplikacji z bazą.",
+      "icon": "database",
+      "minutes": 14,
+      "examWeight": 2
+    },
+    {
+      "id": "narzedzia",
+      "group": "srodowisko",
+      "title": "Narzędzia programisty",
+      "description": "IDE, kompilacja vs interpretacja, Git, menedżery pakietów, biblioteki i frameworki.",
+      "icon": "settings",
+      "minutes": 12,
+      "examWeight": 2
+    },
+    {
+      "id": "bezpieczenstwo-prawo",
+      "group": "srodowisko",
+      "title": "Bezpieczeństwo, licencje i prawo",
+      "description": "Licencje oprogramowania, prawo autorskie, RODO, typowe ataki (SQL Injection, XSS), hashowanie haseł.",
+      "icon": "alert",
+      "minutes": 13,
+      "examWeight": 1
+    },
+    {
+      "id": "dostepnosc",
+      "group": "srodowisko",
+      "title": "UX i dostępność (WCAG)",
+      "description": "Zasady projektowania interfejsów, dostępność cyfrowa, WCAG, responsywność i użyteczność.",
+      "icon": "eye",
+      "minutes": 10,
+      "examWeight": 1
+    }
+  ]
+}
