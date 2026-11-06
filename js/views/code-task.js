@@ -9,6 +9,7 @@ import { difficulty } from '../components/progress.js';
 import { confirmDialog } from '../components/modal.js';
 import { toast } from '../components/toast.js';
 import { runCode } from '../engines/code-runner.js';
+import { tsCheckAndTranspile, formatDiagnostic } from '../engines/ts-service.js';
 import { LANG_LABELS } from '../config.js';
 
 export default async function codeTask(root, { id }) {
@@ -33,8 +34,8 @@ export default async function codeTask(root, { id }) {
 
   const editor = createEditor({
     value: saved.lastCode ?? task.starter,
-    lang: 'javascript',
-    label: 'Edytor JavaScript',
+    lang: task.lang === 'ts' ? 'typescript' : 'javascript',
+    label: `Edytor ${task.lang === 'ts' ? 'TypeScript' : task.lang === 'node' ? 'Node.js' : 'JavaScript'}`,
     minLines: 14,
     onRun: () => execute(true),
     onChange: (v) => {
@@ -91,11 +92,25 @@ export default async function codeTask(root, { id }) {
     const tests = full
       ? [...task.tests, ...(task.hiddenTests || []).map((t) => ({ ...t, hidden: true }))]
       : task.tests;
-    const res = await runCode({ code, fn: task.fn, tests });
+    // TypeScript: najpierw kompilacja i sprawdzenie typów
+    let jsCode = code;
+    let typeErrors = [];
+    if (task.lang === 'ts') {
+      try {
+        const compiled = await tsCheckAndTranspile(code, 'main.ts');
+        jsCode = compiled.code;
+        typeErrors = compiled.diagnostics;
+      } catch (err) {
+        runBtn.disabled = checkBtn.disabled = false;
+        setChildren(output, h('div.lab-verdict.is-fail', icon('alert'), h('strong', err.message)));
+        return;
+      }
+    }
+    const res = await runCode({ code: jsCode, fn: task.fn, tests, mode: task.lang === 'node' ? 'node' : 'js' });
     runBtn.disabled = checkBtn.disabled = false;
 
     const passed = res.results.filter((r) => r.pass).length;
-    const allPass = res.results.length > 0 && passed === res.results.length && !res.timeout;
+    const allPass = res.results.length > 0 && passed === res.results.length && !res.timeout && !typeErrors.length;
 
     if (full) {
       const wasSolved = !!store.get().code[id]?.solved;
@@ -120,6 +135,10 @@ export default async function codeTask(root, { id }) {
           : `Zaliczone testy: ${passed}/${res.results.length}`)
       ),
       allPass && full && next ? h('a.btn.btn--success.btn--sm', { href: `#/kod/${next.id}`, style: 'margin-bottom:1rem' }, 'Następne zadanie', icon('arrowRight')) : null,
+      typeErrors.length ? h('div.ts-errors',
+        h('div.lab-verdict.is-fail', icon('alert'), h('strong', `Błędy kompilacji TypeScript: ${typeErrors.length}`), h('span.small', ' – zadanie zaliczysz dopiero, gdy kod skompiluje się bez błędów typów.')),
+        h('ul.tests', typeErrors.slice(0, 8).map((d) => h('li.test.is-fail', h('span.test__icon', icon('x')), h('div.test__body', h('code.test__name', formatDiagnostic(d))))))
+      ) : null,
       res.topError ? h('div.test.is-fail', h('strong', 'Błąd podczas uruchamiania: '), res.topError) : null,
       h('ul.tests', res.results.map((r) =>
         h(`li.test.${r.pass ? 'is-pass' : 'is-fail'}`,
@@ -151,7 +170,7 @@ export default async function codeTask(root, { id }) {
     const codeEl = h('code.hljs');
     const pre = h('pre', codeEl);
     async function paint() {
-      codeEl.innerHTML = await highlightCode(task.solutions[active], active === 'js' ? 'javascript' : active);
+      codeEl.innerHTML = await highlightCode(task.solutions[active], { js: 'javascript', node: 'javascript', ts: 'typescript', kt: 'kotlin' }[active] || active);
       pre.dataset.lang = LANG_LABELS[active] || active;
     }
     const tabs = h('div.tabs', { role: 'tablist' }, langs.map((l) =>
@@ -176,7 +195,7 @@ export default async function codeTask(root, { id }) {
   }
 
   const prompt = await renderMarkdown(task.prompt);
-  const examples = task.tests.filter((t) => t.args).slice(0, 3);
+  const examples = task.lang === 'node' ? [] : task.tests.filter((t) => t.args).slice(0, 3);
 
   append(root, 
     h('nav.breadcrumbs', h('a', { href: '#/kod' }, 'Code Lab'), h('span', { 'aria-hidden': 'true' }, '/'), h('span', task.title)),

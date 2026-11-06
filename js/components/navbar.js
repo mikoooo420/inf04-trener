@@ -30,6 +30,7 @@ export const NAV = [
     title: 'Część praktyczna',
     items: [
       { key: 'kod', href: '#/kod', label: 'Code Lab', icon: 'code' },
+      { key: 'gui', href: '#/gui', label: 'Pracownia GUI', icon: 'layers' },
       { key: 'sql', href: '#/sql', label: 'SQL Lab', icon: 'database' },
       { key: 'projekty', href: '#/projekty', label: 'Arkusze praktyczne', icon: 'project' },
     ],

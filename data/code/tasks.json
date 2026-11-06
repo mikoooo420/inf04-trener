@@ -1527,5 +1527,823 @@
       "python": "class Uczen:\n    liczba = 0          # atrybut klasy (wspólny)\n\n    def __init__(self, imie):\n        self.imie = imie\n        Uczen.liczba += 1\n        self.numer = Uczen.liczba\n\n    @staticmethod\n    def ile_uczniow():\n        return Uczen.liczba"
     },
     "explanation": "W C++ pole statyczne trzeba dodatkowo zdefiniować poza klasą (int Uczen::liczba = 0;) – to częsty błąd linkera."
+  },
+  {
+    "id": "ts-001",
+    "lang": "ts",
+    "group": "TypeScript",
+    "title": "Typowana funkcja – średnia ocen",
+    "difficulty": 1,
+    "summary": "Adnotacje typów parametrów i wartości zwracanej.",
+    "concepts": [
+      "typy",
+      "tablice",
+      "noImplicitAny"
+    ],
+    "prompt": "Napisz w **TypeScripcie** funkcję `srednia(oceny: number[]): number`, która zwraca średnią arytmetyczną ocen, a dla pustej tablicy zwraca `0`.\n\nKod jest kompilowany w trybie **strict** – parametr bez typu (niejawne `any`) to błąd kompilacji. Zadanie zaliczysz dopiero, gdy kod skompiluje się bez błędów **i** przejdzie testy.",
+    "fn": "srednia",
+    "starter": "// Uzupełnij typy parametru i wartości zwracanej\nfunction srednia(oceny) {\n    // Twój kod\n}\n",
+    "tests": [
+      {
+        "args": [
+          [
+            5,
+            4,
+            6
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "args": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "args": [
+          [
+            3,
+            4
+          ]
+        ],
+        "expected": 3.5
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          [
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "args": [
+          [
+            2,
+            3,
+            3
+          ]
+        ],
+        "expected": 2.6666666666666665
+      }
+    ],
+    "hints": [
+      "Typ tablicy liczb zapisujemy jako number[].",
+      "Sumę policzysz pętlą for…of albo metodą reduce((a, b) => a + b, 0)."
+    ],
+    "solutions": {
+      "ts": "function srednia(oceny: number[]): number {\n    if (oceny.length === 0) return 0;\n    let suma = 0;\n    for (const o of oceny) suma += o;\n    return suma / oceny.length;\n}",
+      "csharp": "static double Srednia(int[] oceny)\n{\n    if (oceny.Length == 0) return 0;\n    int suma = 0;\n    foreach (int o in oceny) suma += o;\n    return (double)suma / oceny.Length;\n}"
+    },
+    "explanation": "TypeScript dodaje do JavaScriptu statyczne typowanie – błędy typu wykrywa kompilator (tsc) przed uruchomieniem programu, podobnie jak w C# czy Javie."
+  },
+  {
+    "id": "ts-002",
+    "lang": "ts",
+    "group": "TypeScript",
+    "title": "Interfejs i filtrowanie danych",
+    "difficulty": 2,
+    "summary": "interface, tablica obiektów, filter/map/sort.",
+    "concepts": [
+      "interface",
+      "filter",
+      "map",
+      "sort"
+    ],
+    "prompt": "Zdefiniuj interfejs `Produkt` z polami `nazwa` (string), `cena` (number) i `dostepny` (boolean).\n\nNapisz funkcję `tanieDostepne(produkty: Produkt[], maks: number): string[]`, która zwraca **nazwy** produktów dostępnych i kosztujących **nie więcej** niż `maks`, posortowane alfabetycznie.",
+    "fn": "tanieDostepne",
+    "starter": "interface Produkt {\n    // TODO: pola nazwa, cena, dostepny\n}\n\nfunction tanieDostepne(produkty: Produkt[], maks: number): string[] {\n    // Twój kod\n    return [];\n}\n",
+    "tests": [
+      {
+        "args": [
+          [
+            {
+              "nazwa": "Mysz",
+              "cena": 89,
+              "dostepny": true
+            },
+            {
+              "nazwa": "Klawiatura",
+              "cena": 349,
+              "dostepny": true
+            },
+            {
+              "nazwa": "Kabel",
+              "cena": 29,
+              "dostepny": true
+            }
+          ],
+          100
+        ],
+        "expected": [
+          "Kabel",
+          "Mysz"
+        ]
+      },
+      {
+        "args": [
+          [
+            {
+              "nazwa": "Monitor",
+              "cena": 699,
+              "dostepny": false
+            }
+          ],
+          1000
+        ],
+        "expected": []
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          [],
+          50
+        ],
+        "expected": []
+      },
+      {
+        "args": [
+          [
+            {
+              "nazwa": "B",
+              "cena": 100,
+              "dostepny": true
+            },
+            {
+              "nazwa": "A",
+              "cena": 100,
+              "dostepny": true
+            },
+            {
+              "nazwa": "C",
+              "cena": 101,
+              "dostepny": true
+            }
+          ],
+          100
+        ],
+        "expected": [
+          "A",
+          "B"
+        ]
+      }
+    ],
+    "hints": [
+      "Pola interfejsu: nazwa: string; cena: number; dostepny: boolean;",
+      "produkty.filter(p => p.dostepny && p.cena <= maks).map(p => p.nazwa).sort()"
+    ],
+    "solutions": {
+      "ts": "interface Produkt {\n    nazwa: string;\n    cena: number;\n    dostepny: boolean;\n}\n\nfunction tanieDostepne(produkty: Produkt[], maks: number): string[] {\n    return produkty\n        .filter((p) => p.dostepny && p.cena <= maks)\n        .map((p) => p.nazwa)\n        .sort();\n}"
+    }
+  },
+  {
+    "id": "ts-003",
+    "lang": "ts",
+    "group": "TypeScript",
+    "title": "Klasa z modyfikatorami dostępu",
+    "difficulty": 2,
+    "summary": "private, readonly, właściwości parametrów konstruktora.",
+    "concepts": [
+      "class",
+      "private",
+      "readonly",
+      "hermetyzacja"
+    ],
+    "prompt": "Zdefiniuj klasę `Konto`:\n\n- konstruktor `constructor(public readonly wlasciciel: string, saldoPoczatkowe: number = 0)`,\n- pole **prywatne** `saldo: number`,\n- `wplac(kwota: number): boolean` – dodaje dodatnią kwotę (zwraca `true`), ujemną lub zero odrzuca (`false`),\n- `wyplac(kwota: number): boolean` – odejmuje kwotę, jeśli jest dodatnia i nie przekracza salda,\n- `getSaldo(): number`.",
+    "fn": "Konto",
+    "starter": "class Konto {\n    // TODO\n}\n",
+    "tests": [
+      {
+        "expr": "(() => { const k = new Konto('Ala', 100); k.wplac(50); return k.getSaldo(); })()",
+        "expected": 150,
+        "name": "wpłata 50 → saldo 150"
+      },
+      {
+        "expr": "(() => { const k = new Konto('Ala'); return [k.wyplac(10), k.getSaldo(), k.wlasciciel]; })()",
+        "expected": [
+          false,
+          0,
+          "Ala"
+        ],
+        "name": "wypłata z pustego konta"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "expr": "(() => { const k = new Konto('Ola', 30); return [k.wplac(-5), k.wyplac(30), k.getSaldo()]; })()",
+        "expected": [
+          false,
+          true,
+          0
+        ],
+        "name": "walidacja kwot"
+      }
+    ],
+    "hints": [
+      "Skrót TypeScriptu: parametr konstruktora z modyfikatorem (public readonly) automatycznie staje się polem.",
+      "private saldo: number; – a w konstruktorze this.saldo = saldoPoczatkowe;"
+    ],
+    "solutions": {
+      "ts": "class Konto {\n    private saldo: number;\n\n    constructor(public readonly wlasciciel: string, saldoPoczatkowe: number = 0) {\n        this.saldo = saldoPoczatkowe;\n    }\n\n    wplac(kwota: number): boolean {\n        if (kwota <= 0) return false;\n        this.saldo += kwota;\n        return true;\n    }\n\n    wyplac(kwota: number): boolean {\n        if (kwota <= 0 || kwota > this.saldo) return false;\n        this.saldo -= kwota;\n        return true;\n    }\n\n    getSaldo(): number {\n        return this.saldo;\n    }\n}"
+    },
+    "explanation": "Modyfikatory private/protected/public w TypeScripcie działają w czasie kompilacji. Prywatność w czasie działania zapewniają pola z # (jak w JavaScripcie)."
+  },
+  {
+    "id": "ts-004",
+    "lang": "ts",
+    "group": "TypeScript",
+    "title": "Typ unii i enum – ocena słownie",
+    "difficulty": 2,
+    "summary": "Typy literałowe, switch i wyczerpujące sprawdzanie.",
+    "concepts": [
+      "union type",
+      "enum",
+      "switch"
+    ],
+    "prompt": "Zdefiniuj typ `Ocena = 1 | 2 | 3 | 4 | 5 | 6` i funkcję `slownie(o: Ocena): string`, która zwraca nazwę oceny: `niedostateczny`, `dopuszczający`, `dostateczny`, `dobry`, `bardzo dobry`, `celujący`.\n\nDzięki typowi unii wywołanie `slownie(7)` byłoby błędem kompilacji.",
+    "fn": "slownie",
+    "starter": "type Ocena = 1 | 2 | 3 | 4 | 5 | 6;\n\nfunction slownie(o: Ocena): string {\n    // Twój kod\n    return '';\n}\n",
+    "tests": [
+      {
+        "args": [
+          6
+        ],
+        "expected": "celujący"
+      },
+      {
+        "args": [
+          1
+        ],
+        "expected": "niedostateczny"
+      },
+      {
+        "args": [
+          4
+        ],
+        "expected": "dobry"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          2
+        ],
+        "expected": "dopuszczający"
+      },
+      {
+        "args": [
+          3
+        ],
+        "expected": "dostateczny"
+      },
+      {
+        "args": [
+          5
+        ],
+        "expected": "bardzo dobry"
+      }
+    ],
+    "hints": [
+      "Możesz użyć switch (o) { case 1: return 'niedostateczny'; … }",
+      "Albo obiektu-słownika: const nazwy: Record<Ocena, string> = { 1: '…', … };"
+    ],
+    "solutions": {
+      "ts": "type Ocena = 1 | 2 | 3 | 4 | 5 | 6;\n\nconst NAZWY: Record<Ocena, string> = {\n    1: 'niedostateczny',\n    2: 'dopuszczający',\n    3: 'dostateczny',\n    4: 'dobry',\n    5: 'bardzo dobry',\n    6: 'celujący',\n};\n\nfunction slownie(o: Ocena): string {\n    return NAZWY[o];\n}"
+    }
+  },
+  {
+    "id": "ts-005",
+    "lang": "ts",
+    "group": "TypeScript",
+    "title": "Funkcje generyczne",
+    "difficulty": 3,
+    "summary": "Typy generyczne <T> zachowujące typ elementów.",
+    "concepts": [
+      "generics",
+      "Set",
+      "tablice"
+    ],
+    "prompt": "Napisz dwie funkcje generyczne:\n\n- `unikalne<T>(tab: T[]): T[]` – zwraca elementy bez powtórzeń, w kolejności pierwszego wystąpienia,\n- `ostatni<T>(tab: T[]): T | undefined` – zwraca ostatni element lub `undefined` dla pustej tablicy.\n\nTyp generyczny `T` sprawia, że `unikalne(['a', 'b'])` zwraca `string[]`, a `unikalne([1, 2])` – `number[]`.",
+    "fn": "unikalne",
+    "starter": "function unikalne<T>(tab: T[]): T[] {\n    // Twój kod\n    return [];\n}\n\nfunction ostatni<T>(tab: T[]): T | undefined {\n    // Twój kod\n    return undefined;\n}\n",
+    "tests": [
+      {
+        "args": [
+          [
+            1,
+            2,
+            2,
+            3,
+            1
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "args": [
+          [
+            "a",
+            "b",
+            "a"
+          ]
+        ],
+        "expected": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "expr": "ostatni([4, 5, 6])",
+        "expected": 6,
+        "name": "ostatni([4, 5, 6])"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "args": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "expr": "ostatni([]) === undefined",
+        "expected": true,
+        "name": "ostatni([]) → undefined"
+      }
+    ],
+    "hints": [
+      "[...new Set(tab)] usuwa duplikaty i zachowuje kolejność.",
+      "Ostatni element: tab[tab.length - 1] (dla pustej tablicy da undefined)."
+    ],
+    "solutions": {
+      "ts": "function unikalne<T>(tab: T[]): T[] {\n    return [...new Set(tab)];\n}\n\nfunction ostatni<T>(tab: T[]): T | undefined {\n    return tab.length ? tab[tab.length - 1] : undefined;\n}",
+      "csharp": "static List<T> Unikalne<T>(List<T> tab) => tab.Distinct().ToList();\n\nstatic T? Ostatni<T>(List<T> tab) => tab.Count > 0 ? tab[^1] : default;"
+    }
+  },
+  {
+    "id": "node-001",
+    "lang": "node",
+    "group": "Node.js (backend)",
+    "title": "Moduł CommonJS",
+    "difficulty": 1,
+    "summary": "Eksportowanie funkcji przez module.exports.",
+    "concepts": [
+      "module.exports",
+      "require"
+    ],
+    "prompt": "W Node.js każdy plik jest **modułem**. Napisz moduł, który eksportuje dwie funkcje:\n\n- `kwadrat(x)` – zwraca kwadrat liczby,\n- `czyParzysta(x)` – zwraca `true` dla liczb parzystych.\n\nWyeksportuj je obiektem: `module.exports = { kwadrat, czyParzysta };` – inny plik zaimportuje je przez `require('./matematyka')`.",
+    "fn": "kwadrat",
+    "starter": "function kwadrat(x) {\n    // Twój kod\n}\n\nfunction czyParzysta(x) {\n    // Twój kod\n}\n\n// TODO: eksport funkcji\n",
+    "tests": [
+      {
+        "expr": "m.kwadrat(4)",
+        "expected": 16,
+        "name": "require(…).kwadrat(4)"
+      },
+      {
+        "expr": "m.czyParzysta(7)",
+        "expected": false,
+        "name": "require(…).czyParzysta(7)"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "expr": "m.czyParzysta(0)",
+        "expected": true,
+        "name": "czyParzysta(0)"
+      },
+      {
+        "expr": "typeof m.kwadrat === 'function' && typeof m.czyParzysta === 'function'",
+        "expected": true,
+        "name": "eksportowane są obie funkcje"
+      }
+    ],
+    "hints": [
+      "Bez module.exports funkcje są widoczne tylko wewnątrz pliku.",
+      "module.exports = { kwadrat, czyParzysta };"
+    ],
+    "solutions": {
+      "node": "function kwadrat(x) {\n    return x * x;\n}\n\nfunction czyParzysta(x) {\n    return x % 2 === 0;\n}\n\nmodule.exports = { kwadrat, czyParzysta };"
+    },
+    "explanation": "Nowszy standard to moduły ES (export / import), włączane w package.json polem \"type\": \"module\". CommonJS (require) wciąż jest bardzo popularny."
+  },
+  {
+    "id": "node-002",
+    "lang": "node",
+    "group": "Node.js (backend)",
+    "title": "Argumenty wiersza poleceń",
+    "difficulty": 1,
+    "summary": "process.argv i walidacja danych wejściowych.",
+    "concepts": [
+      "process.argv",
+      "console.log",
+      "Number"
+    ],
+    "prompt": "Napisz program uruchamiany poleceniem `node suma.js 3 4`, który wypisuje `Suma: 7`.\n\nArgumenty znajdziesz w tablicy `process.argv` – elementy o indeksach 2 i 3 (0 to ścieżka do node, 1 – do skryptu). Jeśli brakuje argumentu albo nie jest liczbą, wypisz `Użycie: node suma.js <a> <b>`.",
+    "fn": "",
+    "starter": "const a = process.argv[2];\nconst b = process.argv[3];\n\n// Twój kod\n",
+    "tests": [
+      {
+        "argv": [
+          "3",
+          "4"
+        ],
+        "output": "Suma: 7",
+        "name": "node suma.js 3 4"
+      },
+      {
+        "argv": [
+          "2.5",
+          "0.5"
+        ],
+        "output": "Suma: 3",
+        "name": "node suma.js 2.5 0.5"
+      }
+    ],
+    "hiddenTests": [
+      {
+        "argv": [
+          "5"
+        ],
+        "output": "Użycie: node suma.js <a> <b>",
+        "name": "brak drugiego argumentu"
+      },
+      {
+        "argv": [
+          "x",
+          "1"
+        ],
+        "output": "Użycie: node suma.js <a> <b>",
+        "name": "argument nie jest liczbą"
+      }
+    ],
+    "hints": [
+      "Argumenty są napisami – zamień je funkcją Number().",
+      "Number.isNaN(Number(a)) wykryje, że tekst nie jest liczbą (pamiętaj o undefined)."
+    ],
+    "solutions": {
+      "node": "const a = Number(process.argv[2]);\nconst b = Number(process.argv[3]);\n\nif (process.argv.length < 4 || Number.isNaN(a) || Number.isNaN(b)) {\n    console.log('Użycie: node suma.js <a> <b>');\n} else {\n    console.log(`Suma: ${a + b}`);\n}"
+    }
+  },
+  {
+    "id": "node-003",
+    "lang": "node",
+    "group": "Node.js (backend)",
+    "title": "Raport z pliku JSON (fs)",
+    "difficulty": 2,
+    "summary": "Odczyt i zapis plików modułem fs.",
+    "concepts": [
+      "fs.readFileSync",
+      "JSON.parse",
+      "fs.writeFileSync"
+    ],
+    "prompt": "Plik `uczniowie.json` zawiera tablicę obiektów `{ \"imie\": string, \"oceny\": number[] }`.\n\nNapisz program, który wczytuje ten plik (`fs.readFileSync(…, 'utf8')`), a następnie zapisuje do pliku `raport.txt` po jednej linii dla każdego ucznia w formacie `Imię: średnia` (średnia z **dwoma** miejscami po przecinku), zachowując kolejność z pliku. Linie oddziel znakiem `\\n`.\n\n> [!INFO]\n> W piaskownicy działa wirtualny system plików – testy podstawiają własny plik `uczniowie.json`.",
+    "fn": "",
+    "starter": "const fs = require('fs');\n\n// Twój kod\n",
+    "tests": [
+      {
+        "name": "dwóch uczniów",
+        "files": {
+          "uczniowie.json": "[{\"imie\":\"Ala\",\"oceny\":[5,4,6]},{\"imie\":\"Jan\",\"oceny\":[3,4]}]"
+        },
+        "fsExpect": {
+          "raport.txt": "Ala: 5.00\nJan: 3.50"
+        }
+      }
+    ],
+    "hiddenTests": [
+      {
+        "name": "jeden uczeń, średnia okresowa",
+        "files": {
+          "uczniowie.json": "[{\"imie\":\"Ola\",\"oceny\":[1,2,2]}]"
+        },
+        "fsExpect": {
+          "raport.txt": "Ola: 1.67"
+        }
+      }
+    ],
+    "hints": [
+      "const uczniowie = JSON.parse(fs.readFileSync('uczniowie.json', 'utf8'));",
+      "Liczba z dwoma miejscami: wartosc.toFixed(2). Linie połącz: tablica.join('\\n')."
+    ],
+    "solutions": {
+      "node": "const fs = require('fs');\n\nconst uczniowie = JSON.parse(fs.readFileSync('uczniowie.json', 'utf8'));\n\nconst linie = uczniowie.map((u) => {\n    const srednia = u.oceny.reduce((a, b) => a + b, 0) / u.oceny.length;\n    return `${u.imie}: ${srednia.toFixed(2)}`;\n});\n\nfs.writeFileSync('raport.txt', linie.join('\\n'));"
+    }
+  },
+  {
+    "id": "node-004",
+    "lang": "node",
+    "group": "Node.js (backend)",
+    "title": "REST API w Express – odczyt",
+    "difficulty": 2,
+    "summary": "Trasy GET, parametry ścieżki i kod 404.",
+    "concepts": [
+      "Express",
+      "GET",
+      "req.params",
+      "res.status"
+    ],
+    "prompt": "Utwórz aplikację **Express** z tablicą produktów:\n\n```javascript\nconst produkty = [\n    { id: 1, nazwa: 'Laptop', cena: 3299 },\n    { id: 2, nazwa: 'Mysz', cena: 89 },\n    { id: 3, nazwa: 'Monitor', cena: 699 },\n];\n```\n\nZaimplementuj trasy:\n\n| Metoda i ścieżka | Odpowiedź |\n|---|---|\n| `GET /api/produkty` | cała tablica (status 200) |\n| `GET /api/produkty/:id` | jeden produkt albo status **404** i `{ \"blad\": \"Nie znaleziono\" }` |\n| `GET /api/produkty?maxCena=700` | tylko produkty z ceną ≤ maxCena (gdy parametr podano) |\n\nNa końcu uruchom serwer: `app.listen(3000)` – w piaskownicy żądania są symulowane.",
+    "fn": "",
+    "starter": "const express = require('express');\nconst app = express();\n\nconst produkty = [\n    { id: 1, nazwa: 'Laptop', cena: 3299 },\n    { id: 2, nazwa: 'Mysz', cena: 89 },\n    { id: 3, nazwa: 'Monitor', cena: 699 },\n];\n\n// TODO: trasy\n\napp.listen(3000, () => console.log('Serwer działa na porcie 3000'));\n",
+    "tests": [
+      {
+        "name": "GET /api/produkty → 3 produkty",
+        "http": [
+          {
+            "method": "GET",
+            "url": "/api/produkty",
+            "expect": {
+              "status": 200,
+              "body": [
+                {
+                  "id": 1,
+                  "nazwa": "Laptop",
+                  "cena": 3299
+                },
+                {
+                  "id": 2,
+                  "nazwa": "Mysz",
+                  "cena": 89
+                },
+                {
+                  "id": 3,
+                  "nazwa": "Monitor",
+                  "cena": 699
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "GET /api/produkty/2 → Mysz",
+        "http": [
+          {
+            "method": "GET",
+            "url": "/api/produkty/2",
+            "expect": {
+              "status": 200,
+              "body": {
+                "id": 2,
+                "nazwa": "Mysz",
+                "cena": 89
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "GET /api/produkty/9 → 404",
+        "http": [
+          {
+            "method": "GET",
+            "url": "/api/produkty/9",
+            "expect": {
+              "status": 404,
+              "body": {
+                "blad": "Nie znaleziono"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "hiddenTests": [
+      {
+        "name": "filtr ?maxCena=700",
+        "http": [
+          {
+            "method": "GET",
+            "url": "/api/produkty?maxCena=700",
+            "expect": {
+              "status": 200,
+              "body": [
+                {
+                  "id": 2,
+                  "nazwa": "Mysz",
+                  "cena": 89
+                },
+                {
+                  "id": 3,
+                  "nazwa": "Monitor",
+                  "cena": 699
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "id nieliczbowe → 404",
+        "http": [
+          {
+            "method": "GET",
+            "url": "/api/produkty/abc",
+            "expect": {
+              "status": 404
+            }
+          }
+        ]
+      }
+    ],
+    "hints": [
+      "Parametr ścieżki jest napisem: Number(req.params.id).",
+      "Parametry zapytania: req.query.maxCena (też napis, może być undefined)."
+    ],
+    "solutions": {
+      "node": "const express = require('express');\nconst app = express();\n\nconst produkty = [\n    { id: 1, nazwa: 'Laptop', cena: 3299 },\n    { id: 2, nazwa: 'Mysz', cena: 89 },\n    { id: 3, nazwa: 'Monitor', cena: 699 },\n];\n\napp.get('/api/produkty', (req, res) => {\n    const max = req.query.maxCena;\n    const wynik = max === undefined ? produkty : produkty.filter((p) => p.cena <= Number(max));\n    res.json(wynik);\n});\n\napp.get('/api/produkty/:id', (req, res) => {\n    const produkt = produkty.find((p) => p.id === Number(req.params.id));\n    if (!produkt) return res.status(404).json({ blad: 'Nie znaleziono' });\n    res.json(produkt);\n});\n\napp.listen(3000, () => console.log('Serwer działa na porcie 3000'));"
+    }
+  },
+  {
+    "id": "node-005",
+    "lang": "node",
+    "group": "Node.js (backend)",
+    "title": "REST API w Express – CRUD",
+    "difficulty": 3,
+    "summary": "POST/PUT/DELETE, walidacja i kody 201/204/400/404.",
+    "concepts": [
+      "Express",
+      "POST",
+      "PUT",
+      "DELETE",
+      "express.json()"
+    ],
+    "prompt": "Zbuduj API listy zadań przechowywanych w tablicy w pamięci (na start pustej). Każde zadanie ma postać `{ id, tytul, zrobione }`.\n\n| Żądanie | Działanie |\n|---|---|\n| `GET /api/zadania` | lista wszystkich zadań |\n| `POST /api/zadania` z `{ \"tytul\": \"…\" }` | dodaje zadanie z kolejnym `id` (od 1) i `zrobione: false`; zwraca **201** i utworzone zadanie. Brak tytułu lub pusty tytuł → **400** i `{ \"blad\": \"Tytuł jest wymagany\" }` |\n| `PUT /api/zadania/:id` z `{ \"zrobione\": true }` | aktualizuje pole `zrobione` (i `tytul`, jeśli podano); zwraca zadanie; brak zadania → **404** |\n| `DELETE /api/zadania/:id` | usuwa zadanie, zwraca **204**; brak zadania → **404** |\n\nNie zapomnij o `app.use(express.json())` – bez tego `req.body` w prawdziwym Expressie byłoby puste.",
+    "fn": "",
+    "starter": "const express = require('express');\nconst app = express();\napp.use(express.json());\n\nlet zadania = [];\nlet nastepneId = 1;\n\n// TODO: trasy GET, POST, PUT, DELETE\n\napp.listen(3000);\n",
+    "tests": [
+      {
+        "name": "POST tworzy zadanie (201)",
+        "http": [
+          {
+            "method": "POST",
+            "url": "/api/zadania",
+            "body": {
+              "tytul": "Powtórzyć OOP"
+            },
+            "expect": {
+              "status": 201,
+              "body": {
+                "id": 1,
+                "tytul": "Powtórzyć OOP",
+                "zrobione": false
+              }
+            }
+          },
+          {
+            "method": "GET",
+            "url": "/api/zadania",
+            "expect": {
+              "status": 200,
+              "body": [
+                {
+                  "id": 1,
+                  "tytul": "Powtórzyć OOP",
+                  "zrobione": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "POST bez tytułu → 400",
+        "http": [
+          {
+            "method": "POST",
+            "url": "/api/zadania",
+            "body": {},
+            "expect": {
+              "status": 400,
+              "body": {
+                "blad": "Tytuł jest wymagany"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "PUT oznacza jako zrobione",
+        "http": [
+          {
+            "method": "POST",
+            "url": "/api/zadania",
+            "body": {
+              "tytul": "A"
+            }
+          },
+          {
+            "method": "PUT",
+            "url": "/api/zadania/1",
+            "body": {
+              "zrobione": true
+            },
+            "expect": {
+              "status": 200,
+              "body": {
+                "id": 1,
+                "tytul": "A",
+                "zrobione": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "hiddenTests": [
+      {
+        "name": "DELETE usuwa (204), potem 404",
+        "http": [
+          {
+            "method": "POST",
+            "url": "/api/zadania",
+            "body": {
+              "tytul": "A"
+            }
+          },
+          {
+            "method": "POST",
+            "url": "/api/zadania",
+            "body": {
+              "tytul": "B"
+            }
+          },
+          {
+            "method": "DELETE",
+            "url": "/api/zadania/1",
+            "expect": {
+              "status": 204
+            }
+          },
+          {
+            "method": "GET",
+            "url": "/api/zadania",
+            "expect": {
+              "body": [
+                {
+                  "id": 2,
+                  "tytul": "B",
+                  "zrobione": false
+                }
+              ]
+            }
+          },
+          {
+            "method": "DELETE",
+            "url": "/api/zadania/1",
+            "expect": {
+              "status": 404
+            }
+          }
+        ]
+      },
+      {
+        "name": "PUT nieistniejącego → 404",
+        "http": [
+          {
+            "method": "PUT",
+            "url": "/api/zadania/5",
+            "body": {
+              "zrobione": true
+            },
+            "expect": {
+              "status": 404
+            }
+          }
+        ]
+      },
+      {
+        "name": "pusty tytuł → 400",
+        "http": [
+          {
+            "method": "POST",
+            "url": "/api/zadania",
+            "body": {
+              "tytul": "   "
+            },
+            "expect": {
+              "status": 400
+            }
+          }
+        ]
+      }
+    ],
+    "hints": [
+      "Kod 201 ustawisz łańcuchowo: res.status(201).json(zadanie).",
+      "Do usuwania: const i = zadania.findIndex(z => z.id === id); zadania.splice(i, 1); res.sendStatus(204);"
+    ],
+    "solutions": {
+      "node": "const express = require('express');\nconst app = express();\napp.use(express.json());\n\nlet zadania = [];\nlet nastepneId = 1;\n\napp.get('/api/zadania', (req, res) => {\n    res.json(zadania);\n});\n\napp.post('/api/zadania', (req, res) => {\n    const tytul = (req.body.tytul || '').trim();\n    if (!tytul) return res.status(400).json({ blad: 'Tytuł jest wymagany' });\n    const zadanie = { id: nastepneId++, tytul, zrobione: false };\n    zadania.push(zadanie);\n    res.status(201).json(zadanie);\n});\n\napp.put('/api/zadania/:id', (req, res) => {\n    const zadanie = zadania.find((z) => z.id === Number(req.params.id));\n    if (!zadanie) return res.status(404).json({ blad: 'Nie znaleziono' });\n    if (req.body.tytul !== undefined) zadanie.tytul = req.body.tytul;\n    if (req.body.zrobione !== undefined) zadanie.zrobione = Boolean(req.body.zrobione);\n    res.json(zadanie);\n});\n\napp.delete('/api/zadania/:id', (req, res) => {\n    const i = zadania.findIndex((z) => z.id === Number(req.params.id));\n    if (i === -1) return res.status(404).json({ blad: 'Nie znaleziono' });\n    zadania.splice(i, 1);\n    res.sendStatus(204);\n});\n\napp.listen(3000);"
+    },
+    "explanation": "To klasyczny CRUD w stylu REST: zasób /api/zadania, metody HTTP jako operacje i kody statusu (201 Created, 204 No Content, 400 Bad Request, 404 Not Found)."
   }
 ]

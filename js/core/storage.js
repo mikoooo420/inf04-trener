@@ -17,6 +17,7 @@ export function createEmptyProgress() {
     exams: [],      // [{ date, score, max, durationSec, byTopic: { topic: [ok, total] } }]
     sql: {},        // { [taskId]: { solved, attempts, usedSolution, lastQuery, solvedAt } }
     code: {},       // { [taskId]: { solved, attempts, lastCode, solvedAt } }
+    gui: {},        // { [taskId]: { solved, attempts, files: { [plik]: kod }, usedSolution } }
     projects: {},   // { [projectId]: { checked: [], score, web: { [partIdx]: code }, bestTimeSec } }
     activity: {},   // { 'YYYY-MM-DD': liczbaAkcji }
     settings: {
@@ -46,7 +47,7 @@ function withDefaults(data) {
   const base = createEmptyProgress();
   const out = { ...base, ...data };
   out.settings = { ...base.settings, ...(data.settings || {}) };
-  for (const key of ['theory', 'questions', 'sql', 'code', 'projects', 'activity']) {
+  for (const key of ['theory', 'questions', 'sql', 'code', 'gui', 'projects', 'activity']) {
     if (!out[key] || typeof out[key] !== 'object' || Array.isArray(out[key])) out[key] = {};
   }
   if (!Array.isArray(out.exams)) out.exams = [];

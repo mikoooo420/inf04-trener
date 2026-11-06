@@ -3,7 +3,12 @@
     "id": "dm-001",
     "difficulty": 1,
     "question": "Model programowania, w którym program reaguje na działania użytkownika, np. kliknięcie przycisku, to programowanie:",
-    "answers": ["strukturalne", "zdarzeniowe", "funkcyjne", "współbieżne"],
+    "answers": [
+      "strukturalne",
+      "zdarzeniowe",
+      "funkcyjne",
+      "współbieżne"
+    ],
     "correct": 1,
     "explanation": "Aplikacje z GUI działają zdarzeniowo – kod uruchamia się w odpowiedzi na zdarzenia (Click, TextChanged itp.)."
   },
@@ -11,7 +16,12 @@
     "id": "dm-002",
     "difficulty": 1,
     "question": "Kontrolka pozwalająca wybrać tylko jedną opcję z grupy wzajemnie wykluczających się opcji to:",
-    "answers": ["CheckBox", "RadioButton", "TextBox", "ListBox"],
+    "answers": [
+      "CheckBox",
+      "RadioButton",
+      "TextBox",
+      "ListBox"
+    ],
     "correct": 1,
     "explanation": "RadioButton (przycisk opcji) w grupie pozwala zaznaczyć jedną opcję. CheckBox pozwala zaznaczyć dowolną liczbę opcji niezależnie."
   },
@@ -19,7 +29,12 @@
     "id": "dm-003",
     "difficulty": 2,
     "question": "W technologii WPF wygląd interfejsu opisuje się deklaratywnie w języku:",
-    "answers": ["HTML", "XAML", "JSON", "YAML"],
+    "answers": [
+      "HTML",
+      "XAML",
+      "JSON",
+      "YAML"
+    ],
     "correct": 1,
     "explanation": "XAML (eXtensible Application Markup Language) to oparty na XML język opisu interfejsu w WPF, .NET MAUI i UWP."
   },
@@ -27,7 +42,12 @@
     "id": "dm-004",
     "difficulty": 2,
     "question": "W systemie Android pojedynczy ekran aplikacji z interfejsem użytkownika reprezentuje komponent:",
-    "answers": ["Service", "Activity", "BroadcastReceiver", "ContentProvider"],
+    "answers": [
+      "Service",
+      "Activity",
+      "BroadcastReceiver",
+      "ContentProvider"
+    ],
     "correct": 1,
     "explanation": "Activity (aktywność) to jeden ekran aplikacji. Service działa w tle bez interfejsu."
   },
@@ -35,7 +55,12 @@
     "id": "dm-005",
     "difficulty": 2,
     "question": "Która metoda cyklu życia aktywności Android jest wywoływana jako pierwsza, podczas jej tworzenia?",
-    "answers": ["onStart()", "onResume()", "onCreate()", "onPause()"],
+    "answers": [
+      "onStart()",
+      "onResume()",
+      "onCreate()",
+      "onPause()"
+    ],
     "correct": 2,
     "explanation": "Kolejność: onCreate() → onStart() → onResume(). W onCreate() ustawia się layout (setContentView) i pobiera kontrolki."
   },
@@ -43,7 +68,12 @@
     "id": "dm-006",
     "difficulty": 2,
     "question": "Plik w projekcie Android, w którym deklaruje się aktywności aplikacji i wymagane uprawnienia (np. dostęp do aparatu), to:",
-    "answers": ["build.gradle", "AndroidManifest.xml", "strings.xml", "MainActivity.java"],
+    "answers": [
+      "build.gradle",
+      "AndroidManifest.xml",
+      "strings.xml",
+      "MainActivity.java"
+    ],
     "correct": 1,
     "explanation": "AndroidManifest.xml opisuje komponenty aplikacji, uprawnienia, ikonę i nazwę aplikacji."
   },
@@ -51,7 +81,12 @@
     "id": "dm-007",
     "difficulty": 2,
     "question": "Jednostka zalecana w Androidzie do określania rozmiaru czcionki, uwzględniająca ustawienia użytkownika, to:",
-    "answers": ["px", "dp", "sp", "pt"],
+    "answers": [
+      "px",
+      "dp",
+      "sp",
+      "pt"
+    ],
     "correct": 2,
     "explanation": "sp (scale-independent pixels) skaluje się z ustawieniem rozmiaru tekstu w systemie. Wymiary elementów podaje się w dp."
   },
@@ -59,7 +94,12 @@
     "id": "dm-008",
     "difficulty": 2,
     "question": "Kontener WPF układający elementy w wierszach i kolumnach to:",
-    "answers": ["StackPanel", "Grid", "Canvas", "WrapPanel"],
+    "answers": [
+      "StackPanel",
+      "Grid",
+      "Canvas",
+      "WrapPanel"
+    ],
     "correct": 1,
     "explanation": "Grid dzieli przestrzeń na wiersze (RowDefinitions) i kolumny (ColumnDefinitions). StackPanel układa elementy jeden pod drugim lub obok siebie."
   },
@@ -67,7 +107,12 @@
     "id": "dm-009",
     "difficulty": 2,
     "question": "Technologia firmy Microsoft pozwalająca z jednego kodu w C# tworzyć aplikacje na Androida, iOS, Windows i macOS to:",
-    "answers": [".NET MAUI", "Windows Forms", "JavaFX", "Swing"],
+    "answers": [
+      ".NET MAUI",
+      "Windows Forms",
+      "JavaFX",
+      "Swing"
+    ],
     "correct": 0,
     "explanation": ".NET MAUI (Multi-platform App UI) to wieloplatformowy framework, następca Xamarin.Forms. Windows Forms działa tylko w Windows."
   },
@@ -75,8 +120,16 @@
     "id": "dm-010",
     "difficulty": 2,
     "question": "Co należy wpisać w miejsce luki, aby w Androidzie pobrać referencję do przycisku o identyfikatorze btnOk?",
-    "code": { "lang": "java", "src": "Button btn = ________(R.id.btnOk);" },
-    "answers": ["getElementById", "findViewById", "querySelector", "getControl"],
+    "code": {
+      "lang": "java",
+      "src": "Button btn = ________(R.id.btnOk);"
+    },
+    "answers": [
+      "getElementById",
+      "findViewById",
+      "querySelector",
+      "getControl"
+    ],
     "correct": 1,
     "explanation": "findViewById() wyszukuje widok po identyfikatorze zdefiniowanym w layoucie XML (android:id=\"@+id/btnOk\"). getElementById i querySelector to metody DOM w JavaScript."
   },
@@ -84,7 +137,12 @@
     "id": "dm-011",
     "difficulty": 1,
     "question": "Kontrolka służąca do wprowadzania tekstu przez użytkownika w aplikacji Windows Forms to:",
-    "answers": ["Label", "TextBox", "PictureBox", "Panel"],
+    "answers": [
+      "Label",
+      "TextBox",
+      "PictureBox",
+      "Panel"
+    ],
     "correct": 1,
     "explanation": "TextBox to pole tekstowe do wprowadzania danych. Label tylko wyświetla tekst. W Androidzie odpowiednikiem TextBox jest EditText."
   },
@@ -92,7 +150,12 @@
     "id": "dm-012",
     "difficulty": 2,
     "question": "Zdarzenie wywoływane w WinForms/WPF, gdy zmieni się zawartość pola tekstowego, to:",
-    "answers": ["Click", "TextChanged", "Load", "Paint"],
+    "answers": [
+      "Click",
+      "TextChanged",
+      "Load",
+      "Paint"
+    ],
     "correct": 1,
     "explanation": "TextChanged pozwala reagować na każdą zmianę wpisywanego tekstu, np. do walidacji na bieżąco."
   },
@@ -100,8 +163,169 @@
     "id": "dm-013",
     "difficulty": 2,
     "question": "Narzędzie w Android Studio pozwalające uruchomić i przetestować aplikację bez fizycznego telefonu to:",
-    "answers": ["Gradle", "emulator (AVD)", "Logcat", "Lint"],
+    "answers": [
+      "Gradle",
+      "emulator (AVD)",
+      "Logcat",
+      "Lint"
+    ],
     "correct": 1,
     "explanation": "AVD (Android Virtual Device) to emulator urządzenia z Androidem. Logcat wyświetla logi, Gradle buduje projekt."
+  },
+  {
+    "id": "dm-014",
+    "difficulty": 1,
+    "question": "W JavaFX atrybut `fx:id` w pliku FXML służy do:",
+    "answers": [
+      "nadania stylu CSS",
+      "powiązania kontrolki z polem kontrolera oznaczonym @FXML",
+      "określenia kolejności tabulacji",
+      "zdefiniowania zdarzenia kliknięcia"
+    ],
+    "correct": 1,
+    "explanation": "Pole w kontrolerze musi mieć adnotację @FXML i nazwę identyczną z fx:id – inaczej pozostanie null."
+  },
+  {
+    "id": "dm-015",
+    "difficulty": 2,
+    "question": "Jak w pliku FXML podpiąć metodę `onZapisz` kontrolera do kliknięcia przycisku?",
+    "answers": [
+      "onClick=\"onZapisz\"",
+      "Click=\"onZapisz\"",
+      "onAction=\"#onZapisz\"",
+      "action=\"onZapisz()\""
+    ],
+    "correct": 2,
+    "explanation": "W FXML zdarzenia wskazuje się znakiem # przed nazwą metody kontrolera, np. onAction=\"#onZapisz\"."
+  },
+  {
+    "id": "dm-016",
+    "difficulty": 1,
+    "question": "Pole tekstowe w .NET MAUI to kontrolka:",
+    "answers": [
+      "TextBox",
+      "EditText",
+      "Entry",
+      "TextField"
+    ],
+    "correct": 2,
+    "explanation": "W MAUI jednoliniowe pole to Entry (wieloliniowe – Editor). TextBox to WPF/WinForms, EditText – Android, TextField – JavaFX."
+  },
+  {
+    "id": "dm-017",
+    "difficulty": 2,
+    "question": "W .NET MAUI zdarzenie kliknięcia przycisku nazywa się:",
+    "answers": [
+      "Click",
+      "Clicked",
+      "OnClick",
+      "Tapped"
+    ],
+    "correct": 1,
+    "explanation": "MAUI używa Clicked (i właściwości Text), a WPF – Click (i Content)."
+  },
+  {
+    "id": "dm-018",
+    "difficulty": 1,
+    "question": "W Kotlinie słowo kluczowe `val` deklaruje:",
+    "answers": [
+      "zmienną, której wartość można zmieniać",
+      "wartość tylko do odczytu (nie można jej ponownie przypisać)",
+      "funkcję",
+      "klasę danych"
+    ],
+    "correct": 1,
+    "explanation": "`val` – wartość niezmienna (jak final w Javie), `var` – zmienna."
+  },
+  {
+    "id": "dm-019",
+    "difficulty": 2,
+    "question": "Co zwróci w Kotlinie wyrażenie `\"abc\".toIntOrNull()`?",
+    "answers": [
+      "0",
+      "null",
+      "-1",
+      "wyjątek NumberFormatException"
+    ],
+    "correct": 1,
+    "explanation": "toIntOrNull() zwraca null dla niepoprawnego tekstu – nie trzeba łapać wyjątku jak przy toInt() czy Integer.parseInt()."
+  },
+  {
+    "id": "dm-020",
+    "difficulty": 2,
+    "question": "Typ `String?` w Kotlinie oznacza:",
+    "answers": [
+      "napis o maksymalnej długości 1",
+      "napis, który może mieć wartość null",
+      "dowolny typ",
+      "napis pusty"
+    ],
+    "correct": 1,
+    "explanation": "Kotlin ma null safety: typ bez ? nie może być null. Na typie z ? wywołujemy metody przez ?. lub sprawdzamy null."
+  },
+  {
+    "id": "dm-021",
+    "difficulty": 1,
+    "question": "W Windows Forms kolor tekstu etykiety Label zmienia właściwość:",
+    "answers": [
+      "Foreground",
+      "TextColor",
+      "ForeColor",
+      "FontColor"
+    ],
+    "correct": 2,
+    "explanation": "WinForms: ForeColor/BackColor; WPF: Foreground/Background; MAUI: TextColor/BackgroundColor."
+  },
+  {
+    "id": "dm-022",
+    "difficulty": 2,
+    "question": "Wzorzec MVVM stosowany w WPF i .NET MAUI rozdziela aplikację na:",
+    "answers": [
+      "Model, View, ViewModel",
+      "Model, Vector, ViewMap",
+      "Module, View, Variable Model",
+      "Main, View, Validation Model"
+    ],
+    "correct": 0,
+    "explanation": "Widok (XAML) wiąże się (binding) z ViewModelem, który udostępnia dane i polecenia; Model to dane i logika biznesowa."
+  },
+  {
+    "id": "dm-023",
+    "difficulty": 3,
+    "question": "Który interfejs musi implementować ViewModel w WPF/MAUI, aby zmiana jego właściwości automatycznie odświeżała powiązane kontrolki?",
+    "answers": [
+      "IDisposable",
+      "INotifyPropertyChanged",
+      "IComparable",
+      "IEnumerable"
+    ],
+    "correct": 1,
+    "explanation": "INotifyPropertyChanged definiuje zdarzenie PropertyChanged, na które nasłuchuje mechanizm wiązania danych."
+  },
+  {
+    "id": "dm-024",
+    "difficulty": 2,
+    "question": "Dlaczego `double.Parse(\"36.6\")` w C# może dać nieoczekiwany wynik na komputerze z polskimi ustawieniami regionalnymi?",
+    "answers": [
+      "C# nie obsługuje liczb zmiennoprzecinkowych",
+      "Polska kultura używa przecinka jako separatora dziesiętnego",
+      "Kropka oznacza mnożenie",
+      "Parse działa tylko dla liczb całkowitych"
+    ],
+    "correct": 1,
+    "explanation": "Parse/ToString korzystają z bieżącej kultury. Bezpiecznie: zamienić przecinek na kropkę i parsować z CultureInfo.InvariantCulture (najlepiej przez TryParse)."
+  },
+  {
+    "id": "dm-025",
+    "difficulty": 2,
+    "question": "Kontrolka listy rozwijanej w Androidzie to:",
+    "answers": [
+      "ComboBox",
+      "Picker",
+      "Spinner",
+      "DropDownList"
+    ],
+    "correct": 2,
+    "explanation": "Android: Spinner (pozycje przez ArrayAdapter lub android:entries); WPF/WinForms/JavaFX: ComboBox; MAUI: Picker."
   }
 ]

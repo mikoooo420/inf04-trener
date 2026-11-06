@@ -10,6 +10,7 @@ import { getProjects } from '../core/loader.js';
 import { renderMarkdown, highlightCode } from '../utils/markdown.js';
 import { createTimer } from '../components/timer.js';
 import { createWebSandbox } from '../components/web-sandbox.js';
+import { createGuiWorkspace, langOfFile } from '../components/gui-workspace.js';
 import { progressBar, difficulty } from '../components/progress.js';
 import { confirmDialog } from '../components/modal.js';
 import { toast } from '../components/toast.js';
@@ -24,25 +25,54 @@ export default async function project(root, { id }) {
   }
   document.title = `${p.title} · Arkusze praktyczne`;
 
-  const st = () => (store.get().projects[id] ||= { checked: [], auto: {}, web: {}, score: 0, elapsedSec: 0 });
+  const st = () => {
+    const rec = (store.get().projects[id] ||= { checked: [], auto: {}, web: {}, score: 0, elapsedSec: 0 });
+    rec.variant ||= {};
+    rec.gui ||= {};
+    return rec;
+  };
   store.update(() => st(), { silent: true });
   const sandboxes = [];
 
-  // ---------- Punktacja ----------
-  const allCriteria = p.parts.flatMap((part) => (part.criteria || []).map((c) => ({ ...c, part: part.id })));
-  const allAuto = p.parts.flatMap((part) => (part.checks || []).map((c) => ({ ...c, part: part.id })));
-  const maxPoints = allCriteria.reduce((a, c) => a + (c.points || 1), 0) + allAuto.reduce((a, c) => a + (c.points || 1), 0);
+  // ---------- Warianty technologiczne części GUI ----------
+  // 'html' = wariant domyślny (part.starter / part.checks / part.criteria)
+  const variantOf = (part) => {
+    const vid = st().variant[part.id] || 'html';
+    return vid === 'html' ? null : (part.variants || []).find((v) => v.id === vid) || null;
+  };
+  const autoKey = (part, v) => (v ? `${part.id}@${v.id}` : part.id);
+  const partCriteria = (part) => {
+    const v = part.type === 'web' ? variantOf(part) : null;
+    return (v ? v.criteria || [] : part.criteria || []);
+  };
+  const partAuto = (part) => {
+    if (part.type !== 'web') return [];
+    const v = variantOf(part);
+    return v ? [...(v.checks || []), ...(v.domChecks || [])] : part.checks || [];
+  };
 
+  // ---------- Punktacja ----------
   function computeScore() {
     const s = st();
-    const crit = allCriteria.filter((c) => s.checked.includes(c.id)).reduce((a, c) => a + (c.points || 1), 0);
-    const auto = allAuto.filter((c) => (s.auto[c.part] || []).includes(c.name)).reduce((a, c) => a + (c.points || 1), 0);
-    return { earned: crit + auto, ratio: maxPoints ? (crit + auto) / maxPoints : 0 };
+    let earned = 0;
+    let max = 0;
+    for (const part of p.parts) {
+      for (const c of partCriteria(part)) {
+        max += c.points || 1;
+        if (s.checked.includes(c.id)) earned += c.points || 1;
+      }
+      const passed = s.auto[autoKey(part, variantOf(part))] || [];
+      for (const c of partAuto(part)) {
+        max += c.points || 1;
+        if (passed.includes(c.name)) earned += c.points || 1;
+      }
+    }
+    return { earned, max, ratio: max ? earned / max : 0 };
   }
 
   const scoreHost = h('div.score-card__body');
   function paintScore() {
-    const { earned, ratio } = computeScore();
+    const { earned, ratio, max: maxPoints } = computeScore();
     const pass = ratio >= EXAM.practicalPassRatio;
     store.update((s) => { s.projects[id].score = ratio; }, { silent: true });
     setChildren(scoreHost, 
@@ -75,7 +105,10 @@ export default async function project(root, { id }) {
     type: 'button',
     onclick: async () => {
       if (!(await confirmDialog({ title: 'Wyzerować arkusz?', message: 'Timer, zaznaczone kryteria i wyniki testów zostaną wyczyszczone (kod w edytorze zostaje).', confirmText: 'Wyzeruj', danger: true }))) return;
-      store.update((s) => { s.projects[id] = { checked: [], auto: {}, web: s.projects[id]?.web || {}, score: 0, elapsedSec: 0 }; }, { scope: 'projects' });
+      store.update((s) => {
+        const old = s.projects[id] || {};
+        s.projects[id] = { checked: [], auto: {}, web: old.web || {}, gui: old.gui || {}, variant: old.variant || {}, score: 0, elapsedSec: 0 };
+      }, { scope: 'projects' });
       import('../core/router.js').then(({ navigate, currentPath }) => navigate(currentPath()));
     },
   }, icon('refresh'), 'Zeruj');
@@ -96,53 +129,117 @@ export default async function project(root, { id }) {
 
     if (part.starters) section.append(await codeTabs('Kod startowy / szablon', part.starters));
 
-    if (part.type === 'web') {
-      const savedWeb = st().web[part.id];
-      const sandbox = createWebSandbox({
-        initial: savedWeb || part.starter || {},
-        checks: part.checks || [],
-        onChange: (parts) => store.update((s) => { s.projects[id].web[part.id] = parts; }, { silent: true }),
-        onChecked: (results) => {
-          store.update((s) => { s.projects[id].auto[part.id] = results.filter((r) => r.pass).map((r) => r.name); }, { scope: 'projects' });
-          paintScore();
-        },
-      });
-      sandboxes.push(sandbox);
-      section.append(h('h3.lab-sub', 'Środowisko pracy'), sandbox.el);
-    }
+    const criteriaList = (part, list, web) => h('div',
+      h('h3.lab-sub', web ? 'Kryteria do samooceny (oprócz testów automatycznych)' : 'Kryteria oceniania – zaznacz spełnione'),
+      h('ul.criteria', list.map((c) => {
+        const input = h('input', {
+          type: 'checkbox',
+          checked: st().checked.includes(c.id),
+          onchange: (e) => {
+            store.update((s) => {
+              const set = new Set(s.projects[id].checked);
+              e.target.checked ? set.add(c.id) : set.delete(c.id);
+              s.projects[id].checked = [...set];
+            }, { scope: 'projects' });
+            paintScore();
+          },
+        });
+        return h('li', h('label.check', input, h('span', c.text, h('span.faint.small', ` (${c.points || 1} pkt)`))));
+      }))
+    );
 
-    if (part.criteria?.length) {
-      section.append(
-        h('h3.lab-sub', part.type === 'web' ? 'Kryteria do samooceny (oprócz testów automatycznych)' : 'Kryteria oceniania – zaznacz spełnione'),
-        h('ul.criteria', part.criteria.map((c) => {
-          const input = h('input', {
-            type: 'checkbox',
-            checked: st().checked.includes(c.id),
-            onchange: (e) => {
-              store.update((s) => {
-                const set = new Set(s.projects[id].checked);
-                e.target.checked ? set.add(c.id) : set.delete(c.id);
-                s.projects[id].checked = [...set];
-              }, { scope: 'projects' });
+    const solutionBox = (solution, fileMap = false) => {
+      const details = h('details.solution-box', h('summary', icon('eye'), ' Przykładowe rozwiązanie (zajrzyj po swojej próbie)'));
+      details.addEventListener('toggle', async () => {
+        if (details.open && details.childElementCount === 1) details.append(await codeTabs(null, solution, fileMap));
+      });
+      return details;
+    };
+
+    if (part.type === 'web') {
+      const envHost = h('div.variant-env');
+      let current = null; // { destroy }
+
+      async function renderVariant() {
+        current?.destroy?.();
+        const idx = sandboxes.indexOf(current);
+        if (idx > -1) sandboxes.splice(idx, 1);
+        const v = variantOf(part);
+        const nodes = [];
+        if (!v) {
+          const sandbox = createWebSandbox({
+            initial: st().web[part.id] || part.starter || {},
+            checks: part.checks || [],
+            onChange: (parts) => store.update((s) => { s.projects[id].web[part.id] = parts; }, { silent: true }),
+            onChecked: (results) => {
+              store.update((s) => { s.projects[id].auto[part.id] = results.filter((r) => r.pass).map((r) => r.name); }, { scope: 'projects' });
               paintScore();
             },
           });
-          return h('li', h('label.check', input, h('span', c.text, h('span.faint.small', ` (${c.points || 1} pkt)`))));
-        }))
-      );
-    }
+          current = sandbox;
+          nodes.push(h('h3.lab-sub', 'Środowisko pracy'), sandbox.el);
+          if (part.criteria?.length) nodes.push(criteriaList(part, part.criteria, true));
+          if (part.solution) nodes.push(solutionBox(part.solution));
+        } else {
+          const key = autoKey(part, v);
+          const brief = await renderMarkdown(v.brief || '');
+          const ws = createGuiWorkspace({
+            files: v.files,
+            saved: st().gui[key] || {},
+            checks: v.checks || [],
+            domChecks: v.domChecks || [],
+            runnable: v.runnable || null,
+            minLines: 16,
+            onChange: (files) => store.update((s) => { s.projects[id].gui[key] = files; }, { silent: true }),
+            onChecked: (results) => {
+              store.update((s) => { s.projects[id].auto[key] = results.filter((r) => r.pass).map((r) => r.name); }, { scope: 'projects' });
+              paintScore();
+            },
+          });
+          current = ws;
+          nodes.push(h('div.variant-brief', brief.el), h('h3.lab-sub', `Środowisko pracy – ${v.label}`), ws.el);
+          if (v.criteria?.length) nodes.push(criteriaList(part, v.criteria, true));
+          if (v.solution) nodes.push(solutionBox(v.solution, true));
+        }
+        sandboxes.push(current);
+        setChildren(envHost, ...nodes);
+      }
 
-    if (part.solution) {
-      const details = h('details.solution-box', h('summary', icon('eye'), ' Przykładowe rozwiązanie (zajrzyj po swojej próbie)'));
-      details.addEventListener('toggle', async () => {
-        if (details.open && details.childElementCount === 1) details.append(await codeTabs(null, part.solution));
-      });
-      section.append(details);
+      if (part.variants?.length) {
+        const opts = [{ id: 'html', label: 'HTML + CSS + JS', platform: 'web' }, ...part.variants];
+        const groups = [['web', 'Web'], ['desktop', 'Desktop'], ['mobile', 'Mobile']];
+        const picker = h('div.variant-picker',
+          h('div.small.muted', { style: 'margin-bottom:.4rem' }, 'Technologia wykonania (jak na egzaminie – wybierasz sam):'),
+          h('div.variant-picker__groups', groups.map(([g, gl]) => h('div.variant-picker__group',
+            h('span.variant-picker__label', gl),
+            h('div.segmented', { role: 'group', 'aria-label': `Technologie: ${gl}` },
+              opts.filter((o) => o.platform === g).map((o) => h('button', {
+                type: 'button',
+                'data-variant': o.id,
+                'aria-pressed': String((st().variant[part.id] || 'html') === o.id),
+                onclick: async () => {
+                  store.update((s) => { s.projects[id].variant[part.id] = o.id; }, { scope: 'projects' });
+                  picker.querySelectorAll('button[data-variant]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.variant === o.id)));
+                  await renderVariant();
+                  paintScore();
+                },
+              }, o.label))
+            )
+          )))
+        );
+        section.append(picker);
+      }
+      section.append(envHost);
+      await renderVariant();
+    } else {
+      if (part.criteria?.length) section.append(criteriaList(part, part.criteria, false));
+      if (part.solution) section.append(solutionBox(part.solution));
     }
     partEls.push(section);
   }
 
   const intro = await renderMarkdown(p.intro);
+  const { max: maxPoints } = computeScore();
 
   append(root, 
     h('nav.breadcrumbs', h('a', { href: '#/projekty' }, 'Arkusze praktyczne'), h('span', { 'aria-hidden': 'true' }, '/'), h('span', p.title)),
@@ -179,21 +276,21 @@ export default async function project(root, { id }) {
     persistTime();
     timer.stop();
     clearInterval(timeSaver);
-    sandboxes.forEach((s) => s.destroy());
+    sandboxes.forEach((s) => s?.destroy?.());
   };
 }
 
 /** Zakładki z kodem w kilku językach + przycisk kopiowania. */
-async function codeTabs(title, variants) {
+async function codeTabs(title, variants, fileMap = false) {
   const langs = Object.keys(variants);
   const pref = store.get().settings.codeLang;
-  let active = langs.includes(pref) ? pref : langs[0];
+  let active = !fileMap && langs.includes(pref) ? pref : langs[0];
   const codeEl = h('code.hljs');
   const pre = h('pre', codeEl);
   async function paint() {
-    const lang = { js: 'javascript', html: 'xml' }[active] || active;
+    const lang = fileMap ? langOfFile(active) : ({ js: 'javascript', html: 'xml' }[active] || active);
     codeEl.innerHTML = await highlightCode(variants[active], lang);
-    pre.dataset.lang = LANG_LABELS[active] || active;
+    pre.dataset.lang = fileMap ? active : LANG_LABELS[active] || active;
   }
   const tabs = h('div.tabs', { role: 'tablist' }, langs.map((l) => h('button', {
     type: 'button',
@@ -204,7 +301,7 @@ async function codeTabs(title, variants) {
       tabs.querySelectorAll('button').forEach((b) => b.setAttribute('aria-selected', String(b === e.currentTarget)));
       paint();
     },
-  }, LANG_LABELS[l] || l)));
+  }, fileMap ? l : LANG_LABELS[l] || l)));
   const copyBtn = h('button.btn.btn--ghost.btn--sm', {
     type: 'button',
     onclick: async () => {

@@ -2,7 +2,7 @@
 // KONFIGURACJA – stałe aplikacji w jednym miejscu
 // =========================================================
 
-export const APP_VERSION = '1.0.0';
+export const APP_VERSION = '1.1.0';
 
 /** Klucz w LocalStorage, pod którym trzymamy postępy. */
 export const STORAGE_KEY = 'inf04.progress';
@@ -51,4 +51,9 @@ export const LANG_LABELS = {
   html: 'HTML',
   xml: 'HTML',
   css: 'CSS',
+  ts: 'TypeScript',
+  typescript: 'TypeScript',
+  node: 'Node.js',
+  kotlin: 'Kotlin',
+  kt: 'Kotlin',
 };

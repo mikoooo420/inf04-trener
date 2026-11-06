@@ -1,0 +1,42 @@
+/* =========================================================
+   PRACOWNIA GUI
+   ========================================================= */
+
+.gui-techs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); gap: var(--sp-4); margin-top: var(--sp-4); }
+.gui-tech { display: flex; flex-direction: column; gap: var(--sp-3); }
+.gui-tech__head { display: flex; align-items: flex-start; gap: var(--sp-3); }
+.gui-tech__head > div:nth-child(2) { flex: 1; min-width: 0; }
+.gui-tech__head h2 { font-size: var(--fs-lg); margin: 0 0 2px; }
+.gui-tech__head p { margin: 0; }
+.gui-tech__tools { display: flex; align-items: center; gap: 6px; margin: 0; }
+.gui-tech__foot { display: flex; align-items: center; gap: var(--sp-3); margin-top: auto; }
+.gui-tech__foot .progress { flex: 1; }
+
+.gui-task__head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-4); }
+.gui-task__prompt { margin-bottom: var(--sp-4); }
+.gui-task__prompt > summary { cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: var(--sp-2); }
+.gui-task__prompt[open] > summary { margin-bottom: var(--sp-3); }
+.gui-task__prompt .prose { font-size: var(--fs-md); }
+
+.gui-ws__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); }
+.gui-ws__grid--preview { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.gui-ws__main, .gui-ws__preview { min-width: 0; display: flex; flex-direction: column; }
+.gui-ws__tabs { margin-bottom: var(--sp-2); }
+.gui-ws__tabs button { display: inline-flex; align-items: center; gap: 6px; }
+.gui-ws__editor .editor { min-height: 380px; }
+.gui-ws__preview .sandbox__frame { height: 380px; }
+.gui-ws__results { margin-top: var(--sp-2); }
+@media (max-width: 1100px) { .gui-ws__grid--preview { grid-template-columns: minmax(0, 1fr); } }
+
+.theory-main--wide { max-width: none; }
+
+/* Wybór wariantu technologii w arkuszu */
+.variant-picker { margin: var(--sp-2) 0 var(--sp-4); }
+.variant-picker .segmented { flex-wrap: wrap; }
+.variant-note { margin: 0 0 var(--sp-3); }
+
+/* Warianty technologiczne w arkuszach */
+.variant-picker__groups { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-5); }
+.variant-picker__group { display: flex; flex-direction: column; gap: .3rem; }
+.variant-picker__label { font-size: var(--fs-xs, .75rem); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint, var(--text-muted)); }
+.variant-brief { margin-top: var(--sp-3); }

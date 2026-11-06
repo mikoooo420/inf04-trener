@@ -24,13 +24,13 @@ export function buildExamSet(questions, topics, count = EXAM.questions) {
     if (!byTopic.has(q.topic)) byTopic.set(q.topic, []);
     byTopic.get(q.topic).push(q);
   }
-  const totalWeight = topics.reduce((a, t) => a + (t.examWeight || 1), 0);
+  const totalWeight = topics.reduce((a, t) => a + (t.examWeight ?? 1), 0);
   const picked = [];
   const used = new Set();
 
   // Kwoty na dział (metoda największych reszt)
   const quotas = topics.map((t) => {
-    const exact = (count * (t.examWeight || 1)) / totalWeight;
+    const exact = (count * (t.examWeight ?? 1)) / totalWeight;
     return { id: t.id, base: Math.floor(exact), rest: exact - Math.floor(exact) };
   });
   let remaining = count - quotas.reduce((a, q) => a + q.base, 0);

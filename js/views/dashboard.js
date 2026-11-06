@@ -51,6 +51,7 @@ export default async function dashboard(root) {
           partRow('Teoria', parts.theory, 'działów'),
           partRow('Pytania opanowane', parts.questions, 'pytań'),
           partRow('Code Lab', parts.code, 'zadań'),
+          partRow('Pracownia GUI', parts.gui, 'ćwiczeń'),
           partRow('SQL Lab', parts.sql, 'zadań'),
           partRow('Arkusze ≥75%', parts.projects, 'arkuszy')
         )

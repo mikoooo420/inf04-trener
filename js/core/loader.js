@@ -85,3 +85,4 @@ export async function getQuestionsByTopic(topicId) {
 export const getSqlTasks = () => fetchJSON('./data/sql/tasks.json');
 export const getCodeTasks = () => fetchJSON('./data/code/tasks.json');
 export const getProjects = () => fetchJSON('./data/projects/projects.json');
+export const getGui = () => fetchJSON('./data/gui/tasks.json');

@@ -5,7 +5,7 @@
 //  Po zmianie listy SHELL zwiększ CACHE_VERSION.
 // =========================================================
 
-const CACHE_VERSION = 'inf04-v1.0.0';
+const CACHE_VERSION = 'inf04-v1.1.0';
 const SHELL = [
   './',
   './index.html',

@@ -2,7 +2,7 @@
 // STATS – wyliczanie postępów i statystyk z obiektu stanu
 // =========================================================
 
-import { getManifest, getAllQuestions, getSqlTasks, getCodeTasks, getProjects } from '../core/loader.js';
+import { getManifest, getAllQuestions, getSqlTasks, getCodeTasks, getProjects, getGui } from '../core/loader.js';
 import { isMastered } from './leitner.js';
 import { EXAM } from '../config.js';
 
@@ -17,16 +17,17 @@ export function getCatalog() {
       getSqlTasks().catch(() => []),
       getCodeTasks().catch(() => []),
       getProjects().catch(() => []),
-    ]).then(([manifest, questions, sql, code, projects]) => ({ manifest, questions, sql, code, projects }));
+      getGui().then((g) => g.tasks).catch(() => []),
+    ]).then(([manifest, questions, sql, code, projects, gui]) => ({ manifest, questions, sql, code, projects, gui }));
     catalogPromise.catch(() => { catalogPromise = null; });
   }
   return catalogPromise;
 }
 
-const WEIGHTS = { theory: 0.2, questions: 0.35, code: 0.2, sql: 0.1, projects: 0.15 };
+const WEIGHTS = { theory: 0.17, questions: 0.3, code: 0.15, gui: 0.15, sql: 0.08, projects: 0.15 };
 
 export function computeProgress(state, catalog) {
-  const { manifest, questions, sql, code, projects } = catalog;
+  const { manifest, questions, sql, code, projects, gui = [] } = catalog;
   const ratio = (a, b) => (b ? a / b : 0);
 
   const theoryDone = manifest.topics.filter((t) => state.theory[t.id]?.readAt).length;
@@ -34,12 +35,14 @@ export function computeProgress(state, catalog) {
   const qSeen = questions.filter((q) => state.questions[q.id]).length;
   const sqlDone = sql.filter((t) => state.sql[t.id]?.solved).length;
   const codeDone = code.filter((t) => state.code[t.id]?.solved).length;
+  const guiDone = gui.filter((t) => state.gui?.[t.id]?.solved).length;
   const projDone = projects.filter((p) => (state.projects[p.id]?.score || 0) >= EXAM.practicalPassRatio).length;
 
   const parts = {
     theory: { done: theoryDone, total: manifest.topics.length, ratio: ratio(theoryDone, manifest.topics.length) },
     questions: { done: qMastered, seen: qSeen, total: questions.length, ratio: ratio(qMastered, questions.length) },
     code: { done: codeDone, total: code.length, ratio: ratio(codeDone, code.length) },
+    gui: { done: guiDone, total: gui.length, ratio: ratio(guiDone, gui.length) },
     sql: { done: sqlDone, total: sql.length, ratio: ratio(sqlDone, sql.length) },
     projects: { done: projDone, total: projects.length, ratio: ratio(projDone, projects.length) },
   };

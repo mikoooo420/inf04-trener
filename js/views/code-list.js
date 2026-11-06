@@ -1,4 +1,5 @@
 // Lista zadań programistycznych
+import { LANG_LABELS } from '../config.js';
 import { h, append } from '../core/dom.js';
 import { icon } from '../core/icons.js';
 import { store } from '../core/store.js';
@@ -37,7 +38,7 @@ export default async function codeList(root) {
           return h('li', h('a.list-row', { href: `#/kod/${t.id}` },
             h(`span.status-dot${st?.solved ? '.is-done' : st?.attempts ? '.is-partial' : ''}`, { 'aria-label': st?.solved ? 'Rozwiązane' : 'Nierozwiązane' }),
             h('div.list-row__main',
-              h('div.list-row__title', t.title),
+              h('div.list-row__title', t.title, t.lang && t.lang !== 'js' ? h('span.badge', { style: 'margin-left:.5rem' }, LANG_LABELS[t.lang] || t.lang) : null),
               h('div.list-row__sub', t.summary)
             ),
             difficulty(t.difficulty),

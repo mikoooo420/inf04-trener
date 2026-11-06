@@ -35,7 +35,7 @@ export default async function home(root) {
     h('div.hero__text',
       h('div.page-head__eyebrow', 'Egzamin zawodowy · Technik programista'),
       h('h1', 'Przygotuj się do INF.04 ', h('span.hero__accent', 'bez lania wody')),
-      h('p.hero__lead', 'Teoria w pigułce z tipami egzaminacyjnymi, quizy w formacie CKE, symulacja egzaminu na czas, zadania z kodem i SQL z automatycznym sprawdzaniem oraz arkusze praktyczne. Wszystko działa w przeglądarce, postępy zapisują się lokalnie.'),
+      h('p.hero__lead', 'Teoria w pigułce z tipami egzaminacyjnymi, quizy w formacie CKE, symulacja egzaminu na czas, zadania z kodem (JS, TypeScript, Node.js) i SQL z automatycznym sprawdzaniem, pracownia aplikacji desktopowych, mobilnych i webowych oraz arkusze praktyczne. Wszystko działa w przeglądarce, postępy zapisują się lokalnie.'),
       h('div.btn-row',
         h('a.btn.btn--primary.btn--lg', { href: nextTopic ? `#/teoria/${nextTopic.id}` : '#/egzamin' }, icon('play'), nextTopic && overall < 0.05 ? 'Zacznij naukę' : 'Kontynuuj'),
         h('a.btn.btn--lg', { href: '#/egzamin' }, icon('exam'), 'Symulacja egzaminu')
@@ -72,7 +72,8 @@ export default async function home(root) {
   const modules = [
     { href: '#/teoria', icon: 'book', title: 'Teoria w pigułce', text: `${catalog.manifest.topics.length} działów z tipami CKE i pułapkami.`, p: parts.theory, unit: ['temat', 'tematy', 'tematów'] },
     { href: '#/quiz', icon: 'quiz', title: 'Quizy tematyczne', text: `${catalog.questions.length} pytań w formacie egzaminu.`, p: parts.questions, unit: ['opanowane', 'opanowane', 'opanowanych'], color: 'green' },
-    { href: '#/kod', icon: 'code', title: 'Code Lab', text: 'Algorytmy i OOP z testami jednostkowymi.', p: parts.code, unit: ['zadanie', 'zadania', 'zadań'], color: 'blue' },
+    { href: '#/kod', icon: 'code', title: 'Code Lab', text: 'Algorytmy, OOP, TypeScript i Node.js z testami.', p: parts.code, unit: ['zadanie', 'zadania', 'zadań'], color: 'blue' },
+    { href: '#/gui', icon: 'layers', title: 'Pracownia GUI', text: 'WPF, WinForms, JavaFX, MAUI, Android, React, Angular.', p: parts.gui, unit: ['ćwiczenie', 'ćwiczenia', 'ćwiczeń'], color: 'red' },
     { href: '#/sql', icon: 'database', title: 'SQL Lab', text: 'Prawdziwy SQLite w przeglądarce, walidacja wyników.', p: parts.sql, unit: ['zadanie', 'zadania', 'zadań'], color: 'amber' },
     { href: '#/projekty', icon: 'project', title: 'Arkusze praktyczne', text: 'Symulacja części praktycznej: 180 min, kryteria, testy.', p: parts.projects, unit: ['arkusz', 'arkusze', 'arkuszy'], color: 'orange' },
     { href: '#/postepy', icon: 'chart', title: 'Postępy', text: 'Wyniki symulacji, słabe działy, eksport danych.', p: null, color: 'red' },

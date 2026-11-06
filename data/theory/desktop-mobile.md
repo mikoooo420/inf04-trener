@@ -58,6 +58,71 @@ private void btnOblicz_Click(object sender, EventArgs e)
 
 **Kontenery układu (WPF):** `StackPanel` (elementy jeden pod drugim lub obok siebie), `Grid` (wiersze i kolumny), `WrapPanel` (zawijanie), `DockPanel` (dokowanie do krawędzi), `Canvas` (współrzędne bezwzględne).
 
+### Windows Forms – kod obsługi
+
+Projektant zapisuje kontrolki w `Form1.Designer.cs` (metoda `InitializeComponent`), a my piszemy obsługę w `Form1.cs`. Dwuklik na przycisku w projektancie tworzy metodę i podpina ją: `btnOk.Click += btnOk_Click;`.
+
+```csharp
+private void btnOk_Click(object sender, EventArgs e)
+{
+    if (!int.TryParse(txtWiek.Text, out int wiek))
+    {
+        MessageBox.Show("Podaj liczbę!");
+        return;
+    }
+    lblWynik.Text = wiek >= 18 ? "Pełnoletni" : "Niepełnoletni";
+    lblWynik.ForeColor = wiek >= 18 ? Color.Green : Color.Red;
+}
+```
+
+### JavaFX i FXML
+
+Widok opisuje plik **FXML** (można go „wyklikać” w **Scene Builderze**), logikę – klasa **kontrolera**. Kontrolki łączy atrybut `fx:id` i adnotacja `@FXML`, a zdarzenia – `onAction="#metoda"`.
+
+```xml
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="app.MainController" spacing="10">
+    <TextField fx:id="txtImie"/>
+    <Button text="Powitaj" onAction="#onPowitaj"/>
+    <Label fx:id="lblWynik"/>
+</VBox>
+```
+
+```java
+public class MainController {
+    @FXML private TextField txtImie;
+    @FXML private Label lblWynik;
+
+    @FXML
+    private void onPowitaj() {
+        lblWynik.setText("Cześć, " + txtImie.getText() + "!");
+    }
+}
+```
+
+Kontenery: `VBox`/`HBox` (pionowo/poziomo), `GridPane` (siatka), `BorderPane` (top/left/center/right/bottom). Hierarchia okna: **Stage** (okno) → **Scene** (scena) → węzły (*nodes*). Wygląd zmienia się CSS-em z prefiksem `-fx-` (np. `-fx-background-color`).
+
+### .NET MAUI
+
+Jeden projekt C# + XAML działa na **Androidzie, iOS, Windows i macOS**. Kontrolki różnią się nazwami od WPF: **`Entry`** (pole tekstowe), **`Editor`** (wieloliniowe), **`Picker`** (lista rozwijana), **`CollectionView`** (lista), układy **`VerticalStackLayout`**, **`HorizontalStackLayout`**, **`Grid`**. Kliknięcie przycisku to zdarzenie **`Clicked`**, a tekst przycisku – właściwość **`Text`**.
+
+```csharp
+private async void OnZapiszClicked(object sender, EventArgs e)
+{
+    if (string.IsNullOrWhiteSpace(txtImie.Text))
+    {
+        await DisplayAlert("Błąd", "Podaj imię", "OK");
+        return;
+    }
+    lblWynik.Text = $"Zapisano: {txtImie.Text}";
+}
+```
+
+### Wiązanie danych i MVVM
+
+**Binding** łączy właściwość kontrolki z właściwością obiektu danych – zmiana jednej automatycznie aktualizuje drugą: `<TextBox Text="{Binding Imie, Mode=TwoWay}"/>`. Obiekt danych to **DataContext** (WPF) lub **BindingContext** (MAUI), a o zmianach powiadamia interfejs **`INotifyPropertyChanged`**.
+
+**MVVM** (*Model–View–ViewModel*): **Model** – dane i logika biznesowa, **View** – XAML bez logiki, **ViewModel** – właściwości i polecenia (`ICommand`) dla widoku. Dzięki temu logikę można testować bez interfejsu.
+
 ## Aplikacje mobilne – Android
 
 Natywne aplikacje Android tworzy się w **Android Studio** w językach **Kotlin** (zalecany przez Google) lub **Java**. Interfejs opisuje się w plikach **XML** (layouty) lub deklaratywnie w **Jetpack Compose**.
@@ -86,6 +151,25 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
+
+To samo w **Kotlinie** – krócej, bez średników, z lambdą w nawiasach klamrowych:
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val btn = findViewById<Button>(R.id.btnOk)
+        val tv = findViewById<TextView>(R.id.tvWynik)
+        btn.setOnClickListener { tv.text = "Kliknięto!" }
+    }
+}
+```
+
+Kotlin w pigułce: `val` – stała, `var` – zmienna, typy po dwukropku (`var wiek: Int = 17`), **null safety** (`String?` może być `null`, operator `?.` i `?:`), szablony napisów `"Wiek: $wiek"`, `when` zamiast `switch`, `"12".toIntOrNull()` zwraca `null` zamiast wyjątku. Komunikat w Androidzie: `Toast.makeText(this, "Zapisano", Toast.LENGTH_SHORT).show()`.
+
+> [!CKE]
+> Przećwicz to w **Pracowni GUI** – te same ćwiczenia w WPF, Windows Forms, JavaFX, .NET MAUI, Androidzie (Java i Kotlin), React i Angularze, a w **arkuszach praktycznych** wybierz technologię części z interfejsem. Porównanie kontrolek znajdziesz w ściądze Pracowni GUI.
 
 > [!PULAPKA]
 > Jednostki w Androidzie: wymiary podajemy w **dp** (piksele niezależne od gęstości ekranu), a rozmiar czcionki w **sp** (skaluje się z ustawieniami użytkownika). Zwykłe piksele (`px`) wyglądają różnie na różnych ekranach.

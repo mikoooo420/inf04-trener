@@ -1,0 +1,2368 @@
+{
+  "technologies": [
+    {
+      "id": "wpf",
+      "label": "WPF (C#)",
+      "platform": "desktop",
+      "platformLabel": "Desktop",
+      "color": "blue",
+      "description": "Windows Presentation Foundation – interfejs opisany w XAML, logika w code-behind (C#).",
+      "tools": "Visual Studio → nowy projekt „Aplikacja WPF (.NET)”"
+    },
+    {
+      "id": "winforms",
+      "label": "Windows Forms (C#)",
+      "platform": "desktop",
+      "platformLabel": "Desktop",
+      "color": "blue",
+      "description": "Klasyczne formularze Windows – kontrolki tworzone w projektancie (Form1.Designer.cs), obsługa w Form1.cs.",
+      "tools": "Visual Studio → „Aplikacja Windows Forms (.NET)”"
+    },
+    {
+      "id": "javafx",
+      "label": "JavaFX (Java)",
+      "platform": "desktop",
+      "platformLabel": "Desktop",
+      "color": "orange",
+      "description": "Nowoczesny GUI dla Javy – widok w FXML (np. ze Scene Buildera), logika w kontrolerze z adnotacjami @FXML.",
+      "tools": "IntelliJ IDEA → New Project → JavaFX"
+    },
+    {
+      "id": "maui",
+      "label": ".NET MAUI (C#)",
+      "platform": "mobile",
+      "platformLabel": "Mobile / multiplatform",
+      "color": "green",
+      "description": "Jeden kod C# + XAML dla Androida, iOS, Windows i macOS (następca Xamarin.Forms).",
+      "tools": "Visual Studio → „Aplikacja .NET MAUI” (emulator Androida lub Windows Machine)"
+    },
+    {
+      "id": "android-java",
+      "label": "Android (Java)",
+      "platform": "mobile",
+      "platformLabel": "Mobile",
+      "color": "green",
+      "description": "Natywna aplikacja Android: layout w XML, aktywność w Javie (findViewById, setOnClickListener).",
+      "tools": "Android Studio → Empty Views Activity, język Java"
+    },
+    {
+      "id": "android-kotlin",
+      "label": "Android (Kotlin)",
+      "platform": "mobile",
+      "platformLabel": "Mobile",
+      "color": "green",
+      "description": "Ten sam layout XML, aktywność w Kotlinie – zalecanym przez Google języku Androida.",
+      "tools": "Android Studio → Empty Views Activity, język Kotlin"
+    },
+    {
+      "id": "react",
+      "label": "React (JSX)",
+      "platform": "web",
+      "platformLabel": "Web",
+      "color": "amber",
+      "description": "Komponenty funkcyjne, stan useState i zdarzenia onClick/onChange. Uruchamia się na żywo w przeglądarce.",
+      "tools": "Node.js + npm create vite@latest (szablon React)"
+    },
+    {
+      "id": "react-ts",
+      "label": "React + TypeScript",
+      "platform": "web",
+      "platformLabel": "Web",
+      "color": "amber",
+      "description": "React z typowaniem: typowany stan, propsy i zdarzenia. Uruchamia się na żywo w przeglądarce.",
+      "tools": "Node.js + npm create vite@latest (szablon React + TypeScript)"
+    },
+    {
+      "id": "angular",
+      "label": "Angular (TypeScript)",
+      "platform": "web",
+      "platformLabel": "Web",
+      "color": "red",
+      "description": "Komponent z klasą TypeScript i szablonem HTML: interpolacja {{ }}, (click), [(ngModel)], @if/*ngIf.",
+      "tools": "Node.js + Angular CLI: ng new, ng serve"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "gui-wpf-1",
+      "tech": "wpf",
+      "title": "Licznik kliknięć",
+      "difficulty": 1,
+      "summary": "TextBlock, Button, zdarzenie Click i pole w code-behind.",
+      "concepts": [
+        "XAML",
+        "x:Name",
+        "Click",
+        "code-behind"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **`lblLicznik` (TextBlock)** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`btnKlik`** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`btnZeruj`** z napisem `Zeruj` – ustawia licznik na 0.\n\nKontrolki zdefiniuj w **MainWindow.xaml** (nadaj im nazwy atrybutem `x:Name`), a obsługę kliknięć – w **MainWindow.xaml.cs**.\n\n> [!CKE]\n> Nazwa metody w atrybucie `Click=\"…\"` musi istnieć w code-behind – inaczej projekt się nie skompiluje.",
+      "files": [
+        {
+          "name": "MainWindow.xaml",
+          "starter": "<Window x:Class=\"Licznik.MainWindow\"\n        xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n        xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n        Title=\"Licznik\" Height=\"220\" Width=\"320\">\n    <StackPanel Margin=\"20\">\n        <!-- TODO: TextBlock lblLicznik oraz przyciski btnKlik i btnZeruj -->\n    </StackPanel>\n</Window>\n"
+        },
+        {
+          "name": "MainWindow.xaml.cs",
+          "starter": "using System.Windows;\n\nnamespace Licznik\n{\n    public partial class MainWindow : Window\n    {\n        public MainWindow()\n        {\n            InitializeComponent();\n        }\n\n        // TODO: pole licznika i metody obsługi zdarzeń Click\n    }\n}\n"
+        }
+      ],
+      "solution": {
+        "MainWindow.xaml": "<Window x:Class=\"Licznik.MainWindow\"\n        xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n        xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n        Title=\"Licznik\" Height=\"220\" Width=\"320\">\n    <StackPanel Margin=\"20\">\n        <TextBlock x:Name=\"lblLicznik\" Text=\"Kliknięcia: 0\" FontSize=\"20\" Margin=\"0,0,0,12\"/>\n        <Button x:Name=\"btnKlik\" Content=\"Kliknij\" Click=\"btnKlik_Click\" Margin=\"0,0,0,8\"/>\n        <Button x:Name=\"btnZeruj\" Content=\"Zeruj\" Click=\"btnZeruj_Click\"/>\n    </StackPanel>\n</Window>\n",
+        "MainWindow.xaml.cs": "using System.Windows;\n\nnamespace Licznik\n{\n    public partial class MainWindow : Window\n    {\n        private int licznik = 0;\n\n        public MainWindow()\n        {\n            InitializeComponent();\n        }\n\n        private void btnKlik_Click(object sender, RoutedEventArgs e)\n        {\n            licznik++;\n            lblLicznik.Text = $\"Kliknięcia: {licznik}\";\n        }\n\n        private void btnZeruj_Click(object sender, RoutedEventArgs e)\n        {\n            licznik = 0;\n            lblLicznik.Text = $\"Kliknięcia: {licznik}\";\n        }\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "MainWindow.xaml",
+          "name": "MainWindow.xaml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "MainWindow.xaml",
+          "tag": "TextBlock|Label",
+          "attrs": {
+            "x:Name": "lblLicznik"
+          },
+          "name": "Etykieta lblLicznik (TextBlock lub Label)",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml",
+          "match": "Kliknięcia:\\s*0",
+          "name": "Etykieta na starcie pokazuje „Kliknięcia: 0”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainWindow.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnKlik",
+            "Content": "Kliknij"
+          },
+          "name": "Przycisk btnKlik z napisem „Kliknij”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainWindow.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnZeruj",
+            "Content": "Zeruj"
+          },
+          "name": "Przycisk btnZeruj z napisem „Zeruj”",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "MainWindow.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnKlik"
+          },
+          "event": "Click",
+          "codeFile": "MainWindow.xaml.cs",
+          "name": "Zdarzenie Click przycisku btnKlik ma metodę w code-behind",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "MainWindow.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnZeruj"
+          },
+          "event": "Click",
+          "codeFile": "MainWindow.xaml.cs",
+          "name": "Zdarzenie Click przycisku btnZeruj ma metodę w code-behind",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "\\bint\\s+\\w+\\s*(=\\s*0\\s*)?;",
+          "name": "Pole typu int przechowujące stan licznika",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "lblLicznik\\.(Text|Content)\\s*=",
+          "name": "Kod zmienia tekst etykiety lblLicznik",
+          "flags": "m",
+          "points": 1,
+          "hint": "TextBlock ma właściwość Text, a Label – Content."
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "Kliknięcia:",
+          "name": "Tekst etykiety ma format „Kliknięcia: N”",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "W XAML: <Button x:Name=\"btnKlik\" Content=\"Kliknij\" Click=\"btnKlik_Click\"/>",
+        "W code-behind: private int licznik = 0; i metoda private void btnKlik_Click(object sender, RoutedEventArgs e)."
+      ]
+    },
+    {
+      "id": "gui-wpf-2",
+      "tech": "wpf",
+      "title": "Przelicznik temperatur",
+      "difficulty": 2,
+      "summary": "TextBox, walidacja TryParse i formatowanie liczb.",
+      "concepts": [
+        "TextBox",
+        "double.TryParse",
+        "CultureInfo",
+        "formatowanie"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`txtCelsjusz` (TextBox)** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`btnPrzelicz`** z napisem `Przelicz`,\n- etykieta **`lblWynik` (TextBlock)** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\n> [!PULAPKA]\n> `double.Parse(\"36.6\")` na polskim Windowsie rzuci wyjątek albo zwróci 366 – polska kultura oczekuje przecinka. Zamień przecinek na kropkę i parsuj z `CultureInfo.InvariantCulture`.",
+      "files": [
+        {
+          "name": "MainWindow.xaml",
+          "starter": "<Window x:Class=\"Temperatury.MainWindow\"\n        xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n        xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n        Title=\"Przelicznik temperatur\" Height=\"240\" Width=\"360\">\n    <StackPanel Margin=\"20\">\n        <!-- TODO: TextBox txtCelsjusz, Button btnPrzelicz, TextBlock lblWynik -->\n    </StackPanel>\n</Window>\n"
+        },
+        {
+          "name": "MainWindow.xaml.cs",
+          "starter": "using System.Globalization;\nusing System.Windows;\n\nnamespace Temperatury\n{\n    public partial class MainWindow : Window\n    {\n        public MainWindow()\n        {\n            InitializeComponent();\n        }\n\n        // TODO: obsługa kliknięcia btnPrzelicz\n    }\n}\n"
+        }
+      ],
+      "solution": {
+        "MainWindow.xaml": "<Window x:Class=\"Temperatury.MainWindow\"\n        xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n        xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n        Title=\"Przelicznik temperatur\" Height=\"240\" Width=\"360\">\n    <StackPanel Margin=\"20\">\n        <Label Content=\"Temperatura w °C:\"/>\n        <TextBox x:Name=\"txtCelsjusz\" Margin=\"0,0,0,8\"/>\n        <Button x:Name=\"btnPrzelicz\" Content=\"Przelicz\" Click=\"btnPrzelicz_Click\" Margin=\"0,0,0,8\"/>\n        <TextBlock x:Name=\"lblWynik\" FontSize=\"16\"/>\n    </StackPanel>\n</Window>\n",
+        "MainWindow.xaml.cs": "using System.Globalization;\nusing System.Windows;\n\nnamespace Temperatury\n{\n    public partial class MainWindow : Window\n    {\n        public MainWindow()\n        {\n            InitializeComponent();\n        }\n\n        private void btnPrzelicz_Click(object sender, RoutedEventArgs e)\n        {\n            string tekst = txtCelsjusz.Text.Trim().Replace(',', '.');\n            if (!double.TryParse(tekst, NumberStyles.Float, CultureInfo.InvariantCulture, out double c))\n            {\n                lblWynik.Text = \"Podaj poprawną liczbę\";\n                return;\n            }\n            double f = c * 9 / 5 + 32;\n            var ci = CultureInfo.InvariantCulture;\n            lblWynik.Text = $\"{c.ToString(\"F1\", ci)} °C = {f.ToString(\"F1\", ci)} °F\";\n        }\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "MainWindow.xaml",
+          "name": "MainWindow.xaml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "MainWindow.xaml",
+          "tag": "TextBox",
+          "attrs": {
+            "x:Name": "txtCelsjusz"
+          },
+          "name": "Pole TextBox txtCelsjusz",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainWindow.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnPrzelicz",
+            "Content": "Przelicz"
+          },
+          "name": "Przycisk btnPrzelicz z napisem „Przelicz”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainWindow.xaml",
+          "tag": "TextBlock|Label",
+          "attrs": {
+            "x:Name": "lblWynik"
+          },
+          "name": "Etykieta wyniku lblWynik",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "MainWindow.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnPrzelicz"
+          },
+          "event": "Click",
+          "codeFile": "MainWindow.xaml.cs",
+          "name": "Zdarzenie Click ma metodę w code-behind",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "txtCelsjusz\\.Text",
+          "name": "Odczyt tekstu z pola txtCelsjusz",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "(double|decimal|float)\\.TryParse\\s*\\(",
+          "name": "Bezpieczna konwersja TryParse (bez wyjątku przy złych danych)",
+          "flags": "m",
+          "points": 1,
+          "hint": "double.Parse rzuci wyjątek dla „abc” – użyj double.TryParse(…, out double c)."
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "Replace\\s*\\(\\s*(',',\\s*'\\.'|\\\",\\\",\\s*\\\"\\.\\\")\\s*\\)|CultureInfo",
+          "name": "Obsługa przecinka dziesiętnego (Replace lub CultureInfo)",
+          "flags": "m",
+          "points": 1,
+          "hint": "Polska kultura systemu używa przecinka – zamień ',' na '.' i parsuj z CultureInfo.InvariantCulture."
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "\\*\\s*9\\s*/\\s*5|\\*\\s*1\\.8|9\\s*\\*",
+          "name": "Wzór F = C × 9 / 5 + 32",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "\\+\\s*32",
+          "name": "Dodanie 32 we wzorze",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "Podaj poprawną liczbę",
+          "name": "Komunikat „Podaj poprawną liczbę”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainWindow.xaml.cs",
+          "match": "(F1|N1|0\\.0|:0\\.0|Math\\.Round\\([^)]*,\\s*1\\))",
+          "name": "Formatowanie z jedną cyfrą po przecinku (np. ToString(\"F1\"))",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "string t = txtCelsjusz.Text.Replace(',', '.'); if (!double.TryParse(t, NumberStyles.Float, CultureInfo.InvariantCulture, out double c)) { … }",
+        "Formatowanie: f.ToString(\"F1\", CultureInfo.InvariantCulture) da „77.0”."
+      ]
+    },
+    {
+      "id": "gui-winforms-1",
+      "tech": "winforms",
+      "title": "Licznik kliknięć",
+      "difficulty": 1,
+      "summary": "Kontrolki w InitializeComponent, Controls.Add i zdarzenie Click.",
+      "concepts": [
+        "Label",
+        "Button",
+        "EventHandler",
+        "Designer"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **`lblLicznik` (Label)** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`btnKlik`** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`btnZeruj`** z napisem `Zeruj` – ustawia licznik na 0.\n\nW prawdziwym projekcie kontrolki przeciągasz w projektancie formularza, a Visual Studio zapisuje je w **Form1.Designer.cs**. Tutaj uzupełnij ten plik ręcznie (to dobre ćwiczenie – wiesz, co robi projektant), a obsługę zdarzeń napisz w **Form1.cs**.",
+      "files": [
+        {
+          "name": "Form1.Designer.cs",
+          "starter": "namespace Licznik\n{\n    partial class Form1\n    {\n        private System.ComponentModel.IContainer components = null;\n\n        protected override void Dispose(bool disposing)\n        {\n            if (disposing && (components != null)) components.Dispose();\n            base.Dispose(disposing);\n        }\n\n        private void InitializeComponent()\n        {\n            // TODO: utwórz lblLicznik (Label), btnKlik i btnZeruj (Button),\n            // ustaw ich właściwości i podepnij zdarzenia Click\n            this.ClientSize = new System.Drawing.Size(300, 180);\n            this.Text = \"Licznik\";\n        }\n\n        // TODO: deklaracje pól kontrolek\n    }\n}\n"
+        },
+        {
+          "name": "Form1.cs",
+          "starter": "using System;\nusing System.Windows.Forms;\n\nnamespace Licznik\n{\n    public partial class Form1 : Form\n    {\n        public Form1()\n        {\n            InitializeComponent();\n        }\n\n        // TODO: pole licznika i metody obsługi zdarzeń\n    }\n}\n"
+        }
+      ],
+      "solution": {
+        "Form1.Designer.cs": "namespace Licznik\n{\n    partial class Form1\n    {\n        private System.ComponentModel.IContainer components = null;\n\n        protected override void Dispose(bool disposing)\n        {\n            if (disposing && (components != null)) components.Dispose();\n            base.Dispose(disposing);\n        }\n\n        private void InitializeComponent()\n        {\n            this.lblLicznik = new System.Windows.Forms.Label();\n            this.btnKlik = new System.Windows.Forms.Button();\n            this.btnZeruj = new System.Windows.Forms.Button();\n            this.SuspendLayout();\n            // lblLicznik\n            this.lblLicznik.AutoSize = true;\n            this.lblLicznik.Font = new System.Drawing.Font(\"Segoe UI\", 14F);\n            this.lblLicznik.Location = new System.Drawing.Point(20, 20);\n            this.lblLicznik.Name = \"lblLicznik\";\n            this.lblLicznik.Text = \"Kliknięcia: 0\";\n            // btnKlik\n            this.btnKlik.Location = new System.Drawing.Point(20, 70);\n            this.btnKlik.Name = \"btnKlik\";\n            this.btnKlik.Size = new System.Drawing.Size(120, 32);\n            this.btnKlik.Text = \"Kliknij\";\n            this.btnKlik.Click += new System.EventHandler(this.btnKlik_Click);\n            // btnZeruj\n            this.btnZeruj.Location = new System.Drawing.Point(150, 70);\n            this.btnZeruj.Name = \"btnZeruj\";\n            this.btnZeruj.Size = new System.Drawing.Size(120, 32);\n            this.btnZeruj.Text = \"Zeruj\";\n            this.btnZeruj.Click += new System.EventHandler(this.btnZeruj_Click);\n            // Form1\n            this.ClientSize = new System.Drawing.Size(300, 130);\n            this.Controls.Add(this.lblLicznik);\n            this.Controls.Add(this.btnKlik);\n            this.Controls.Add(this.btnZeruj);\n            this.Text = \"Licznik\";\n            this.ResumeLayout(false);\n            this.PerformLayout();\n        }\n\n        private System.Windows.Forms.Label lblLicznik;\n        private System.Windows.Forms.Button btnKlik;\n        private System.Windows.Forms.Button btnZeruj;\n    }\n}\n",
+        "Form1.cs": "using System;\nusing System.Windows.Forms;\n\nnamespace Licznik\n{\n    public partial class Form1 : Form\n    {\n        private int licznik = 0;\n\n        public Form1()\n        {\n            InitializeComponent();\n        }\n\n        private void btnKlik_Click(object sender, EventArgs e)\n        {\n            licznik++;\n            lblLicznik.Text = $\"Kliknięcia: {licznik}\";\n        }\n\n        private void btnZeruj_Click(object sender, EventArgs e)\n        {\n            licznik = 0;\n            lblLicznik.Text = $\"Kliknięcia: {licznik}\";\n        }\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "lblLicznik\\s*=\\s*new\\s+(System\\.Windows\\.Forms\\.)?Label\\s*\\(",
+          "name": "Utworzenie etykiety lblLicznik (new Label())",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "btnKlik\\s*=\\s*new\\s+(System\\.Windows\\.Forms\\.)?Button\\s*\\(",
+          "name": "Utworzenie przycisku btnKlik (new Button())",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "btnZeruj\\s*=\\s*new\\s+(System\\.Windows\\.Forms\\.)?Button\\s*\\(",
+          "name": "Utworzenie przycisku btnZeruj",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "btnKlik\\.Text\\s*=\\s*\"Kliknij\"",
+          "name": "Napis przycisku btnKlik to „Kliknij”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "btnZeruj\\.Text\\s*=\\s*\"Zeruj\"",
+          "name": "Napis przycisku btnZeruj to „Zeruj”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "lblLicznik\\.Text\\s*=\\s*\"Kliknięcia: 0\"",
+          "name": "Etykieta na starcie: „Kliknięcia: 0”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "Controls\\.Add\\(\\s*(this\\.)?btnKlik\\s*\\)",
+          "name": "Przyciski dodane do formularza (Controls.Add)",
+          "flags": "m",
+          "points": 1,
+          "hint": "Kontrolka niedodana do Controls nie pojawi się na formularzu."
+        },
+        {
+          "type": "handlerRegex",
+          "file": "Form1.Designer.cs",
+          "match": "btnKlik\\.Click\\s*\\+=\\s*(?:new\\s+(?:System\\.)?EventHandler\\(\\s*)?(?:this\\.)?(\\w+|\\()",
+          "codeFile": "Form1.cs",
+          "name": "Zdarzenie btnKlik.Click ma metodę obsługi w Form1.cs"
+        },
+        {
+          "type": "handlerRegex",
+          "file": "Form1.Designer.cs",
+          "match": "btnZeruj\\.Click\\s*\\+=\\s*(?:new\\s+(?:System\\.)?EventHandler\\(\\s*)?(?:this\\.)?(\\w+|\\()",
+          "codeFile": "Form1.cs",
+          "name": "Zdarzenie btnZeruj.Click ma metodę obsługi"
+        },
+        {
+          "type": "code",
+          "file": "Form1.cs",
+          "match": "lblLicznik\\.Text\\s*=",
+          "name": "Kod obsługi zmienia lblLicznik.Text",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "this.btnKlik = new System.Windows.Forms.Button(); this.btnKlik.Text = \"Kliknij\";",
+        "Podpięcie zdarzenia: this.btnKlik.Click += new System.EventHandler(this.btnKlik_Click);"
+      ]
+    },
+    {
+      "id": "gui-winforms-2",
+      "tech": "winforms",
+      "title": "Przelicznik temperatur",
+      "difficulty": 2,
+      "summary": "TextBox, Button, Label i bezpieczne parsowanie liczb.",
+      "concepts": [
+        "TextBox",
+        "TryParse",
+        "Controls.Add"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`txtCelsjusz` (TextBox)** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`btnPrzelicz`** z napisem `Przelicz`,\n- etykieta **`lblWynik` (Label)** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\nKontrolki utwórz w **Form1.Designer.cs**, logikę napisz w **Form1.cs**.",
+      "files": [
+        {
+          "name": "Form1.Designer.cs",
+          "starter": "namespace Temperatury\n{\n    partial class Form1\n    {\n        private System.ComponentModel.IContainer components = null;\n\n        protected override void Dispose(bool disposing)\n        {\n            if (disposing && (components != null)) components.Dispose();\n            base.Dispose(disposing);\n        }\n\n        private void InitializeComponent()\n        {\n            // TODO: utwórz lblTemperatury (Label), btnKlik i btnZeruj (Button),\n            // ustaw ich właściwości i podepnij zdarzenia Click\n            this.ClientSize = new System.Drawing.Size(300, 180);\n            this.Text = \"Przelicznik temperatur\";\n        }\n\n        // TODO: deklaracje pól kontrolek\n    }\n}\n"
+        },
+        {
+          "name": "Form1.cs",
+          "starter": "using System;\nusing System.Windows.Forms;\n\nnamespace Temperatury\n{\n    public partial class Form1 : Form\n    {\n        public Form1()\n        {\n            InitializeComponent();\n        }\n\n        // TODO: metoda obsługi btnPrzelicz_Click\n    }\n}\n"
+        }
+      ],
+      "solution": {
+        "Form1.Designer.cs": "namespace Temperatury\n{\n    partial class Form1\n    {\n        private System.ComponentModel.IContainer components = null;\n\n        protected override void Dispose(bool disposing)\n        {\n            if (disposing && (components != null)) components.Dispose();\n            base.Dispose(disposing);\n        }\n\n        private void InitializeComponent()\n        {\n            this.txtCelsjusz = new System.Windows.Forms.TextBox();\n            this.btnPrzelicz = new System.Windows.Forms.Button();\n            this.lblWynik = new System.Windows.Forms.Label();\n            this.SuspendLayout();\n            // txtCelsjusz\n            this.txtCelsjusz.Location = new System.Drawing.Point(20, 20);\n            this.txtCelsjusz.Name = \"txtCelsjusz\";\n            this.txtCelsjusz.Size = new System.Drawing.Size(150, 23);\n            // btnPrzelicz\n            this.btnPrzelicz.Location = new System.Drawing.Point(180, 18);\n            this.btnPrzelicz.Name = \"btnPrzelicz\";\n            this.btnPrzelicz.Size = new System.Drawing.Size(100, 27);\n            this.btnPrzelicz.Text = \"Przelicz\";\n            this.btnPrzelicz.Click += new System.EventHandler(this.btnPrzelicz_Click);\n            // lblWynik\n            this.lblWynik.AutoSize = true;\n            this.lblWynik.Location = new System.Drawing.Point(20, 60);\n            this.lblWynik.Name = \"lblWynik\";\n            this.lblWynik.Text = \"\";\n            // Form1\n            this.ClientSize = new System.Drawing.Size(300, 100);\n            this.Controls.Add(this.txtCelsjusz);\n            this.Controls.Add(this.btnPrzelicz);\n            this.Controls.Add(this.lblWynik);\n            this.Text = \"Przelicznik temperatur\";\n            this.ResumeLayout(false);\n            this.PerformLayout();\n        }\n\n        private System.Windows.Forms.TextBox txtCelsjusz;\n        private System.Windows.Forms.Button btnPrzelicz;\n        private System.Windows.Forms.Label lblWynik;\n    }\n}\n",
+        "Form1.cs": "using System;\nusing System.Globalization;\nusing System.Windows.Forms;\n\nnamespace Temperatury\n{\n    public partial class Form1 : Form\n    {\n        public Form1()\n        {\n            InitializeComponent();\n        }\n\n        private void btnPrzelicz_Click(object sender, EventArgs e)\n        {\n            string tekst = txtCelsjusz.Text.Trim().Replace(',', '.');\n            if (!double.TryParse(tekst, NumberStyles.Float, CultureInfo.InvariantCulture, out double c))\n            {\n                lblWynik.Text = \"Podaj poprawną liczbę\";\n                return;\n            }\n            double f = c * 9 / 5 + 32;\n            var ci = CultureInfo.InvariantCulture;\n            lblWynik.Text = $\"{c.ToString(\"F1\", ci)} °C = {f.ToString(\"F1\", ci)} °F\";\n        }\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "txtCelsjusz\\s*=\\s*new\\s+(System\\.Windows\\.Forms\\.)?TextBox\\s*\\(",
+          "name": "Utworzenie pola txtCelsjusz (new TextBox())",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "btnPrzelicz\\s*=\\s*new\\s+(System\\.Windows\\.Forms\\.)?Button\\s*\\(",
+          "name": "Utworzenie przycisku btnPrzelicz",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "lblWynik\\s*=\\s*new\\s+(System\\.Windows\\.Forms\\.)?Label\\s*\\(",
+          "name": "Utworzenie etykiety lblWynik",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "btnPrzelicz\\.Text\\s*=\\s*\"Przelicz\"",
+          "name": "Napis przycisku „Przelicz”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.Designer.cs",
+          "match": "Controls\\.Add\\(\\s*(this\\.)?txtCelsjusz\\s*\\)",
+          "name": "Pole dodane do formularza (Controls.Add)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "handlerRegex",
+          "file": "Form1.Designer.cs",
+          "match": "btnPrzelicz\\.Click\\s*\\+=\\s*(?:new\\s+(?:System\\.)?EventHandler\\(\\s*)?(?:this\\.)?(\\w+|\\()",
+          "codeFile": "Form1.cs",
+          "name": "Zdarzenie Click ma metodę obsługi w Form1.cs"
+        },
+        {
+          "type": "code",
+          "file": "Form1.cs",
+          "match": "(double|decimal|float)\\.TryParse\\s*\\(",
+          "name": "Bezpieczna konwersja TryParse (bez wyjątku przy złych danych)",
+          "flags": "m",
+          "points": 1,
+          "hint": "double.Parse rzuci wyjątek dla „abc” – użyj double.TryParse(…, out double c)."
+        },
+        {
+          "type": "code",
+          "file": "Form1.cs",
+          "match": "Replace\\s*\\(\\s*(',',\\s*'\\.'|\\\",\\\",\\s*\\\"\\.\\\")\\s*\\)|CultureInfo",
+          "name": "Obsługa przecinka dziesiętnego (Replace lub CultureInfo)",
+          "flags": "m",
+          "points": 1,
+          "hint": "Polska kultura systemu używa przecinka – zamień ',' na '.' i parsuj z CultureInfo.InvariantCulture."
+        },
+        {
+          "type": "code",
+          "file": "Form1.cs",
+          "match": "\\*\\s*9\\s*/\\s*5|\\*\\s*1\\.8|9\\s*\\*",
+          "name": "Wzór F = C × 9 / 5 + 32",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.cs",
+          "match": "\\+\\s*32",
+          "name": "Dodanie 32 we wzorze",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.cs",
+          "match": "Podaj poprawną liczbę",
+          "name": "Komunikat „Podaj poprawną liczbę”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "Form1.cs",
+          "match": "(F1|N1|0\\.0|:0\\.0|Math\\.Round\\([^)]*,\\s*1\\))",
+          "name": "Formatowanie z jedną cyfrą po przecinku (np. ToString(\"F1\"))",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "this.txtCelsjusz = new System.Windows.Forms.TextBox();",
+        "if (!double.TryParse(tekst, NumberStyles.Float, CultureInfo.InvariantCulture, out double c)) { lblWynik.Text = \"Podaj poprawną liczbę\"; return; }"
+      ]
+    },
+    {
+      "id": "gui-javafx-1",
+      "tech": "javafx",
+      "title": "Licznik kliknięć",
+      "difficulty": 1,
+      "summary": "FXML, fx:id, onAction i kontroler z adnotacją @FXML.",
+      "concepts": [
+        "FXML",
+        "fx:id",
+        "@FXML",
+        "onAction"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **`lblLicznik` (Label)** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`btnKlik`** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`btnZeruj`** z napisem `Zeruj` – ustawia licznik na 0.\n\nWidok zapisz w **main-view.fxml** (identyfikatory przez `fx:id`, zdarzenia przez `onAction=\"#metoda\"`), a logikę – w klasie **MainController**.\n\n> [!PULAPKA]\n> Pole w kontrolerze musi mieć adnotację `@FXML` i **dokładnie** taką nazwę jak `fx:id`, inaczej będzie miało wartość `null`.",
+      "files": [
+        {
+          "name": "main-view.fxml",
+          "starter": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?import javafx.scene.control.*?>\n<?import javafx.scene.layout.*?>\n\n<VBox xmlns=\"http://javafx.com/javafx\" xmlns:fx=\"http://javafx.com/fxml\"\n      fx:controller=\"pl.inf04.licznik.MainController\"\n      spacing=\"10\" style=\"-fx-padding: 20;\">\n    <!-- TODO: Label lblLicznik oraz przyciski btnKlik i btnZeruj -->\n</VBox>\n"
+        },
+        {
+          "name": "MainController.java",
+          "starter": "package pl.inf04.licznik;\n\nimport javafx.fxml.FXML;\nimport javafx.scene.control.Label;\n\npublic class MainController {\n\n    // TODO: pole @FXML dla etykiety, licznik i metody obsługi onAction\n}\n"
+        }
+      ],
+      "solution": {
+        "main-view.fxml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?import javafx.scene.control.*?>\n<?import javafx.scene.layout.*?>\n\n<VBox xmlns=\"http://javafx.com/javafx\" xmlns:fx=\"http://javafx.com/fxml\"\n      fx:controller=\"pl.inf04.licznik.MainController\"\n      spacing=\"10\" style=\"-fx-padding: 20;\">\n    <Label fx:id=\"lblLicznik\" text=\"Kliknięcia: 0\" style=\"-fx-font-size: 20;\"/>\n    <Button fx:id=\"btnKlik\" text=\"Kliknij\" onAction=\"#onKlik\"/>\n    <Button fx:id=\"btnZeruj\" text=\"Zeruj\" onAction=\"#onZeruj\"/>\n</VBox>\n",
+        "MainController.java": "package pl.inf04.licznik;\n\nimport javafx.fxml.FXML;\nimport javafx.scene.control.Label;\n\npublic class MainController {\n\n    @FXML\n    private Label lblLicznik;\n\n    private int licznik = 0;\n\n    @FXML\n    private void onKlik() {\n        licznik++;\n        lblLicznik.setText(\"Kliknięcia: \" + licznik);\n    }\n\n    @FXML\n    private void onZeruj() {\n        licznik = 0;\n        lblLicznik.setText(\"Kliknięcia: \" + licznik);\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "main-view.fxml",
+          "name": "main-view.fxml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "main-view.fxml",
+          "tag": "*",
+          "attrs": {
+            "fx:controller": "*"
+          },
+          "name": "Widok wskazuje kontroler (fx:controller)",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "main-view.fxml",
+          "tag": "Label",
+          "attrs": {
+            "fx:id": "lblLicznik",
+            "text": "Kliknięcia: 0"
+          },
+          "name": "Label lblLicznik z tekstem „Kliknięcia: 0”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "main-view.fxml",
+          "tag": "Button",
+          "attrs": {
+            "fx:id": "btnKlik",
+            "text": "Kliknij"
+          },
+          "name": "Przycisk btnKlik z napisem „Kliknij”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "main-view.fxml",
+          "tag": "Button",
+          "attrs": {
+            "fx:id": "btnZeruj",
+            "text": "Zeruj"
+          },
+          "name": "Przycisk btnZeruj z napisem „Zeruj”",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "main-view.fxml",
+          "tag": "Button",
+          "attrs": {
+            "fx:id": "btnKlik"
+          },
+          "event": "onAction",
+          "codeFile": "MainController.java",
+          "name": "onAction przycisku btnKlik wskazuje metodę kontrolera",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "main-view.fxml",
+          "tag": "Button",
+          "attrs": {
+            "fx:id": "btnZeruj"
+          },
+          "event": "onAction",
+          "codeFile": "MainController.java",
+          "name": "onAction przycisku btnZeruj wskazuje metodę kontrolera",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "@FXML\\s+(private\\s+|protected\\s+|public\\s+)?Label\\s+lblLicznik\\s*;",
+          "name": "Pole @FXML Label lblLicznik w kontrolerze",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "lblLicznik\\.setText\\s*\\(",
+          "name": "Aktualizacja tekstu przez setText()",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "W FXML: <Button fx:id=\"btnKlik\" text=\"Kliknij\" onAction=\"#onKlik\"/>",
+        "W kontrolerze: @FXML private Label lblLicznik; oraz @FXML private void onKlik() { … }"
+      ]
+    },
+    {
+      "id": "gui-javafx-2",
+      "tech": "javafx",
+      "title": "Przelicznik temperatur",
+      "difficulty": 2,
+      "summary": "TextField, parseDouble z try/catch i String.format.",
+      "concepts": [
+        "TextField",
+        "parseDouble",
+        "NumberFormatException",
+        "Locale"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`txtCelsjusz` (TextField)** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`btnPrzelicz`** z napisem `Przelicz`,\n- etykieta **`lblWynik` (Label)** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\n> [!PULAPKA]\n> `String.format(\"%.1f\", x)` na polskim systemie wstawi przecinek. Podaj locale: `String.format(Locale.US, \"%.1f\", x)`.",
+      "files": [
+        {
+          "name": "main-view.fxml",
+          "starter": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?import javafx.scene.control.*?>\n<?import javafx.scene.layout.*?>\n\n<VBox xmlns=\"http://javafx.com/javafx\" xmlns:fx=\"http://javafx.com/fxml\"\n      fx:controller=\"pl.inf04.temperatury.MainController\"\n      spacing=\"10\" style=\"-fx-padding: 20;\">\n    <!-- TODO: TextField txtCelsjusz, Button btnPrzelicz, Label lblWynik -->\n</VBox>\n"
+        },
+        {
+          "name": "MainController.java",
+          "starter": "package pl.inf04.temperatury;\n\nimport java.util.Locale;\nimport javafx.fxml.FXML;\nimport javafx.scene.control.Label;\nimport javafx.scene.control.TextField;\n\npublic class MainController {\n\n    // TODO: pola @FXML i metoda onPrzelicz()\n}\n"
+        }
+      ],
+      "solution": {
+        "main-view.fxml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?import javafx.scene.control.*?>\n<?import javafx.scene.layout.*?>\n\n<VBox xmlns=\"http://javafx.com/javafx\" xmlns:fx=\"http://javafx.com/fxml\"\n      fx:controller=\"pl.inf04.temperatury.MainController\"\n      spacing=\"10\" style=\"-fx-padding: 20;\">\n    <Label text=\"Temperatura w °C:\"/>\n    <TextField fx:id=\"txtCelsjusz\" promptText=\"np. 36,6\"/>\n    <Button fx:id=\"btnPrzelicz\" text=\"Przelicz\" onAction=\"#onPrzelicz\"/>\n    <Label fx:id=\"lblWynik\" style=\"-fx-font-size: 16;\"/>\n</VBox>\n",
+        "MainController.java": "package pl.inf04.temperatury;\n\nimport java.util.Locale;\nimport javafx.fxml.FXML;\nimport javafx.scene.control.Label;\nimport javafx.scene.control.TextField;\n\npublic class MainController {\n\n    @FXML\n    private TextField txtCelsjusz;\n\n    @FXML\n    private Label lblWynik;\n\n    @FXML\n    private void onPrzelicz() {\n        String tekst = txtCelsjusz.getText().trim().replace(',', '.');\n        try {\n            double c = Double.parseDouble(tekst);\n            double f = c * 9 / 5 + 32;\n            lblWynik.setText(String.format(Locale.US, \"%.1f °C = %.1f °F\", c, f));\n        } catch (NumberFormatException e) {\n            lblWynik.setText(\"Podaj poprawną liczbę\");\n        }\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "main-view.fxml",
+          "name": "main-view.fxml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "main-view.fxml",
+          "tag": "TextField",
+          "attrs": {
+            "fx:id": "txtCelsjusz"
+          },
+          "name": "Pole TextField txtCelsjusz",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "main-view.fxml",
+          "tag": "Button",
+          "attrs": {
+            "fx:id": "btnPrzelicz",
+            "text": "Przelicz"
+          },
+          "name": "Przycisk btnPrzelicz „Przelicz”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "main-view.fxml",
+          "tag": "Label",
+          "attrs": {
+            "fx:id": "lblWynik"
+          },
+          "name": "Label lblWynik",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "main-view.fxml",
+          "tag": "Button",
+          "attrs": {
+            "fx:id": "btnPrzelicz"
+          },
+          "event": "onAction",
+          "codeFile": "MainController.java",
+          "name": "onAction wskazuje metodę kontrolera",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "@FXML\\s+(private\\s+)?TextField\\s+txtCelsjusz",
+          "name": "Pole @FXML TextField txtCelsjusz",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "@FXML\\s+(private\\s+)?Label\\s+lblWynik",
+          "name": "Pole @FXML Label lblWynik",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "Double\\.parseDouble\\s*\\(|Double\\.valueOf\\s*\\(",
+          "name": "Konwersja tekstu na liczbę (Double.parseDouble)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "catch\\s*\\(\\s*(NumberFormatException|Exception)\\b",
+          "name": "Obsługa błędnych danych (catch NumberFormatException)",
+          "flags": "m",
+          "points": 1,
+          "hint": "Double.parseDouble(\"abc\") rzuca NumberFormatException – złap go i wyświetl komunikat."
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "replace\\s*\\(\\s*(',',\\s*'\\.'|\\\",\\\",\\s*\\\"\\.\\\")\\s*\\)",
+          "name": "Zamiana przecinka na kropkę (replace)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "\\*\\s*9\\s*/\\s*5|\\*\\s*1\\.8|9\\s*\\*",
+          "name": "Wzór F = C × 9 / 5 + 32",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "Podaj poprawną liczbę",
+          "name": "Komunikat „Podaj poprawną liczbę”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainController.java",
+          "match": "%\\.1f",
+          "name": "Formatowanie z jedną cyfrą po przecinku (%.1f)",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "try { double c = Double.parseDouble(tekst); … } catch (NumberFormatException e) { … }",
+        "String.format(Locale.US, \"%.1f °C = %.1f °F\", c, f)"
+      ]
+    },
+    {
+      "id": "gui-maui-1",
+      "tech": "maui",
+      "title": "Licznik kliknięć",
+      "difficulty": 1,
+      "summary": "ContentPage, Label, Button i zdarzenie Clicked.",
+      "concepts": [
+        "XAML",
+        "ContentPage",
+        "Clicked"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **`lblLicznik` (Label)** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`btnKlik`** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`btnZeruj`** z napisem `Zeruj` – ustawia licznik na 0.\n\nWidok zapisz w **MainPage.xaml**, a obsługę zdarzeń w **MainPage.xaml.cs**.\n\n> [!PULAPKA]\n> W .NET MAUI tekst przycisku ustawia się właściwością `Text`, a zdarzenie kliknięcia nazywa się `Clicked` (w WPF: `Content` i `Click`).",
+      "files": [
+        {
+          "name": "MainPage.xaml",
+          "starter": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<ContentPage xmlns=\"http://schemas.microsoft.com/dotnet/2021/maui\"\n             xmlns:x=\"http://schemas.microsoft.com/winfx/2009/xaml\"\n             x:Class=\"Licznik.MainPage\">\n    <VerticalStackLayout Padding=\"30\" Spacing=\"12\">\n        <!-- TODO: Label lblLicznik oraz przyciski btnKlik i btnZeruj -->\n    </VerticalStackLayout>\n</ContentPage>\n"
+        },
+        {
+          "name": "MainPage.xaml.cs",
+          "starter": "namespace Licznik;\n\npublic partial class MainPage : ContentPage\n{\n    public MainPage()\n    {\n        InitializeComponent();\n    }\n\n    // TODO: pole licznika i metody obsługi zdarzenia Clicked\n}\n"
+        }
+      ],
+      "solution": {
+        "MainPage.xaml": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<ContentPage xmlns=\"http://schemas.microsoft.com/dotnet/2021/maui\"\n             xmlns:x=\"http://schemas.microsoft.com/winfx/2009/xaml\"\n             x:Class=\"Licznik.MainPage\">\n    <VerticalStackLayout Padding=\"30\" Spacing=\"12\">\n        <Label x:Name=\"lblLicznik\" Text=\"Kliknięcia: 0\" FontSize=\"24\" HorizontalOptions=\"Center\"/>\n        <Button x:Name=\"btnKlik\" Text=\"Kliknij\" Clicked=\"OnKlikClicked\"/>\n        <Button x:Name=\"btnZeruj\" Text=\"Zeruj\" Clicked=\"OnZerujClicked\"/>\n    </VerticalStackLayout>\n</ContentPage>\n",
+        "MainPage.xaml.cs": "namespace Licznik;\n\npublic partial class MainPage : ContentPage\n{\n    private int licznik = 0;\n\n    public MainPage()\n    {\n        InitializeComponent();\n    }\n\n    private void OnKlikClicked(object sender, EventArgs e)\n    {\n        licznik++;\n        lblLicznik.Text = $\"Kliknięcia: {licznik}\";\n    }\n\n    private void OnZerujClicked(object sender, EventArgs e)\n    {\n        licznik = 0;\n        lblLicznik.Text = $\"Kliknięcia: {licznik}\";\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "MainPage.xaml",
+          "name": "MainPage.xaml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "MainPage.xaml",
+          "tag": "Label",
+          "attrs": {
+            "x:Name": "lblLicznik",
+            "Text": "Kliknięcia: 0"
+          },
+          "name": "Label lblLicznik z tekstem „Kliknięcia: 0”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainPage.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnKlik",
+            "Text": "Kliknij"
+          },
+          "name": "Przycisk btnKlik z napisem „Kliknij” (właściwość Text)",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainPage.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnZeruj",
+            "Text": "Zeruj"
+          },
+          "name": "Przycisk btnZeruj z napisem „Zeruj”",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "MainPage.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnKlik"
+          },
+          "event": "Clicked",
+          "codeFile": "MainPage.xaml.cs",
+          "name": "Zdarzenie Clicked przycisku btnKlik ma metodę w code-behind",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "MainPage.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnZeruj"
+          },
+          "event": "Clicked",
+          "codeFile": "MainPage.xaml.cs",
+          "name": "Zdarzenie Clicked przycisku btnZeruj ma metodę",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainPage.xaml.cs",
+          "match": "\\bint\\s+\\w+\\s*(=\\s*0\\s*)?;",
+          "name": "Pole int z licznikiem",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainPage.xaml.cs",
+          "match": "lblLicznik\\.Text\\s*=",
+          "name": "Kod zmienia lblLicznik.Text",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "<Button x:Name=\"btnKlik\" Text=\"Kliknij\" Clicked=\"OnKlikClicked\"/>",
+        "private void OnKlikClicked(object sender, EventArgs e) { … }"
+      ]
+    },
+    {
+      "id": "gui-maui-2",
+      "tech": "maui",
+      "title": "Przelicznik temperatur",
+      "difficulty": 2,
+      "summary": "Entry z klawiaturą numeryczną, walidacja i wynik w Label.",
+      "concepts": [
+        "Entry",
+        "Keyboard=Numeric",
+        "TryParse"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`txtCelsjusz` (Entry)** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`btnPrzelicz`** z napisem `Przelicz`,\n- etykieta **`lblWynik` (Label)** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\nW .NET MAUI polem tekstowym jest kontrolka **Entry**. Ustaw jej `Keyboard=\"Numeric\"`, żeby na telefonie pojawiła się klawiatura numeryczna.",
+      "files": [
+        {
+          "name": "MainPage.xaml",
+          "starter": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<ContentPage xmlns=\"http://schemas.microsoft.com/dotnet/2021/maui\"\n             xmlns:x=\"http://schemas.microsoft.com/winfx/2009/xaml\"\n             x:Class=\"Temperatury.MainPage\">\n    <VerticalStackLayout Padding=\"30\" Spacing=\"12\">\n        <!-- TODO: Entry txtCelsjusz, Button btnPrzelicz, Label lblWynik -->\n    </VerticalStackLayout>\n</ContentPage>\n"
+        },
+        {
+          "name": "MainPage.xaml.cs",
+          "starter": "using System.Globalization;\n\nnamespace Temperatury;\n\npublic partial class MainPage : ContentPage\n{\n    public MainPage()\n    {\n        InitializeComponent();\n    }\n\n    // TODO: obsługa zdarzenia Clicked przycisku btnPrzelicz\n}\n"
+        }
+      ],
+      "solution": {
+        "MainPage.xaml": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<ContentPage xmlns=\"http://schemas.microsoft.com/dotnet/2021/maui\"\n             xmlns:x=\"http://schemas.microsoft.com/winfx/2009/xaml\"\n             x:Class=\"Temperatury.MainPage\">\n    <VerticalStackLayout Padding=\"30\" Spacing=\"12\">\n        <Label Text=\"Temperatura w °C:\"/>\n        <Entry x:Name=\"txtCelsjusz\" Placeholder=\"np. 36,6\" Keyboard=\"Numeric\"/>\n        <Button x:Name=\"btnPrzelicz\" Text=\"Przelicz\" Clicked=\"OnPrzeliczClicked\"/>\n        <Label x:Name=\"lblWynik\" FontSize=\"18\"/>\n    </VerticalStackLayout>\n</ContentPage>\n",
+        "MainPage.xaml.cs": "using System.Globalization;\n\nnamespace Temperatury;\n\npublic partial class MainPage : ContentPage\n{\n    public MainPage()\n    {\n        InitializeComponent();\n    }\n\n    private void OnPrzeliczClicked(object sender, EventArgs e)\n    {\n        string tekst = (txtCelsjusz.Text ?? \"\").Trim().Replace(',', '.');\n        if (!double.TryParse(tekst, NumberStyles.Float, CultureInfo.InvariantCulture, out double c))\n        {\n            lblWynik.Text = \"Podaj poprawną liczbę\";\n            return;\n        }\n        double f = c * 9 / 5 + 32;\n        var ci = CultureInfo.InvariantCulture;\n        lblWynik.Text = $\"{c.ToString(\"F1\", ci)} °C = {f.ToString(\"F1\", ci)} °F\";\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "MainPage.xaml",
+          "name": "MainPage.xaml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "MainPage.xaml",
+          "tag": "Entry",
+          "attrs": {
+            "x:Name": "txtCelsjusz"
+          },
+          "name": "Pole Entry txtCelsjusz",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainPage.xaml",
+          "tag": "Entry",
+          "attrs": {
+            "x:Name": "txtCelsjusz",
+            "Keyboard": "Numeric"
+          },
+          "name": "Entry ma klawiaturę numeryczną (Keyboard=\"Numeric\")",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainPage.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnPrzelicz",
+            "Text": "Przelicz"
+          },
+          "name": "Przycisk btnPrzelicz „Przelicz”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "MainPage.xaml",
+          "tag": "Label",
+          "attrs": {
+            "x:Name": "lblWynik"
+          },
+          "name": "Label lblWynik",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "MainPage.xaml",
+          "tag": "Button",
+          "attrs": {
+            "x:Name": "btnPrzelicz"
+          },
+          "event": "Clicked",
+          "codeFile": "MainPage.xaml.cs",
+          "name": "Zdarzenie Clicked ma metodę w code-behind",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainPage.xaml.cs",
+          "match": "(double|decimal|float)\\.TryParse\\s*\\(",
+          "name": "Bezpieczna konwersja TryParse (bez wyjątku przy złych danych)",
+          "flags": "m",
+          "points": 1,
+          "hint": "double.Parse rzuci wyjątek dla „abc” – użyj double.TryParse(…, out double c)."
+        },
+        {
+          "type": "code",
+          "file": "MainPage.xaml.cs",
+          "match": "Replace\\s*\\(\\s*(',',\\s*'\\.'|\\\",\\\",\\s*\\\"\\.\\\")\\s*\\)|CultureInfo",
+          "name": "Obsługa przecinka dziesiętnego (Replace lub CultureInfo)",
+          "flags": "m",
+          "points": 1,
+          "hint": "Polska kultura systemu używa przecinka – zamień ',' na '.' i parsuj z CultureInfo.InvariantCulture."
+        },
+        {
+          "type": "code",
+          "file": "MainPage.xaml.cs",
+          "match": "\\*\\s*9\\s*/\\s*5|\\*\\s*1\\.8|9\\s*\\*",
+          "name": "Wzór F = C × 9 / 5 + 32",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainPage.xaml.cs",
+          "match": "\\+\\s*32",
+          "name": "Dodanie 32 we wzorze",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainPage.xaml.cs",
+          "match": "Podaj poprawną liczbę",
+          "name": "Komunikat „Podaj poprawną liczbę”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainPage.xaml.cs",
+          "match": "(F1|N1|0\\.0|:0\\.0|Math\\.Round\\([^)]*,\\s*1\\))",
+          "name": "Formatowanie z jedną cyfrą po przecinku (np. ToString(\"F1\"))",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "<Entry x:Name=\"txtCelsjusz\" Keyboard=\"Numeric\"/>",
+        "Entry.Text może być null – użyj (txtCelsjusz.Text ?? \"\")."
+      ]
+    },
+    {
+      "id": "gui-android-java-1",
+      "tech": "android-java",
+      "title": "Licznik kliknięć",
+      "difficulty": 1,
+      "summary": "Layout XML, findViewById i setOnClickListener.",
+      "concepts": [
+        "activity_main.xml",
+        "findViewById",
+        "setOnClickListener"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **`tvLicznik` (TextView)** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`btnKlik` (Button)** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`btnZeruj` (Button)** z napisem `Zeruj` – ustawia licznik na 0.\n\nLayout zapisz w **activity_main.xml** (identyfikatory `android:id=\"@+id/…\"`), a logikę w metodzie `onCreate` klasy **MainActivity**.\n\n> [!CKE]\n> Tekst etykiety ustawiasz metodą `setText(…)`. Rozmiar czcionki podawaj w `sp`, a wymiary w `dp`.",
+      "files": [
+        {
+          "name": "activity_main.xml",
+          "starter": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"24dp\">\n\n    <!-- TODO: TextView tvLicznik oraz przyciski btnKlik i btnZeruj -->\n\n</LinearLayout>\n"
+        },
+        {
+          "name": "MainActivity.java",
+          "starter": "package pl.inf04.licznik;\n\nimport android.os.Bundle;\nimport android.widget.Button;\nimport android.widget.TextView;\nimport androidx.appcompat.app.AppCompatActivity;\n\npublic class MainActivity extends AppCompatActivity {\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n\n        // TODO: findViewById + setOnClickListener\n    }\n}\n"
+        }
+      ],
+      "solution": {
+        "activity_main.xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"24dp\">\n\n    <TextView\n        android:id=\"@+id/tvLicznik\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Kliknięcia: 0\"\n        android:textSize=\"24sp\" />\n\n    <Button\n        android:id=\"@+id/btnKlik\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Kliknij\" />\n\n    <Button\n        android:id=\"@+id/btnZeruj\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Zeruj\" />\n\n</LinearLayout>\n",
+        "MainActivity.java": "package pl.inf04.licznik;\n\nimport android.os.Bundle;\nimport android.widget.Button;\nimport android.widget.TextView;\nimport androidx.appcompat.app.AppCompatActivity;\n\npublic class MainActivity extends AppCompatActivity {\n\n    private int licznik = 0;\n    private TextView tvLicznik;\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n\n        tvLicznik = findViewById(R.id.tvLicznik);\n        Button btnKlik = findViewById(R.id.btnKlik);\n        Button btnZeruj = findViewById(R.id.btnZeruj);\n\n        btnKlik.setOnClickListener(v -> {\n            licznik++;\n            tvLicznik.setText(\"Kliknięcia: \" + licznik);\n        });\n\n        btnZeruj.setOnClickListener(v -> {\n            licznik = 0;\n            tvLicznik.setText(\"Kliknięcia: \" + licznik);\n        });\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "activity_main.xml",
+          "name": "activity_main.xml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "TextView",
+          "attrs": {
+            "android:id": "@+id/tvLicznik",
+            "android:text": "Kliknięcia: 0"
+          },
+          "name": "TextView tvLicznik z tekstem „Kliknięcia: 0”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "Button|re:Button$",
+          "attrs": {
+            "android:id": "@+id/btnKlik",
+            "android:text": "Kliknij"
+          },
+          "name": "Button btnKlik z napisem „Kliknij”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "Button|re:Button$",
+          "attrs": {
+            "android:id": "@+id/btnZeruj",
+            "android:text": "Zeruj"
+          },
+          "name": "Button btnZeruj z napisem „Zeruj”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "*",
+          "attrs": {
+            "android:layout_width": "*",
+            "android:layout_height": "*"
+          },
+          "name": "Elementy mają layout_width i layout_height",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "(findViewById(<[\\w.]+>)?\\(\\s*R\\.id\\.tvLicznik\\s*\\)|binding\\.tvLicznik)",
+          "name": "Pobranie tvLicznik przez findViewById(R.id.tvLicznik)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "(findViewById(<[\\w.]+>)?\\(\\s*R\\.id\\.btnKlik\\s*\\)|binding\\.btnKlik)",
+          "name": "Pobranie przycisku btnKlik",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "setOnClickListener[\\s\\S]*setOnClickListener",
+          "name": "Obsługa kliknięć obu przycisków (setOnClickListener)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "\\.setText\\s*\\(",
+          "name": "Aktualizacja tekstu przez setText()",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "setContentView\\s*\\(\\s*R\\.layout\\.activity_main\\s*\\)",
+          "name": "Aktywność wczytuje layout activity_main",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "TextView tv = findViewById(R.id.tvLicznik);",
+        "btnKlik.setOnClickListener(v -> { licznik++; tv.setText(\"Kliknięcia: \" + licznik); });"
+      ]
+    },
+    {
+      "id": "gui-android-java-2",
+      "tech": "android-java",
+      "title": "Przelicznik temperatur",
+      "difficulty": 2,
+      "summary": "EditText z inputType, getText().toString() i try/catch.",
+      "concepts": [
+        "EditText",
+        "inputType",
+        "parseDouble",
+        "String.format"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`etCelsjusz` (EditText)** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`btnPrzelicz`** z napisem `Przelicz`,\n- etykieta **`tvWynik` (TextView)** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\n> [!PULAPKA]\n> `getText()` w EditText zwraca obiekt `Editable`, a nie `String` – wywołaj `.toString()`.",
+      "files": [
+        {
+          "name": "activity_main.xml",
+          "starter": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"24dp\">\n\n    <!-- TODO: EditText etCelsjusz, Button btnPrzelicz, TextView tvWynik -->\n\n</LinearLayout>\n"
+        },
+        {
+          "name": "MainActivity.java",
+          "starter": "package pl.inf04.temperatury;\n\nimport android.os.Bundle;\nimport android.widget.Button;\nimport android.widget.EditText;\nimport android.widget.TextView;\nimport androidx.appcompat.app.AppCompatActivity;\nimport java.util.Locale;\n\npublic class MainActivity extends AppCompatActivity {\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n\n        // TODO: findViewById + setOnClickListener\n    }\n}\n"
+        }
+      ],
+      "solution": {
+        "activity_main.xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"24dp\">\n\n    <EditText\n        android:id=\"@+id/etCelsjusz\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:hint=\"Temperatura w °C\"\n        android:inputType=\"numberDecimal|numberSigned\" />\n\n    <Button\n        android:id=\"@+id/btnPrzelicz\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Przelicz\" />\n\n    <TextView\n        android:id=\"@+id/tvWynik\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:textSize=\"18sp\" />\n\n</LinearLayout>\n",
+        "MainActivity.java": "package pl.inf04.temperatury;\n\nimport android.os.Bundle;\nimport android.widget.Button;\nimport android.widget.EditText;\nimport android.widget.TextView;\nimport androidx.appcompat.app.AppCompatActivity;\nimport java.util.Locale;\n\npublic class MainActivity extends AppCompatActivity {\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n\n        EditText etCelsjusz = findViewById(R.id.etCelsjusz);\n        Button btnPrzelicz = findViewById(R.id.btnPrzelicz);\n        TextView tvWynik = findViewById(R.id.tvWynik);\n\n        btnPrzelicz.setOnClickListener(v -> {\n            String tekst = etCelsjusz.getText().toString().trim().replace(',', '.');\n            try {\n                double c = Double.parseDouble(tekst);\n                double f = c * 9 / 5 + 32;\n                tvWynik.setText(String.format(Locale.US, \"%.1f °C = %.1f °F\", c, f));\n            } catch (NumberFormatException e) {\n                tvWynik.setText(\"Podaj poprawną liczbę\");\n            }\n        });\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "activity_main.xml",
+          "name": "activity_main.xml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "EditText|re:EditText$",
+          "attrs": {
+            "android:id": "@+id/etCelsjusz"
+          },
+          "name": "EditText etCelsjusz",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "EditText|re:EditText$",
+          "attrs": {
+            "android:id": "@+id/etCelsjusz",
+            "android:inputType": "re:numberDecimal"
+          },
+          "name": "Klawiatura liczbowa (inputType=\"numberDecimal\")",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "Button|re:Button$",
+          "attrs": {
+            "android:id": "@+id/btnPrzelicz",
+            "android:text": "Przelicz"
+          },
+          "name": "Button btnPrzelicz „Przelicz”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "TextView",
+          "attrs": {
+            "android:id": "@+id/tvWynik"
+          },
+          "name": "TextView tvWynik",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "(findViewById(<[\\w.]+>)?\\(\\s*R\\.id\\.etCelsjusz\\s*\\)|binding\\.etCelsjusz)",
+          "name": "Pobranie pola etCelsjusz",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "getText\\(\\)\\s*\\.toString\\(\\)",
+          "name": "Odczyt tekstu: getText().toString()",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "setOnClickListener",
+          "name": "Obsługa kliknięcia przycisku",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "Double\\.parseDouble\\s*\\(|Double\\.valueOf\\s*\\(",
+          "name": "Konwersja tekstu na liczbę (Double.parseDouble)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "catch\\s*\\(\\s*(NumberFormatException|Exception)\\b",
+          "name": "Obsługa błędnych danych (catch NumberFormatException)",
+          "flags": "m",
+          "points": 1,
+          "hint": "Double.parseDouble(\"abc\") rzuca NumberFormatException – złap go i wyświetl komunikat."
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "replace\\s*\\(\\s*(',',\\s*'\\.'|\\\",\\\",\\s*\\\"\\.\\\")\\s*\\)",
+          "name": "Zamiana przecinka na kropkę (replace)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "\\*\\s*9\\s*/\\s*5|\\*\\s*1\\.8|9\\s*\\*",
+          "name": "Wzór F = C × 9 / 5 + 32",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "Podaj poprawną liczbę",
+          "name": "Komunikat „Podaj poprawną liczbę”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.java",
+          "match": "%\\.1f",
+          "name": "Formatowanie z jedną cyfrą po przecinku (%.1f)",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "String tekst = etCelsjusz.getText().toString().replace(',', '.');",
+        "try { double c = Double.parseDouble(tekst); … } catch (NumberFormatException e) { tvWynik.setText(\"Podaj poprawną liczbę\"); }"
+      ]
+    },
+    {
+      "id": "gui-android-kotlin-1",
+      "tech": "android-kotlin",
+      "title": "Licznik kliknięć",
+      "difficulty": 1,
+      "summary": "Ten sam layout, aktywność w Kotlinie (lambdy, właściwość text).",
+      "concepts": [
+        "Kotlin",
+        "findViewById<T>",
+        "setOnClickListener { }"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **`tvLicznik` (TextView)** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`btnKlik` (Button)** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`btnZeruj` (Button)** z napisem `Zeruj` – ustawia licznik na 0.\n\nLayout zapisz w **activity_main.xml**, a logikę w **MainActivity.kt**.\n\n> [!INFO]\n> W Kotlinie zamiast `setText(…)` możesz pisać `tvLicznik.text = \"…\"`, a szablony napisów wyglądają tak: `\"Kliknięcia: $licznik\"`.",
+      "files": [
+        {
+          "name": "activity_main.xml",
+          "starter": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"24dp\">\n\n    <!-- TODO: TextView tvLicznik oraz przyciski btnKlik i btnZeruj -->\n\n</LinearLayout>\n"
+        },
+        {
+          "name": "MainActivity.kt",
+          "starter": "package pl.inf04.licznik\n\nimport android.os.Bundle\nimport android.widget.Button\nimport android.widget.TextView\nimport androidx.appcompat.app.AppCompatActivity\n\nclass MainActivity : AppCompatActivity() {\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContentView(R.layout.activity_main)\n\n        // TODO: findViewById + setOnClickListener\n    }\n}\n"
+        }
+      ],
+      "solution": {
+        "activity_main.xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"24dp\">\n\n    <TextView\n        android:id=\"@+id/tvLicznik\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Kliknięcia: 0\"\n        android:textSize=\"24sp\" />\n\n    <Button\n        android:id=\"@+id/btnKlik\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Kliknij\" />\n\n    <Button\n        android:id=\"@+id/btnZeruj\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Zeruj\" />\n\n</LinearLayout>\n",
+        "MainActivity.kt": "package pl.inf04.licznik\n\nimport android.os.Bundle\nimport android.widget.Button\nimport android.widget.TextView\nimport androidx.appcompat.app.AppCompatActivity\n\nclass MainActivity : AppCompatActivity() {\n\n    private var licznik = 0\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContentView(R.layout.activity_main)\n\n        val tvLicznik = findViewById<TextView>(R.id.tvLicznik)\n        val btnKlik = findViewById<Button>(R.id.btnKlik)\n        val btnZeruj = findViewById<Button>(R.id.btnZeruj)\n\n        btnKlik.setOnClickListener {\n            licznik++\n            tvLicznik.text = \"Kliknięcia: $licznik\"\n        }\n\n        btnZeruj.setOnClickListener {\n            licznik = 0\n            tvLicznik.text = \"Kliknięcia: $licznik\"\n        }\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "activity_main.xml",
+          "name": "activity_main.xml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "TextView",
+          "attrs": {
+            "android:id": "@+id/tvLicznik",
+            "android:text": "Kliknięcia: 0"
+          },
+          "name": "TextView tvLicznik z tekstem „Kliknięcia: 0”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "Button|re:Button$",
+          "attrs": {
+            "android:id": "@+id/btnKlik",
+            "android:text": "Kliknij"
+          },
+          "name": "Button btnKlik z napisem „Kliknij”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "Button|re:Button$",
+          "attrs": {
+            "android:id": "@+id/btnZeruj",
+            "android:text": "Zeruj"
+          },
+          "name": "Button btnZeruj z napisem „Zeruj”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "*",
+          "attrs": {
+            "android:layout_width": "*",
+            "android:layout_height": "*"
+          },
+          "name": "Elementy mają layout_width i layout_height",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "(findViewById(<[\\w.]+>)?\\(\\s*R\\.id\\.tvLicznik\\s*\\)|binding\\.tvLicznik)",
+          "name": "Pobranie tvLicznik (findViewById<TextView>(R.id.tvLicznik))",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "setOnClickListener[\\s\\S]*setOnClickListener",
+          "name": "Obsługa kliknięć obu przycisków",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "(\\.text\\s*=|\\.setText\\s*\\()",
+          "name": "Aktualizacja tekstu (text = … lub setText)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "\\bvar\\s+\\w+\\s*(:\\s*Int\\s*)?=\\s*0",
+          "name": "Zmienna (var) licznika",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "val tvLicznik = findViewById<TextView>(R.id.tvLicznik)",
+        "btnKlik.setOnClickListener { licznik++; tvLicznik.text = \"Kliknięcia: $licznik\" }"
+      ]
+    },
+    {
+      "id": "gui-android-kotlin-2",
+      "tech": "android-kotlin",
+      "title": "Przelicznik temperatur",
+      "difficulty": 2,
+      "summary": "toDoubleOrNull() zamiast try/catch i szablony napisów.",
+      "concepts": [
+        "Kotlin",
+        "toDoubleOrNull",
+        "null safety"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`etCelsjusz` (EditText)** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`btnPrzelicz`** z napisem `Przelicz`,\n- etykieta **`tvWynik` (TextView)** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\n> [!INFO]\n> W Kotlinie zamiast łapać wyjątek użyj `toDoubleOrNull()` – zwraca `null` dla niepoprawnego tekstu.",
+      "files": [
+        {
+          "name": "activity_main.xml",
+          "starter": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"24dp\">\n\n    <!-- TODO: EditText etCelsjusz, Button btnPrzelicz, TextView tvWynik -->\n\n</LinearLayout>\n"
+        },
+        {
+          "name": "MainActivity.kt",
+          "starter": "package pl.inf04.temperatury\n\nimport android.os.Bundle\nimport android.widget.Button\nimport android.widget.EditText\nimport android.widget.TextView\nimport androidx.appcompat.app.AppCompatActivity\nimport java.util.Locale\n\nclass MainActivity : AppCompatActivity() {\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContentView(R.layout.activity_main)\n\n        // TODO: findViewById + setOnClickListener\n    }\n}\n"
+        }
+      ],
+      "solution": {
+        "activity_main.xml": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\"\n    android:padding=\"24dp\">\n\n    <EditText\n        android:id=\"@+id/etCelsjusz\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:hint=\"Temperatura w °C\"\n        android:inputType=\"numberDecimal|numberSigned\" />\n\n    <Button\n        android:id=\"@+id/btnPrzelicz\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Przelicz\" />\n\n    <TextView\n        android:id=\"@+id/tvWynik\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:textSize=\"18sp\" />\n\n</LinearLayout>\n",
+        "MainActivity.kt": "package pl.inf04.temperatury\n\nimport android.os.Bundle\nimport android.widget.Button\nimport android.widget.EditText\nimport android.widget.TextView\nimport androidx.appcompat.app.AppCompatActivity\nimport java.util.Locale\n\nclass MainActivity : AppCompatActivity() {\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContentView(R.layout.activity_main)\n\n        val etCelsjusz = findViewById<EditText>(R.id.etCelsjusz)\n        val btnPrzelicz = findViewById<Button>(R.id.btnPrzelicz)\n        val tvWynik = findViewById<TextView>(R.id.tvWynik)\n\n        btnPrzelicz.setOnClickListener {\n            val c = etCelsjusz.text.toString().trim().replace(',', '.').toDoubleOrNull()\n            if (c == null) {\n                tvWynik.text = \"Podaj poprawną liczbę\"\n            } else {\n                val f = c * 9 / 5 + 32\n                tvWynik.text = String.format(Locale.US, \"%.1f °C = %.1f °F\", c, f)\n            }\n        }\n    }\n}\n"
+      },
+      "checks": [
+        {
+          "type": "wellformed",
+          "file": "activity_main.xml",
+          "name": "activity_main.xml jest poprawnym plikiem XML"
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "EditText|re:EditText$",
+          "attrs": {
+            "android:id": "@+id/etCelsjusz"
+          },
+          "name": "EditText etCelsjusz",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "EditText|re:EditText$",
+          "attrs": {
+            "android:id": "@+id/etCelsjusz",
+            "android:inputType": "re:numberDecimal"
+          },
+          "name": "Klawiatura liczbowa (inputType=\"numberDecimal\")",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "Button|re:Button$",
+          "attrs": {
+            "android:id": "@+id/btnPrzelicz",
+            "android:text": "Przelicz"
+          },
+          "name": "Button btnPrzelicz „Przelicz”",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "activity_main.xml",
+          "tag": "TextView",
+          "attrs": {
+            "android:id": "@+id/tvWynik"
+          },
+          "name": "TextView tvWynik",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "(findViewById(<[\\w.]+>)?\\(\\s*R\\.id\\.etCelsjusz\\s*\\)|binding\\.etCelsjusz)",
+          "name": "Pobranie pola etCelsjusz",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "toDoubleOrNull\\s*\\(\\)|toDouble\\s*\\(\\)[\\s\\S]*catch",
+          "name": "Bezpieczna konwersja (toDoubleOrNull lub try/catch)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "replace\\s*\\(\\s*(',',\\s*'\\.'|\\\",\\\",\\s*\\\"\\.\\\")\\s*\\)",
+          "name": "Zamiana przecinka na kropkę",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "\\*\\s*9\\s*/\\s*5|\\*\\s*1\\.8",
+          "name": "Wzór F = C × 9 / 5 + 32",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "Podaj poprawną liczbę",
+          "name": "Komunikat „Podaj poprawną liczbę”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "MainActivity.kt",
+          "match": "%\\.1f",
+          "name": "Formatowanie z jedną cyfrą po przecinku",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "val c = etCelsjusz.text.toString().replace(',', '.').toDoubleOrNull()",
+        "if (c == null) tvWynik.text = \"Podaj poprawną liczbę\" else …"
+      ]
+    },
+    {
+      "id": "gui-react-1",
+      "tech": "react",
+      "title": "Licznik kliknięć",
+      "difficulty": 1,
+      "runnable": "react",
+      "summary": "useState i obsługa onClick – z podglądem na żywo.",
+      "concepts": [
+        "useState",
+        "onClick",
+        "JSX"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **akapit `<p id=\"licznik\">`** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`<button id=\"klik\">`** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`<button id=\"zeruj\">`** z napisem `Zeruj` – ustawia licznik na 0.\n\nStan przechowuj hookiem `useState`. Zmiana stanu automatycznie odświeża widok – nie modyfikuj DOM ręcznie.\n\nPodgląd obok edytora odświeża się sam, a przycisk **Sprawdź projekt** klika w Twoją aplikację i sprawdza wynik.",
+      "files": [
+        {
+          "name": "App.jsx",
+          "starter": "import { useState } from 'react';\n\nexport default function App() {\n  // TODO: stan licznika (useState)\n\n  return (\n    <div>\n      {/* TODO: <p id=\"licznik\">, przyciski #klik i #zeruj */}\n    </div>\n  );\n}\n"
+        }
+      ],
+      "solution": {
+        "App.jsx": "import { useState } from 'react';\n\nexport default function App() {\n  const [licznik, setLicznik] = useState(0);\n\n  return (\n    <div>\n      <p id=\"licznik\">Kliknięcia: {licznik}</p>\n      <button id=\"klik\" onClick={() => setLicznik(licznik + 1)}>Kliknij</button>\n      <button id=\"zeruj\" onClick={() => setLicznik(0)}>Zeruj</button>\n    </div>\n  );\n}\n"
+      },
+      "checks": [
+        {
+          "type": "code",
+          "file": "App.jsx",
+          "match": "useState\\s*\\(",
+          "name": "Stan komponentu przechowywany przez useState",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "notcode",
+          "file": "App.jsx",
+          "match": "document\\.(getElementById|querySelector)",
+          "name": "Brak ręcznej modyfikacji DOM",
+          "hint": "W React zmieniaj stan, a nie DOM (document.getElementById)."
+        }
+      ],
+      "domChecks": [
+        {
+          "name": "Na starcie: „Kliknięcia: 0”",
+          "steps": [
+            {
+              "expectText": "#licznik",
+              "equals": "Kliknięcia: 0"
+            }
+          ]
+        },
+        {
+          "name": "Przyciski #klik („Kliknij”) i #zeruj („Zeruj”)",
+          "steps": [
+            {
+              "expectText": "#klik",
+              "equals": "Kliknij"
+            },
+            {
+              "expectText": "#zeruj",
+              "equals": "Zeruj"
+            }
+          ]
+        },
+        {
+          "name": "3 kliknięcia → „Kliknięcia: 3”",
+          "points": 2,
+          "steps": [
+            {
+              "click": "#klik"
+            },
+            {
+              "click": "#klik"
+            },
+            {
+              "click": "#klik"
+            },
+            {
+              "expectText": "#licznik",
+              "equals": "Kliknięcia: 3"
+            }
+          ]
+        },
+        {
+          "name": "Zeruj → „Kliknięcia: 0”",
+          "steps": [
+            {
+              "click": "#zeruj"
+            },
+            {
+              "expectText": "#licznik",
+              "equals": "Kliknięcia: 0"
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "const [licznik, setLicznik] = useState(0);",
+        "<button id=\"klik\" onClick={() => setLicznik(licznik + 1)}>Kliknij</button>"
+      ]
+    },
+    {
+      "id": "gui-react-2",
+      "tech": "react",
+      "title": "Przelicznik temperatur",
+      "difficulty": 2,
+      "runnable": "react",
+      "summary": "Pole kontrolowane (value + onChange), walidacja i toFixed.",
+      "concepts": [
+        "controlled input",
+        "onChange",
+        "Number.isNaN",
+        "toFixed"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`<input id=\"celsjusz\">`** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`<button id=\"przelicz\">`** z napisem `Przelicz`,\n- etykieta **`<p id=\"wynik\">`** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\nPole zrób **kontrolowane**: wartość trzymaj w stanie (`value={…}`) i aktualizuj w `onChange`.\n\n> [!PULAPKA]\n> `Number('')` zwraca `0`, a nie `NaN` – puste pole sprawdź osobno.",
+      "files": [
+        {
+          "name": "App.jsx",
+          "starter": "import { useState } from 'react';\n\nexport default function App() {\n  // TODO: stan pola i wyniku\n\n  return (\n    <div>\n      {/* TODO: input#celsjusz (kontrolowany), button#przelicz, p#wynik */}\n    </div>\n  );\n}\n"
+        }
+      ],
+      "solution": {
+        "App.jsx": "import { useState } from 'react';\n\nexport default function App() {\n  const [celsjusz, setCelsjusz] = useState('');\n  const [wynik, setWynik] = useState('');\n\n  function przelicz() {\n    const tekst = celsjusz.trim().replace(',', '.');\n    const c = Number(tekst);\n    if (tekst === '' || Number.isNaN(c)) {\n      setWynik('Podaj poprawną liczbę');\n      return;\n    }\n    const f = (c * 9) / 5 + 32;\n    setWynik(`${c.toFixed(1)} °C = ${f.toFixed(1)} °F`);\n  }\n\n  return (\n    <div>\n      <label htmlFor=\"celsjusz\">Temperatura w °C: </label>\n      <input id=\"celsjusz\" value={celsjusz} onChange={(e) => setCelsjusz(e.target.value)} />\n      <button id=\"przelicz\" onClick={przelicz}>Przelicz</button>\n      <p id=\"wynik\">{wynik}</p>\n    </div>\n  );\n}\n"
+      },
+      "checks": [
+        {
+          "type": "code",
+          "file": "App.jsx",
+          "match": "onChange\\s*=",
+          "name": "Pole obsługuje onChange (komponent kontrolowany)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "App.jsx",
+          "match": "value\\s*=\\s*\\{",
+          "name": "Pole ma value={…} ze stanu",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "domChecks": [
+        {
+          "name": "Pole #celsjusz, przycisk #przelicz („Przelicz”) i akapit #wynik",
+          "steps": [
+            {
+              "exists": "#celsjusz",
+              "tag": "input"
+            },
+            {
+              "expectText": "#przelicz",
+              "equals": "Przelicz"
+            },
+            {
+              "exists": "#wynik"
+            }
+          ]
+        },
+        {
+          "name": "25 → „25.0 °C = 77.0 °F”",
+          "points": 2,
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": "25"
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "25.0 °C = 77.0 °F"
+            }
+          ]
+        },
+        {
+          "name": "Przecinek: 36,6 → „36.6 °C = 97.9 °F”",
+          "points": 2,
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": "36,6"
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "36.6 °C = 97.9 °F"
+            }
+          ]
+        },
+        {
+          "name": "Ujemna: -40 → „-40.0 °C = -40.0 °F”",
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": "-40"
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "-40.0 °C = -40.0 °F"
+            }
+          ]
+        },
+        {
+          "name": "Tekst „abc” → komunikat o błędzie",
+          "points": 2,
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": "abc"
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "Podaj poprawną liczbę"
+            }
+          ]
+        },
+        {
+          "name": "Puste pole → komunikat o błędzie",
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": ""
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "Podaj poprawną liczbę"
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "<input id=\"celsjusz\" value={celsjusz} onChange={(e) => setCelsjusz(e.target.value)} />",
+        "Wynik: `${c.toFixed(1)} °C = ${f.toFixed(1)} °F`"
+      ]
+    },
+    {
+      "id": "gui-react-ts-1",
+      "tech": "react-ts",
+      "title": "Licznik kliknięć (TSX)",
+      "difficulty": 1,
+      "runnable": "react",
+      "summary": "Typowany stan useState<number> i funkcje obsługi z typem void.",
+      "concepts": [
+        "useState<number>",
+        "TSX",
+        "typy funkcji"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **akapit `<p id=\"licznik\">`** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`<button id=\"klik\">`** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`<button id=\"zeruj\">`** z napisem `Zeruj` – ustawia licznik na 0.\n\nKomponent napisz w **TypeScripcie (TSX)**: stan zadeklaruj jako `useState<number>(0)`, a funkcje obsługi z typem zwracanym `void`.",
+      "files": [
+        {
+          "name": "App.tsx",
+          "starter": "import { useState } from 'react';\n\nexport default function App() {\n  // TODO: typowany stan licznika: useState<number>(0)\n\n  return (\n    <div>\n      {/* TODO: <p id=\"licznik\">, przyciski #klik i #zeruj */}\n    </div>\n  );\n}\n"
+        }
+      ],
+      "solution": {
+        "App.tsx": "import { useState } from 'react';\n\nexport default function App() {\n  const [licznik, setLicznik] = useState<number>(0);\n\n  const klik = (): void => setLicznik((poprzedni) => poprzedni + 1);\n  const zeruj = (): void => setLicznik(0);\n\n  return (\n    <div>\n      <p id=\"licznik\">Kliknięcia: {licznik}</p>\n      <button id=\"klik\" onClick={klik}>Kliknij</button>\n      <button id=\"zeruj\" onClick={zeruj}>Zeruj</button>\n    </div>\n  );\n}\n"
+      },
+      "checks": [
+        {
+          "type": "code",
+          "file": "App.tsx",
+          "match": "useState\\s*<\\s*number\\s*>\\s*\\(",
+          "name": "Typowany stan: useState<number>(…)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "App.tsx",
+          "match": "\\)\\s*:\\s*void\\s*=>|function\\s+\\w+\\s*\\([^)]*\\)\\s*:\\s*void",
+          "name": "Funkcja obsługi z typem zwracanym void",
+          "flags": "m",
+          "points": 1,
+          "hint": "np. const klik = (): void => …"
+        }
+      ],
+      "domChecks": [
+        {
+          "name": "Na starcie: „Kliknięcia: 0”",
+          "steps": [
+            {
+              "expectText": "#licznik",
+              "equals": "Kliknięcia: 0"
+            }
+          ]
+        },
+        {
+          "name": "Przyciski #klik („Kliknij”) i #zeruj („Zeruj”)",
+          "steps": [
+            {
+              "expectText": "#klik",
+              "equals": "Kliknij"
+            },
+            {
+              "expectText": "#zeruj",
+              "equals": "Zeruj"
+            }
+          ]
+        },
+        {
+          "name": "3 kliknięcia → „Kliknięcia: 3”",
+          "points": 2,
+          "steps": [
+            {
+              "click": "#klik"
+            },
+            {
+              "click": "#klik"
+            },
+            {
+              "click": "#klik"
+            },
+            {
+              "expectText": "#licznik",
+              "equals": "Kliknięcia: 3"
+            }
+          ]
+        },
+        {
+          "name": "Zeruj → „Kliknięcia: 0”",
+          "steps": [
+            {
+              "click": "#zeruj"
+            },
+            {
+              "expectText": "#licznik",
+              "equals": "Kliknięcia: 0"
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "const [licznik, setLicznik] = useState<number>(0);",
+        "const klik = (): void => setLicznik((p) => p + 1);"
+      ]
+    },
+    {
+      "id": "gui-react-ts-2",
+      "tech": "react-ts",
+      "title": "Przelicznik temperatur (TSX)",
+      "difficulty": 2,
+      "runnable": "react",
+      "summary": "Typowane zdarzenie ChangeEvent<HTMLInputElement> i stan string.",
+      "concepts": [
+        "ChangeEvent",
+        "useState<string>",
+        "TSX"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`<input id=\"celsjusz\">`** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`<button id=\"przelicz\">`** z napisem `Przelicz`,\n- etykieta **`<p id=\"wynik\">`** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\nZastosuj typy: stan `useState<string>('')`, funkcja obsługi zmiany z parametrem `ChangeEvent<HTMLInputElement>`.",
+      "files": [
+        {
+          "name": "App.tsx",
+          "starter": "import { useState } from 'react';\n\nexport default function App() {\n  // TODO: stan pola i wyniku – useState<string>('')\n\n  return (\n    <div>\n      {/* TODO: input#celsjusz (kontrolowany), button#przelicz, p#wynik */}\n    </div>\n  );\n}\n"
+        }
+      ],
+      "solution": {
+        "App.tsx": "import { useState, ChangeEvent } from 'react';\n\nexport default function App() {\n  const [celsjusz, setCelsjusz] = useState<string>('');\n  const [wynik, setWynik] = useState<string>('');\n\n  const przelicz = (): void => {\n    const tekst = celsjusz.trim().replace(',', '.');\n    const c: number = Number(tekst);\n    if (tekst === '' || Number.isNaN(c)) {\n      setWynik('Podaj poprawną liczbę');\n      return;\n    }\n    const f: number = (c * 9) / 5 + 32;\n    setWynik(`${c.toFixed(1)} °C = ${f.toFixed(1)} °F`);\n  };\n\n  const zmiana = (e: ChangeEvent<HTMLInputElement>): void => setCelsjusz(e.target.value);\n\n  return (\n    <div>\n      <label htmlFor=\"celsjusz\">Temperatura w °C: </label>\n      <input id=\"celsjusz\" value={celsjusz} onChange={zmiana} />\n      <button id=\"przelicz\" onClick={przelicz}>Przelicz</button>\n      <p id=\"wynik\">{wynik}</p>\n    </div>\n  );\n}\n"
+      },
+      "checks": [
+        {
+          "type": "code",
+          "file": "App.tsx",
+          "match": "useState\\s*<\\s*string\\s*>",
+          "name": "Stan typu string: useState<string>(…)",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "App.tsx",
+          "match": "ChangeEvent\\s*<\\s*HTMLInputElement\\s*>",
+          "name": "Zdarzenie typowane jako ChangeEvent<HTMLInputElement>",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "domChecks": [
+        {
+          "name": "Pole #celsjusz, przycisk #przelicz („Przelicz”) i akapit #wynik",
+          "steps": [
+            {
+              "exists": "#celsjusz",
+              "tag": "input"
+            },
+            {
+              "expectText": "#przelicz",
+              "equals": "Przelicz"
+            },
+            {
+              "exists": "#wynik"
+            }
+          ]
+        },
+        {
+          "name": "25 → „25.0 °C = 77.0 °F”",
+          "points": 2,
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": "25"
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "25.0 °C = 77.0 °F"
+            }
+          ]
+        },
+        {
+          "name": "Przecinek: 36,6 → „36.6 °C = 97.9 °F”",
+          "points": 2,
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": "36,6"
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "36.6 °C = 97.9 °F"
+            }
+          ]
+        },
+        {
+          "name": "Ujemna: -40 → „-40.0 °C = -40.0 °F”",
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": "-40"
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "-40.0 °C = -40.0 °F"
+            }
+          ]
+        },
+        {
+          "name": "Tekst „abc” → komunikat o błędzie",
+          "points": 2,
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": "abc"
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "Podaj poprawną liczbę"
+            }
+          ]
+        },
+        {
+          "name": "Puste pole → komunikat o błędzie",
+          "steps": [
+            {
+              "set": "#celsjusz",
+              "value": ""
+            },
+            {
+              "click": "#przelicz"
+            },
+            {
+              "expectText": "#wynik",
+              "equals": "Podaj poprawną liczbę"
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "import { useState, ChangeEvent } from 'react';",
+        "const zmiana = (e: ChangeEvent<HTMLInputElement>): void => setCelsjusz(e.target.value);"
+      ]
+    },
+    {
+      "id": "gui-angular-1",
+      "tech": "angular",
+      "title": "Licznik kliknięć",
+      "difficulty": 1,
+      "summary": "Pole komponentu, interpolacja {{ }} i wiązanie zdarzeń (click).",
+      "concepts": [
+        "@Component",
+        "{{ }}",
+        "(click)"
+      ],
+      "prompt": "Zbuduj prostą aplikację **licznika kliknięć**:\n\n- etykieta **akapit `<p id=\"licznik\">`** – na starcie wyświetla tekst `Kliknięcia: 0`,\n- przycisk **`<button id=\"klik\">`** z napisem `Kliknij` – zwiększa licznik o 1 i odświeża etykietę (`Kliknięcia: 1`, `Kliknięcia: 2`…),\n- przycisk **`<button id=\"zeruj\">`** z napisem `Zeruj` – ustawia licznik na 0.\n\nStan trzymaj w polu klasy **AppComponent** (`app.component.ts`), a widok opisz w szablonie **app.component.html** – wartość wyświetl interpolacją `{{ licznik }}`, kliknięcia obsłuż wiązaniem `(click)=\"metoda()\"`.\n\n> [!INFO]\n> Angular wymaga kompilacji (Angular CLI), dlatego ten projekt sprawdzamy statycznie. Uruchom go u siebie poleceniem `ng serve`.",
+      "files": [
+        {
+          "name": "app.component.ts",
+          "starter": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  standalone: true,\n  templateUrl: './app.component.html',\n})\nexport class AppComponent {\n  // TODO: pole licznik i metody klik(), zeruj()\n}\n"
+        },
+        {
+          "name": "app.component.html",
+          "starter": "<!-- TODO: akapit z interpolacją {{ licznik }} oraz przyciski z (click) -->\n"
+        }
+      ],
+      "solution": {
+        "app.component.ts": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  standalone: true,\n  templateUrl: './app.component.html',\n})\nexport class AppComponent {\n  licznik: number = 0;\n\n  klik(): void {\n    this.licznik++;\n  }\n\n  zeruj(): void {\n    this.licznik = 0;\n  }\n}\n",
+        "app.component.html": "<p id=\"licznik\">Kliknięcia: {{ licznik }}</p>\n<button id=\"klik\" (click)=\"klik()\">Kliknij</button>\n<button id=\"zeruj\" (click)=\"zeruj()\">Zeruj</button>\n"
+      },
+      "checks": [
+        {
+          "type": "code",
+          "file": "app.component.ts",
+          "match": "@Component\\s*\\(",
+          "name": "Klasa oznaczona dekoratorem @Component",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "app.component.ts",
+          "match": "export\\s+class\\s+AppComponent",
+          "name": "Klasa AppComponent jest eksportowana",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "app.component.ts",
+          "match": "\\blicznik\\s*(:\\s*number\\s*)?=\\s*0",
+          "name": "Pole licznik zainicjowane zerem",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "app.component.html",
+          "tag": "p",
+          "attrs": {
+            "id": "licznik"
+          },
+          "name": "Akapit #licznik",
+          "points": 1,
+          "text": "re:Kliknięcia:\\s*\\{\\{\\s*licznik\\s*\\}\\}"
+        },
+        {
+          "type": "element",
+          "file": "app.component.html",
+          "tag": "button",
+          "attrs": {
+            "id": "klik",
+            "(click)": "*"
+          },
+          "name": "Przycisk #klik z obsługą (click)",
+          "points": 1,
+          "text": "Kliknij"
+        },
+        {
+          "type": "element",
+          "file": "app.component.html",
+          "tag": "button",
+          "attrs": {
+            "id": "zeruj",
+            "(click)": "*"
+          },
+          "name": "Przycisk #zeruj z obsługą (click)",
+          "points": 1,
+          "text": "Zeruj"
+        },
+        {
+          "type": "handler",
+          "file": "app.component.html",
+          "tag": "button",
+          "attrs": {
+            "id": "klik"
+          },
+          "event": "(click)",
+          "codeFile": "app.component.ts",
+          "name": "Metoda wywoływana przez (click) istnieje w komponencie",
+          "points": 1
+        },
+        {
+          "type": "handler",
+          "file": "app.component.html",
+          "tag": "button",
+          "attrs": {
+            "id": "zeruj"
+          },
+          "event": "(click)",
+          "codeFile": "app.component.ts",
+          "name": "Metoda zerowania istnieje w komponencie",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "W klasie: licznik = 0; klik(): void { this.licznik++; }",
+        "W szablonie: <button id=\"klik\" (click)=\"klik()\">Kliknij</button>"
+      ]
+    },
+    {
+      "id": "gui-angular-2",
+      "tech": "angular",
+      "title": "Przelicznik temperatur",
+      "difficulty": 2,
+      "summary": "Dwukierunkowe wiązanie [(ngModel)] i FormsModule.",
+      "concepts": [
+        "[(ngModel)]",
+        "FormsModule",
+        "(click)",
+        "{{ }}"
+      ],
+      "prompt": "Napisz **przelicznik temperatur** ze stopni Celsjusza na Fahrenheita: `F = C × 9 / 5 + 32`.\n\n- pole tekstowe **`<input id=\"celsjusz\">`** – użytkownik wpisuje temperaturę; akceptuj zarówno kropkę, jak i przecinek (`36.6` i `36,6`),\n- przycisk **`<button id=\"przelicz\">`** z napisem `Przelicz`,\n- etykieta **`<p id=\"wynik\">`** – wynik w formacie `25.0 °C = 77.0 °F` (obie wartości z **jedną** cyfrą po kropce),\n- gdy pole jest puste albo nie zawiera liczby, w etykiecie wyświetl `Podaj poprawną liczbę`.\n\nPole powiąż z polem klasy przez **dwukierunkowe wiązanie** `[(ngModel)]=\"celsjusz\"`. Pamiętaj o zaimportowaniu `FormsModule` w komponencie – bez tego `ngModel` nie zadziała.",
+      "files": [
+        {
+          "name": "app.component.ts",
+          "starter": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\n\n@Component({\n  selector: 'app-root',\n  standalone: true,\n  templateUrl: './app.component.html',\n})\nexport class AppComponent {\n  // TODO: pola celsjusz i wynik oraz metoda przelicz()\n}\n"
+        },
+        {
+          "name": "app.component.html",
+          "starter": "<!-- TODO: input z [(ngModel)], przycisk z (click), akapit z {{ wynik }} -->\n"
+        }
+      ],
+      "solution": {
+        "app.component.ts": "import { Component } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\n\n@Component({\n  selector: 'app-root',\n  standalone: true,\n  imports: [FormsModule],\n  templateUrl: './app.component.html',\n})\nexport class AppComponent {\n  celsjusz: string = '';\n  wynik: string = '';\n\n  przelicz(): void {\n    const tekst = this.celsjusz.trim().replace(',', '.');\n    const c = Number(tekst);\n    if (tekst === '' || Number.isNaN(c)) {\n      this.wynik = 'Podaj poprawną liczbę';\n      return;\n    }\n    const f = (c * 9) / 5 + 32;\n    this.wynik = `${c.toFixed(1)} °C = ${f.toFixed(1)} °F`;\n  }\n}\n",
+        "app.component.html": "<label for=\"celsjusz\">Temperatura w °C: </label>\n<input id=\"celsjusz\" [(ngModel)]=\"celsjusz\" />\n<button id=\"przelicz\" (click)=\"przelicz()\">Przelicz</button>\n<p id=\"wynik\">{{ wynik }}</p>\n"
+      },
+      "checks": [
+        {
+          "type": "code",
+          "file": "app.component.ts",
+          "match": "imports\\s*:\\s*\\[[^\\]]*FormsModule",
+          "name": "FormsModule dodany do imports komponentu",
+          "flags": "m",
+          "points": 1,
+          "hint": "[(ngModel)] wymaga FormsModule: imports: [FormsModule]"
+        },
+        {
+          "type": "code",
+          "file": "app.component.ts",
+          "match": "\\bcelsjusz\\s*(:\\s*string\\s*)?=",
+          "name": "Pole celsjusz w komponencie",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "app.component.html",
+          "tag": "input",
+          "attrs": {
+            "id": "celsjusz",
+            "[(ngModel)]": "celsjusz"
+          },
+          "name": "Input #celsjusz z [(ngModel)]=\"celsjusz\"",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "app.component.html",
+          "tag": "button",
+          "attrs": {
+            "id": "przelicz",
+            "(click)": "*"
+          },
+          "name": "Przycisk #przelicz z (click)",
+          "points": 1,
+          "text": "Przelicz"
+        },
+        {
+          "type": "handler",
+          "file": "app.component.html",
+          "tag": "button",
+          "attrs": {
+            "id": "przelicz"
+          },
+          "event": "(click)",
+          "codeFile": "app.component.ts",
+          "name": "Metoda wywoływana przez (click) istnieje",
+          "points": 1
+        },
+        {
+          "type": "element",
+          "file": "app.component.html",
+          "tag": "p",
+          "attrs": {
+            "id": "wynik"
+          },
+          "name": "Akapit #wynik z interpolacją",
+          "points": 1,
+          "text": "re:\\{\\{\\s*wynik\\s*\\}\\}"
+        },
+        {
+          "type": "code",
+          "file": "app.component.ts",
+          "match": "Number\\.isNaN|isNaN\\s*\\(",
+          "name": "Sprawdzenie, czy wynik konwersji jest liczbą",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "app.component.ts",
+          "match": "Podaj poprawną liczbę",
+          "name": "Komunikat „Podaj poprawną liczbę”",
+          "flags": "m",
+          "points": 1
+        },
+        {
+          "type": "code",
+          "file": "app.component.ts",
+          "match": "toFixed\\s*\\(\\s*1\\s*\\)",
+          "name": "Formatowanie toFixed(1)",
+          "flags": "m",
+          "points": 1
+        }
+      ],
+      "hints": [
+        "<input id=\"celsjusz\" [(ngModel)]=\"celsjusz\" />",
+        "W @Component: imports: [FormsModule]"
+      ]
+    }
+  ]
+}

@@ -13,12 +13,13 @@ Działa w całości w przeglądarce – bez serwera, bez logowania, bez instalac
 | Moduł | Opis |
 |---|---|
 | **Teoria w pigułce** | 13 działów zgodnych z zakresem INF.04, z przykładami kodu w kilku językach, tipami CKE, pułapkami i spisem treści. Na końcu każdego działu – mini-test. |
-| **Quizy tematyczne** | 177 autorskich pytań w formacie CKE (A–D), natychmiastowa informacja zwrotna z wyjaśnieniem, pytania „co wypisze program” z przełącznikiem języka (C++/C#/Java/Python/JS). |
+| **Quizy tematyczne** | 203 autorskie pytań w formacie CKE (A–D), natychmiastowa informacja zwrotna z wyjaśnieniem, pytania „co wypisze program” z przełącznikiem języka (C++/C#/Java/Python/JS). |
 | **Symulacja egzaminu** | 40 pytań, 60 minut, próg 50%, proporcje działów jak na egzaminie, mapa pytań, flagi, wynik z podziałem na działy i przeglądem odpowiedzi. |
 | **Powtórki (Leitner)** | Błędne odpowiedzi wracają częściej, opanowane – rzadziej. |
-| **Code Lab** | 20 zadań (algorytmy, tablice, napisy, OOP) z testami jednostkowymi uruchamianymi w Web Workerze; wzorcowe rozwiązania w JS, C++, C#, Javie i Pythonie. |
+| **Code Lab** | 30 zadań: 20 algorytmicznych (tablice, napisy, OOP; wzorcowe rozwiązania w JS, C++, C#, Javie i Pythonie), 5 w **TypeScripcie** (prawdziwy kompilator, błędy typów po polsku) i 5 w **Node.js** (moduły, `fs`, `process.argv`, REST API w **Express**) – testy uruchamiane w Web Workerze. |
+| **Pracownia GUI** | 18 ćwiczeń w 9 technologiach: **WPF, Windows Forms, JavaFX, .NET MAUI, Android (Java i Kotlin), React, React + TypeScript, Angular**. Wieloplikowy edytor (XAML/XML/FXML + kod), statyczne sprawdzanie layoutu i obsługi zdarzeń, React z podglądem na żywo i testami działania. Ściąga kontrolek dla wszystkich technologii. |
 | **SQL Lab** | 18 zadań na prawdziwym SQLite (sql.js / WebAssembly) z walidacją wyników na żywo i podpowiedziami po polsku. |
-| **Arkusze praktyczne** | 3 arkusze treningowe w układzie zbliżonym do egzaminu: konsola + aplikacja webowa + dokumentacja, timer 180 min, kryteria samooceny, automatyczne testy DOM części webowej. |
+| **Arkusze praktyczne** | 3 arkusze treningowe w układzie zbliżonym do egzaminu: konsola + aplikacja z interfejsem + dokumentacja, timer 180 min, kryteria samooceny. Część z interfejsem w **9 wariantach** do wyboru (HTML/JS, React, Angular, WPF, WinForms, JavaFX, MAUI, Android Java/Kotlin) z automatycznymi testami. |
 | **Postępy** | Ogólna gotowość, wykres wyników symulacji, skuteczność w działach, mapa aktywności, eksport/import postępów do pliku. |
 
 Dodatkowo: motyw jasny/ciemny, pełna obsługa klawiatury (1–4 / A–D, Enter, strzałki), responsywny układ (RWD), wyszukiwarka (`/`), działanie offline (PWA).
@@ -28,6 +29,7 @@ Dodatkowo: motyw jasny/ciemny, pełna obsługa klawiatury (1–4 / A–D, Enter,
 - **HTML5 + CSS** (zmienne CSS, Grid, Flexbox, media queries) – bez frameworków CSS,
 - **Vanilla JavaScript (ES Modules)** – bez kroku budowania (bez npm/webpack),
 - biblioteki dołączone lokalnie w `/vendor`: [marked](https://github.com/markedjs/marked) (Markdown), [DOMPurify](https://github.com/cure53/DOMPurify) (sanityzacja HTML), [highlight.js](https://highlightjs.org/) (kolorowanie składni),
+- [React](https://react.dev/) i kompilator [TypeScript](https://www.typescriptlang.org/) – dołączone w `/vendor`, ładowane leniwie tylko w zadaniach, które ich potrzebują (TS kompiluje się w Web Workerze),
 - [sql.js](https://github.com/sql-js/sql.js) (SQLite w WebAssembly) – ładowany z CDN tylko w SQL Lab.
 
 ## Struktura projektu
@@ -50,7 +52,7 @@ inf04-trener/
 │   ├── config.js           # stałe (parametry egzaminu, wersje bibliotek)
 │   ├── core/               # router, store, storage, loader, theme, dom, icons
 │   ├── components/         # navbar, karta pytania, edytor kodu, timer, modal…
-│   ├── engines/            # quiz, Leitner, statystyki, SQL, code runner, testy DOM
+│   ├── engines/            # quiz, Leitner, statystyki, SQL, code runner, TS, testy DOM i GUI
 │   ├── utils/              # markdown, formatowanie, losowanie
 │   └── views/              # widoki (jeden plik = jedna strona)
 ├── data/
@@ -58,8 +60,9 @@ inf04-trener/
 │   ├── theory/*.md         # teoria (Markdown + callouty [!CKE], [!PULAPKA]…)
 │   ├── questions/*.json    # pytania – jeden plik na dział
 │   ├── sql/                # zadania SQL + bazy danych (*.sql)
-│   ├── code/tasks.json     # zadania Code Lab
-│   └── projects/           # arkusze praktyczne
+│   ├── code/tasks.json     # zadania Code Lab (JS, TS, Node.js)
+│   ├── gui/                # Pracownia GUI: tasks.json + ściąga kontrolek
+│   └── projects/           # arkusze praktyczne (z wariantami technologii)
 ├── vendor/                 # biblioteki zewnętrzne (z licencjami)
 ├── tools/validate-data.mjs # walidator treści
 ├── docs/WDROZENIE.md       # instrukcja publikacji na GitHub Pages

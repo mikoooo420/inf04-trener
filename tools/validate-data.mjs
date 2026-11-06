@@ -94,15 +94,24 @@ for (const t of code) {
   const where = `code/tasks.json → ${t.id}`;
   if (codeIds.has(t.id)) err(`${where}: zduplikowane id`);
   codeIds.add(t.id);
-  for (const f of ['title', 'prompt', 'starter', 'fn', 'group']) if (!isStr(t[f])) err(`${where}: brak pola ${f}`);
+  const lang = t.lang || 'js';
+  if (!['js', 'ts', 'node'].includes(lang)) err(`${where}: nieznany język ${lang}`);
+  for (const f of ['title', 'prompt', 'starter', 'group']) if (!isStr(t[f])) err(`${where}: brak pola ${f}`);
+  if (lang !== 'node' && !isStr(t.fn)) err(`${where}: brak pola fn`);
   if (!Array.isArray(t.tests) || !t.tests.length) err(`${where}: brak testów`);
   for (const test of [...(t.tests || []), ...(t.hiddenTests || [])]) {
+    if (lang === 'node' && (test.http || test.fsExpect)) {
+      if (test.http && (!test.http.every((r) => r.method && r.url) || !test.http.some((r) => r.expect))) err(`${where}: test HTTP bez method/url lub bez żadnego expect`);
+      continue;
+    }
     if (!('expected' in test) && !('output' in test)) err(`${where}: test bez expected/output`);
     if (!test.args && !test.expr && !('output' in test)) err(`${where}: test bez args/expr`);
   }
-  if (!t.solutions?.js) warn(`${where}: brak rozwiązania wzorcowego w JS`);
-  // Wzorcowe rozwiązanie musi przechodzić wszystkie testy
-  if (t.solutions?.js) {
+  const ref = t.solutions?.[lang] ?? t.solutions?.js;
+  if (!ref) warn(`${where}: brak rozwiązania wzorcowego`);
+  // Wzorcowe rozwiązanie JS musi przechodzić wszystkie testy
+  // (TS i Node sprawdzają osobne skrypty – wymagają kompilatora / atrap modułów)
+  if (lang === 'js' && t.solutions?.js) {
     for (const test of [...(t.tests || []), ...(t.hiddenTests || [])]) {
       if (!('expected' in test)) continue;
       try {
@@ -115,6 +124,40 @@ for (const t of code) {
       }
     }
   }
+}
+
+// ---------- GUI (wspólne) ----------
+const CHECK_TYPES = new Set(['wellformed', 'element', 'count', 'handler', 'handlerRegex', 'code', 'notcode']);
+function checkGuiFiles(where, t) {
+  const names = (t.files || []).map((f) => f.name);
+  if (!names.length) err(`${where}: brak plików (files)`);
+  for (const k of Object.keys(t.solution || {})) if (!names.includes(k)) err(`${where}: rozwiązanie zawiera nieznany plik ${k}`);
+  for (const n of names) if (!(n in (t.solution || {}))) err(`${where}: brak rozwiązania dla pliku ${n}`);
+  const seen = new Set();
+  for (const c of [...(t.checks || []), ...(t.domChecks || [])]) {
+    if (seen.has(c.name)) err(`${where}: zduplikowana nazwa testu „${c.name}”`);
+    seen.add(c.name);
+  }
+  for (const c of t.checks || []) {
+    if (!CHECK_TYPES.has(c.type)) err(`${where}: nieznany typ testu ${c.type}`);
+    if (!names.includes(c.file)) err(`${where}: test „${c.name}” wskazuje nieistniejący plik ${c.file}`);
+    if (c.codeFile && !names.includes(c.codeFile)) err(`${where}: test „${c.name}” – brak pliku ${c.codeFile}`);
+    if (c.match) { try { new RegExp(c.match, c.flags ?? 'm'); } catch (e) { err(`${where}: błędny regex w „${c.name}”: ${e.message}`); } }
+  }
+  if (t.runnable && !(t.domChecks || []).length) warn(`${where}: wariant uruchamialny bez testów działania`);
+}
+
+// ---------- Pracownia GUI ----------
+const gui = readJSON('data/gui/tasks.json') || { technologies: [], tasks: [] };
+const techIds = new Set(gui.technologies.map((t) => t.id));
+const guiIds = new Set();
+for (const t of gui.tasks) {
+  const where = `gui/tasks.json → ${t.id}`;
+  if (guiIds.has(t.id)) err(`${where}: zduplikowane id`);
+  guiIds.add(t.id);
+  if (!techIds.has(t.tech)) err(`${where}: nieznana technologia ${t.tech}`);
+  for (const f of ['title', 'prompt', 'summary']) if (!isStr(t[f])) err(`${where}: brak pola ${f}`);
+  checkGuiFiles(where, t);
 }
 
 // ---------- Projekty ----------
@@ -130,6 +173,18 @@ for (const p of projects) {
       critIds.add(c.id);
     }
     if (part.type === 'web' && !(part.checks || []).length) warn(`${where}/${part.id}: część web bez testów automatycznych`);
+    const vids = new Set();
+    for (const v of part.variants || []) {
+      const vw = `${where}/${part.id}/${v.id}`;
+      if (vids.has(v.id) || v.id === 'html') err(`${vw}: zduplikowane id wariantu`);
+      vids.add(v.id);
+      if (!isStr(v.label) || !isStr(v.brief)) err(`${vw}: brak label/brief`);
+      checkGuiFiles(vw, v);
+      for (const c of v.criteria || []) {
+        if (critIds.has(c.id)) err(`${vw}: zduplikowane id kryterium ${c.id}`);
+        critIds.add(c.id);
+      }
+    }
     const names = new Set();
     for (const c of part.checks || []) {
       if (names.has(c.name)) err(`${where}/${part.id}: zduplikowana nazwa testu „${c.name}”`);
@@ -139,7 +194,7 @@ for (const p of projects) {
 }
 
 // ---------- Raport ----------
-console.log(`Działy: ${topicIds.size} · pytania: ${questionCount} · SQL: ${sql.length} · Code Lab: ${code.length} · arkusze: ${projects.length}`);
+console.log(`Działy: ${topicIds.size} · pytania: ${questionCount} · SQL: ${sql.length} · Code Lab: ${code.length} · GUI: ${gui.tasks.length} · arkusze: ${projects.length} (warianty: ${projects.reduce((a, p) => a + p.parts.reduce((b, x) => b + (x.variants || []).length, 0), 0)})`);
 for (const w of warnings) console.log(`⚠  ${w}`);
 for (const e of errors) console.log(`✖  ${e}`);
 if (errors.length) {

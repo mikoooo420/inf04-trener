@@ -24,6 +24,7 @@ function checkerScript(token, checks) {
   function txt(el){return (el.value!==undefined&&el.tagName!=='BUTTON'&&el.tagName!=='LI'&&el.tagName!=='OPTION'?el.value:el.textContent).replace(/\\s+/g,' ').trim()}
   function norm(s){return String(s).replace(/\\s+/g,' ').trim().toLowerCase()}
   function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  function setVal(el,v){var proto=el.tagName==='SELECT'?HTMLSelectElement.prototype:el.tagName==='TEXTAREA'?HTMLTextAreaElement.prototype:HTMLInputElement.prototype;var d=Object.getOwnPropertyDescriptor(proto,'value');if(d&&d.set)d.set.call(el,v);else el.value=v}
   async function runStep(st){
     if(st.wait){await wait(st.wait);return null}
     var sel=st.exists||st.set||st.check||st.click||st.select||st.expectText||st.expectAttr||st.expectStyle||st.expectValue||st.expectCount||st.expectMissing;
@@ -32,9 +33,9 @@ function checkerScript(token, checks) {
     var el=$(sel);
     if(!el)return 'Brak elementu „'+sel+'”';
     if(st.exists){if(st.tag&&el.tagName.toLowerCase()!==st.tag)return '„'+sel+'” powinien być znacznikiem <'+st.tag+'>, jest <'+el.tagName.toLowerCase()+'>';if(st.type&&(el.getAttribute('type')||'').toLowerCase()!==st.type)return '„'+sel+'” powinien mieć type="'+st.type+'"';return null}
-    if(st.set!==undefined&&st.value!==undefined){el.value=st.value;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return null}
-    if(st.check){el.checked=st.checked!==false;el.dispatchEvent(new Event('change',{bubbles:true}));el.dispatchEvent(new Event('input',{bubbles:true}));return null}
-    if(st.select){el.value=st.value;el.dispatchEvent(new Event('change',{bubbles:true}));return null}
+    if(st.set!==undefined&&st.value!==undefined){setVal(el,st.value);el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));await wait(20);return null}
+    if(st.check){var want=st.checked!==false;if(el.checked!==want)el.click();await wait(20);return null}
+    if(st.select){setVal(el,st.value);el.dispatchEvent(new Event('change',{bubbles:true}));await wait(20);return null}
     if(st.click){el.click();await wait(30);return null}
     if(st.expectText){var t=txt(el);
       if(st.equals!==undefined&&norm(t)!==norm(st.equals))return '„'+sel+'”: oczekiwano „'+st.equals+'”, jest „'+t+'”';
@@ -54,8 +55,40 @@ function checkerScript(token, checks) {
       results.push({name:c.name,pass:!err,error:err})}
     parent.postMessage({type:'inf04-checks',token:T,results:results},'*');
   }
-  if(document.readyState==='complete')setTimeout(run,50);else window.addEventListener('load',function(){setTimeout(run,50)});
+  var DELAY=window.__inf04Delay||60;if(document.readyState==='complete')setTimeout(run,DELAY);else window.addEventListener('load',function(){setTimeout(run,DELAY)});
 })();<\/script>`;
+}
+
+/**
+ * Dokument dla aplikacji React: skompilowany kod komponentu App + React z /vendor.
+ * Komponent renderowany jest synchronicznie (flushSync), żeby testy widziały gotowy DOM.
+ */
+export function buildReactDocument(compiledJs, css = '', { token, checks } = {}) {
+  const t = token || 'preview';
+  const reactUrl = new URL('./vendor/react.min.js', document.baseURI).href;
+  const safe = compiledJs.replace(/<\/script/gi, '<\\/script');
+  const post = checks ? checkerScript(t, checks) : '';
+  return `<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">${preludeScript(t)}<style>body{font-family:system-ui,sans-serif;margin:16px;line-height:1.5}</style>${css.trim() ? `<style>\n${css}\n</style>` : ''}</head><body><div id="root"></div>
+<script src="${reactUrl}"><\/script>
+<script>window.__inf04Delay=200;
+const { useState, useEffect, useRef, useMemo, useCallback, useReducer, Fragment } = React;
+try {
+${safe}
+;if (typeof App !== 'function') throw new Error('Nie znaleziono komponentu App – zdefiniuj function App() { … }');
+const __root = ReactDOM.createRoot(document.getElementById('root'));
+ReactDOM.flushSync(() => __root.render(React.createElement(App)));
+} catch (e) { console.error(e.message); document.getElementById('root').innerHTML = '<pre style="color:#c62f3b;white-space:pre-wrap">' + String(e.message).replace(/</g,'&lt;') + '</pre>'; }
+<\/script>${post}</body></html>`;
+}
+
+/** Przygotowuje kod komponentu React: usuwa importy i eksporty (React jest globalny). */
+export function prepareReactSource(src) {
+  return src
+    .replace(/^\s*import\s+[^;]*?from\s+['"][^'"]+['"];?\s*$/gm, '')
+    .replace(/^\s*import\s+['"][^'"]+['"];?\s*$/gm, '')
+    .replace(/export\s+default\s+function\s+/g, 'function ')
+    .replace(/^\s*export\s+default\s+\w+\s*;?\s*$/gm, '')
+    .replace(/^\s*export\s+(?=(const|function|class|interface|type)\b)/gm, '');
 }
 
 /** Składa pełny dokument HTML z części użytkownika. */
@@ -81,7 +114,7 @@ export function buildDocument({ html = '', css = '', js = '' }, { token, checks 
  * Uruchamia testy DOM w ukrytym iframe.
  * @returns {Promise<{results: {name, pass, error}[], logs: string[]}>}
  */
-export function runDomChecks(parts, checks, timeoutMs = 5000) {
+export function runDomChecks(parts, checks, timeoutMs = 6000, buildFn = null) {
   return new Promise((resolve) => {
     const token = Math.random().toString(36).slice(2);
     const iframe = document.createElement('iframe');
@@ -105,7 +138,7 @@ export function runDomChecks(parts, checks, timeoutMs = 5000) {
     }
 
     window.addEventListener('message', onMsg);
-    iframe.srcdoc = buildDocument(parts, { token, checks });
+    iframe.srcdoc = buildFn ? buildFn({ token, checks }) : buildDocument(parts, { token, checks });
     document.body.append(iframe);
   });
 }

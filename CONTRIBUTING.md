@@ -105,9 +105,33 @@ W tabelach znak `|` wewnątrz kodu zapisuj jako `\|`.
 
 Testy mogą też używać wyrażenia: `{ "expr": "new Klasa(2).metoda()", "expected": 4, "name": "opis testu" }` – przydatne przy zadaniach obiektowych. Walidator sprawdza, czy rozwiązanie wzorcowe w JS przechodzi wszystkie testy.
 
+**TypeScript** (`"lang": "ts"`): kod przechodzi przez kompilator w trybie `strict`; zadanie zalicza się tylko bez błędów typów. Rozwiązanie wzorcowe w `solutions.ts`.
+
+**Node.js** (`"lang": "node"`): kod działa jak moduł CommonJS z atrapami `require('express')`, `require('fs')` (wirtualne pliki) i `require('path')`. Rodzaje testów:
+
+- `{ "expr": "m.funkcja(2)", "expected": 4 }` – `m` to `module.exports`,
+- `{ "argv": ["5", "3"], "output": "8" }` – argumenty `process.argv` i oczekiwane wyjście konsoli,
+- `{ "files": { "dane.txt": "…" }, "fsExpect": { "wynik.txt": "…" } }` – pliki wejściowe i oczekiwana zawartość zapisanych plików,
+- `{ "http": [{ "method": "POST", "url": "/api/x", "body": {…}, "expect": { "status": 201, "body": {…} } }] }` – żądania do aplikacji Express (kolejne żądania współdzielą stan; `expect` jest opcjonalny dla żądań przygotowujących).
+
+## Ćwiczenie Pracowni GUI – `data/gui/tasks.json`
+
+Plik ma listę technologii (`technologies`) i ćwiczeń (`tasks`). Ćwiczenie składa się z plików (`files`: `name` + `starter`), rozwiązania (`solution`: nazwa pliku → treść) i testów statycznych (`checks`):
+
+| `type` | Co sprawdza |
+|---|---|
+| `wellformed` | plik XML (XAML/FXML/layout Androida) jest poprawny składniowo |
+| `element` | istnieje element `tag` (alternatywy `A\|B`, regex `re:…`) z atrybutami `attrs` (`"*"` = dowolna niepusta wartość, `re:…` = regex) i opcjonalnie tekstem `text` |
+| `count` | co najmniej `min` elementów `tag` (opcjonalnie wewnątrz `within`) |
+| `handler` | atrybut zdarzenia (`Click`, `Clicked`, `onAction`, `(click)`) wskazuje metodę istniejącą w `codeFile` |
+| `handlerRegex` | jak wyżej, ale nazwę metody wyciąga grupa 1 wyrażenia `match` (np. `btn.Click += metoda` w WinForms) |
+| `code` / `notcode` | plik zawiera / nie zawiera dopasowania wyrażenia `match` (komentarze są pomijane) |
+
+Ćwiczenia React (`"runnable": "react"`, plik `App.jsx`/`App.tsx` + opcjonalnie `App.css`) mają dodatkowo `domChecks` – te same kroki co testy DOM arkuszy.
+
 ## Arkusz praktyczny – `data/projects/projects.json`
 
-Każdy arkusz ma części (`parts`): `checklist` (kryteria do samooceny) lub `web` (piaskownica HTML/CSS/JS + testy automatyczne `checks`). Kroki testów DOM: `exists`, `set`/`value`, `check`/`checked`, `select`/`value`, `click`, `expectText` (`equals`/`contains`/`matches`), `expectValue`, `expectAttr`, `expectStyle`, `expectCount`, `wait`. Najprościej zacząć od skopiowania istniejącego arkusza.
+Każdy arkusz ma części (`parts`): `checklist` (kryteria do samooceny) lub `web` (piaskownica HTML/CSS/JS + testy automatyczne `checks`). Kroki testów DOM: `exists`, `set`/`value`, `check`/`checked`, `select`/`value`, `click`, `expectText` (`equals`/`contains`/`matches`), `expectValue`, `expectAttr`, `expectStyle`, `expectCount`, `wait`. Część `web` może mieć listę `variants` – wykonanie w innej technologii (React, Angular, WPF, WinForms, JavaFX, MAUI, Android). Wariant ma taki sam format jak ćwiczenie Pracowni GUI (`files`, `solution`, `checks`, `domChecks`, `runnable`) oraz własne `brief` i `criteria`. Najprościej zacząć od skopiowania istniejącego arkusza.
 
 ## Przed wysłaniem zmian
 
