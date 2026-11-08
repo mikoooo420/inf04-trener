@@ -31,7 +31,7 @@
       "title": "Podstawy programowania",
       "description": "Typy danych, operatory, instrukcje sterujące, funkcje, przekazywanie parametrów, wskaźniki i referencje.",
       "icon": "code",
-      "minutes": 16,
+      "minutes": 20,
       "examWeight": 4
     },
     {
@@ -76,7 +76,7 @@
       "title": "Aplikacje desktopowe i mobilne",
       "description": "Programowanie zdarzeniowe, kontrolki, układy (layouty), WPF/WinForms, Android, .NET MAUI.",
       "icon": "project",
-      "minutes": 14,
+      "minutes": 18,
       "examWeight": 3
     },
     {
@@ -85,7 +85,7 @@
       "title": "Aplikacje webowe i frameworki",
       "description": "HTML/CSS/JS w praktyce, DOM, SPA, React/Angular/Vue, protokół HTTP, REST API, JSON.",
       "icon": "code",
-      "minutes": 16,
+      "minutes": 18,
       "examWeight": 3
     },
     {

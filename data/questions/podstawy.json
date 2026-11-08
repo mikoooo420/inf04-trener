@@ -151,5 +151,37 @@
     "answers": ["124578", "12457", "1245", "12345678"],
     "correct": 1,
     "explanation": "Liczby podzielne przez 3 są pomijane (continue). Wypisywane są 1, 2, 4, 5, 7. Przy i = 8 warunek i > 7 przerywa pętlę (break)."
+  },
+  {
+    "id": "pod-016",
+    "difficulty": 2,
+    "question": "Co wypisze instrukcja w Pythonie?",
+    "code": [
+      { "lang": "python", "src": "print(2 ** 3 + 7 // 2)" }
+    ],
+    "answers": ["11", "9", "11.5", "4"],
+    "correct": 0,
+    "explanation": "`**` to potęgowanie: 2 ** 3 = 8. `//` to dzielenie całkowite: 7 // 2 = 3. Razem 11. Wynik 11.5 dałoby zwykłe dzielenie `/`, a 4 – pomylenie potęgi z XOR (`2 ^ 3 = 1`).",
+    "tip": "W Pythonie: `**` – potęga, `//` – dzielenie całkowite, `^` – XOR bitowy."
+  },
+  {
+    "id": "pod-017",
+    "difficulty": 2,
+    "question": "Zmienna `rnd` jest obiektem klasy `Random` w C#. Która instrukcja losuje liczbę całkowitą z zakresu 1–6 (oba końce włącznie)?",
+    "answers": ["rnd.Next(1, 6)", "rnd.Next(1, 7)", "rnd.Next(6)", "rnd.Next(0, 7)"],
+    "correct": 1,
+    "explanation": "`Next(min, max)` zwraca liczbę od `min` włącznie do `max` **wyłącznie**, więc dla 1–6 górna granica to 7. `Next(1, 6)` nigdy nie da 6, `Next(6)` daje 0–5, a `Next(0, 7)` może dać 0.",
+    "tip": "C#: `Next(1, 7)`, Java: `nextInt(6) + 1`, C++: `rand() % 6 + 1`, Python: `randint(1, 6)`."
+  },
+  {
+    "id": "pod-018",
+    "difficulty": 2,
+    "question": "Co wypisze fragment programu w C++ (dołączono `<iomanip>`)?",
+    "code": [
+      { "lang": "cpp", "src": "double x = 10.0 / 3;\ncout << fixed << setprecision(2) << x;" }
+    ],
+    "answers": ["3.33", "3.3", "3", "3.333333"],
+    "correct": 0,
+    "explanation": "`fixed` razem z `setprecision(2)` ustala liczbę cyfr **po kropce** na 2, więc wynik to 3.33. Bez `fixed` `setprecision(2)` oznaczałoby dwie cyfry znaczące (3.3)."
   }
 ]

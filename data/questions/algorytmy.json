@@ -162,5 +162,17 @@
     "answers": ["O(1)", "O(log n)", "O(n)", "O(n²)"],
     "correct": 1,
     "explanation": "Zmienna i jest w każdym kroku dzielona przez 2, więc pętla wykona się około log₂(n) razy."
+  },
+  {
+    "id": "alg-017",
+    "difficulty": 3,
+    "question": "Jaką wartość ma wyrażenie w C++, C# lub Javie?",
+    "code": [
+      { "lang": "cpp", "src": "(-1 % 26 + 26) % 26" }
+    ],
+    "answers": ["25", "-1", "1", "0"],
+    "correct": 0,
+    "explanation": "W tych językach wynik `%` ma znak dzielnej: -1 % 26 = -1. Potem -1 + 26 = 25, a 25 % 26 = 25. Ten wzór sprowadza dowolny (także ujemny) klucz szyfru Cezara do zakresu 0–25.",
+    "tip": "Normalizacja do 0…n-1 w każdym języku: `((k % n) + n) % n`."
   }
 ]

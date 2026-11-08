@@ -56,10 +56,25 @@ W Polsce obowiązuje **ustawa o dostępności cyfrowej stron internetowych i apl
 **RWD** (*Responsive Web Design*) – układ dopasowuje się do rozmiaru ekranu.
 
 - znacznik `<meta name="viewport" content="width=device-width, initial-scale=1">`,
-- **media queries**: `@media (max-width: 768px) { … }`,
+- **media queries**: `@media (max-width: 768px) { … }` – style w środku działają, gdy szerokość okna jest **mniejsza lub równa** 768 px; `@media (min-width: 768px)` – gdy jest **większa lub równa** 768 px,
 - elastyczne układy: **Flexbox** (jednowymiarowy – wiersz lub kolumna) i **CSS Grid** (dwuwymiarowy – wiersze i kolumny),
 - jednostki względne: `%`, `em`, `rem`, `vw`, `vh`, `fr` (w Gridzie),
 - podejście **mobile first** – najpierw style dla telefonu, potem rozszerzenia dla większych ekranów.
+
+```css
+.kolumny { display: block; }               /* telefon: jedna kolumna */
+
+@media (min-width: 768px) {                /* od 768 px wzwyż */
+    .kolumny { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {                /* do 600 px włącznie */
+    nav { display: none; }
+}
+```
+
+> [!PULAPKA]
+> `max-width` w media query to **górna granica** szerokości ekranu („do”), a `min-width` – dolna („od”). Mobile first używa zwykle `min-width`: styl podstawowy jest dla telefonu, a kolejne reguły rozszerzają go dla większych ekranów.
 
 > [!INFO]
 > Ta aplikacja stosuje opisane zasady: semantyczny HTML, obsługę klawiatury (skróty 1–4 w quizach), widoczny fokus, `aria-live` dla komunikatów, kontrast na poziomie AA oraz poszanowanie ustawienia „ogranicz animacje” (`prefers-reduced-motion`).

@@ -117,6 +117,21 @@ private async void OnZapiszClicked(object sender, EventArgs e)
 }
 ```
 
+Wygląd w MAUI ustawia się właściwościami w XAML: `BackgroundColor`, `TextColor`, `FontSize`, `Margin`, `Padding`, wyśrodkowanie `HorizontalOptions="Center"`, pole hasła `IsPassword="True"`, klawiatura e-mail `Keyboard="Email"`, podpowiedź `Placeholder`. Obraz to kontrolka **`Image`** z właściwością `Source` (pliki w folderze `Resources/Images`). Równe kolumny daje `Grid` z `ColumnDefinitions="*,*,*"`.
+
+```xml
+<VerticalStackLayout BackgroundColor="#F5F5DC" Spacing="10">
+    <Label Text="Rejestruj konto" BackgroundColor="#008080" TextColor="White" FontSize="28" />
+    <Entry x:Name="txtEmail" Placeholder="email" Keyboard="Email" />
+    <Entry x:Name="txtHaslo" IsPassword="True" />
+    <Image x:Name="imgKosc" Source="question.jpg" HeightRequest="60" />
+    <Button Text="ZATWIERDŹ" BackgroundColor="#D2691E" HorizontalOptions="Center"
+            Clicked="OnZatwierdzClicked" />
+</VerticalStackLayout>
+```
+
+W kodzie: zmiana obrazu `imgKosc.Source = "kosc3.jpg";`, losowanie `Random.Shared.Next(1, 7)` (1–6), sprawdzenie znaku `txtEmail.Text.Contains("@")`.
+
 ### Wiązanie danych i MVVM
 
 **Binding** łączy właściwość kontrolki z właściwością obiektu danych – zmiana jednej automatycznie aktualizuje drugą: `<TextBox Text="{Binding Imie, Mode=TwoWay}"/>`. Obiekt danych to **DataContext** (WPF) lub **BindingContext** (MAUI), a o zmianach powiadamia interfejs **`INotifyPropertyChanged`**.
@@ -167,6 +182,79 @@ class MainActivity : AppCompatActivity() {
 ```
 
 Kotlin w pigułce: `val` – stała, `var` – zmienna, typy po dwukropku (`var wiek: Int = 17`), **null safety** (`String?` może być `null`, operator `?.` i `?:`), szablony napisów `"Wiek: $wiek"`, `when` zamiast `switch`, `"12".toIntOrNull()` zwraca `null` zamiast wyjątku. Komunikat w Androidzie: `Toast.makeText(this, "Zapisano", Toast.LENGTH_SHORT).show()`.
+
+### Android – wygląd kontrolek w XML
+
+Arkusze CKE podają kolory, marginesy, wyśrodkowanie i rodzaj pól. W layoucie XML ustawia się je atrybutami:
+
+| Atrybut | Znaczenie | Przykład |
+|---|---|---|
+| `android:background` | kolor tła kontrolki lub układu | `android:background="#F5F5DC"` |
+| `android:textColor`, `android:textSize` | kolor i rozmiar tekstu | `android:textColor="#FFFFFF"`, `android:textSize="24sp"` |
+| `android:backgroundTint` | kolor **przycisku** | `android:backgroundTint="#D2691E"` |
+| `android:gravity` | położenie **treści wewnątrz** kontrolki | `android:gravity="center"` |
+| `android:layout_gravity` | położenie **kontrolki w rodzicu** (`LinearLayout`) | `android:layout_gravity="center_horizontal"` |
+| `android:layout_margin…` / `android:padding` | odstęp na zewnątrz / wewnątrz kontrolki | `android:layout_marginTop="10dp"`, `android:padding="8dp"` |
+| `android:layout_weight` | podział wolnego miejsca w `LinearLayout` (razem z wymiarem `0dp`) | 5 obrazów po `layout_width="0dp"` i `layout_weight="1"` = równe kolumny na całą szerokość |
+| `android:hint` | podpowiedź w pustym polu `EditText` | `android:hint="email"` |
+| `android:inputType` | rodzaj pola i klawiatury | `textPassword` (ukryte znaki), `textEmailAddress`, `number`, `numberDecimal` |
+| `android:src` | obraz w `ImageView` | `android:src="@drawable/question"` |
+
+```xml
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/ivKosc1"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:layout_margin="9dp"
+        android:src="@drawable/question" />
+    <!-- … kolejne ImageView -->
+</LinearLayout>
+
+<EditText
+    android:id="@+id/etHaslo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="hasło"
+    android:inputType="textPassword" />
+```
+
+> [!PULAPKA]
+> W nowych projektach (motyw Material) atrybut `android:background` na `Button` jest **ignorowany** – kolor przycisku ustawia się przez `android:backgroundTint`. `gravity` i `layout_gravity` to dwie różne rzeczy: pierwsza przesuwa tekst w kontrolce, druga – całą kontrolkę.
+
+### Android – obrazy, losowanie i napisy w kodzie
+
+Pliki graficzne kopiuje się do folderu **`res/drawable`**. Nazwa zasobu może zawierać tylko **małe litery, cyfry i `_`** i nie może zaczynać się od cyfry (`kosc_1.jpg`, a nie `Kość 1.JPG`). W kodzie odwołujemy się do niej bez rozszerzenia: `R.drawable.kosc_1`.
+
+```java
+import java.util.Random;
+
+int[] obrazy = { R.drawable.kosc1, R.drawable.kosc2, R.drawable.kosc3,
+                 R.drawable.kosc4, R.drawable.kosc5, R.drawable.kosc6 };
+Random los = new Random();
+
+int oczka = los.nextInt(6) + 1;                 // 1–6
+ivKosc1.setImageResource(obrazy[oczka - 1]);    // zmiana obrazu
+ivKosc1.setImageResource(R.drawable.question);  // powrót do obrazu startowego
+
+String email = etEmail.getText().toString();
+if (!email.contains("@")) {                      // czy napis zawiera znak
+    tvKomunikat.setText("Nieprawidłowy adres e-mail");
+} else if (!haslo.equals(powtorzone)) {          // porównanie treści napisów
+    tvKomunikat.setText("Hasła się różnią");
+}
+```
+
+W Kotlinie: losowanie `(1..6).random()`, zawieranie `"@" in email`, porównanie napisów zwykłym `==` (w Kotlinie porównuje treść).
+
+> [!CKE]
+> Logikę (np. liczenie punktów za rzut) wydziel do osobnej metody lub klasy bez kontrolek – łatwiej ją przetestować i opisać komentarzem nagłówkowym, a w kodzie aktywności zostaje tylko obsługa kliknięć.
 
 > [!CKE]
 > Przećwicz to w **Pracowni GUI** – te same ćwiczenia w WPF, Windows Forms, JavaFX, .NET MAUI, Androidzie (Java i Kotlin), React i Angularze, a w **arkuszach praktycznych** wybierz technologię części z interfejsem. Porównanie kontrolek znajdziesz w ściądze Pracowni GUI.

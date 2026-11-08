@@ -34,6 +34,8 @@ Przeglądarka (**klient**) wysyła żądanie **HTTP** do **serwera**, który zwr
 | `document.querySelectorAll('li')` | wszystkie pasujące elementy |
 | `el.textContent` / `el.innerHTML` | tekst / kod HTML wewnątrz elementu |
 | `input.value` | wartość pola formularza (zawsze **napis**!) |
+| `checkbox.checked` | czy pole wyboru (`type="checkbox"`) lub przycisk opcji (`type="radio"`) jest zaznaczone – `true`/`false` |
+| `select.value` | wartość (`value`) wybranej opcji listy rozwijanej `<select>` |
 | `el.style.color = 'red'` | zmiana stylu |
 | `el.classList.add('aktywny')` | dodanie klasy CSS |
 | `addEventListener('click', fn)` | podpięcie obsługi zdarzenia |
@@ -47,7 +49,29 @@ Przeglądarka (**klient**) wysyła żądanie **HTTP** do **serwera**, który zwr
 - funkcje strzałkowe: `const kwadrat = x => x * x;`,
 - tablice: `push`, `pop`, `map`, `filter`, `reduce`, `forEach`, `find`, `sort`,
 - obiekty: `{ imie: 'Ala', wiek: 17 }`, klasy: `class Osoba { constructor(imie) { this.imie = imie; } }`,
+- napisy: `s.split(',')` (podział na tablicę), `s.trim()` (usunięcie spacji z brzegów), `s.includes('@')` (czy zawiera), `s.toUpperCase()`,
 - asynchroniczność: **Promise**, `async/await`, `fetch()` do pobierania danych z API.
+
+### Metody tablic
+
+| Metoda | Co zwraca | Przykład dla `[1, 2, 3, 4, 5]` |
+|---|---|---|
+| `map(fn)` | **nową** tablicę tej samej długości – każdy element przekształcony przez `fn` | `map(x => x * 10)` → `[10, 20, 30, 40, 50]` |
+| `filter(fn)` | **nową** tablicę tylko z elementów, dla których `fn` zwraca `true` | `filter(x => x % 2 === 1)` → `[1, 3, 5]` |
+| `reduce(fn, start)` | **jedną wartość** zbudowaną z kolejnych elementów | `reduce((suma, x) => suma + x, 0)` → `15` |
+| `find(fn)` | pierwszy element spełniający warunek (lub `undefined`) | `find(x => x > 3)` → `4` |
+| `forEach(fn)` | nic (`undefined`) – tylko wykonuje `fn` dla każdego elementu | `forEach(x => console.log(x))` |
+
+Metody można łączyć w łańcuch – wykonują się od lewej do prawej:
+
+```javascript
+const wynik = [1, 2, 3, 4, 5]
+  .filter(x => x % 2 === 1)   // [1, 3, 5]
+  .map(x => x * 10);          // [10, 30, 50]
+```
+
+> [!PULAPKA]
+> `map` i `filter` **nie zmieniają** oryginalnej tablicy – zwracają nową. Za to `sort()` i `push()` zmieniają tablicę, na której je wywołano. `sort()` bez argumentu sortuje **jak napisy** (`[10, 9, 1].sort()` → `[1, 10, 9]`); liczby sortuj przez `sort((a, b) => a - b)`.
 
 ```javascript
 async function pobierzUzytkownikow() {
@@ -111,7 +135,7 @@ export default function Formularz() {
 
 - JSX: `className` zamiast `class`, `htmlFor` zamiast `for`, zdarzenia w camelCase (`onClick`, `onChange`), wyrażenia w `{ }`,
 - **pole kontrolowane** = `value` ze stanu + `onChange` aktualizujący stan,
-- listy renderujemy przez `map()`, a każdy element dostaje unikalny `key`,
+- listy renderujemy przez `map()`, a każdy element dostaje unikalny `key` – po nim React **rozpoznaje elementy listy między kolejnymi odświeżeniami** (który został dodany, usunięty, przesunięty) i aktualizuje tylko zmienione; najlepiej użyć stałego identyfikatora (`key={x.id}`), a nie indeksu tablicy,
 - **props** przekazuje rodzic: `<Powitanie imie="Ala" />` → `function Powitanie({ imie }) { … }`.
 
 > [!PULAPKA]
