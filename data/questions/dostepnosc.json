@@ -116,5 +116,13 @@
     "answers": ["wireframe", "prototyp", "repozytorium", "framework"],
     "correct": 1,
     "explanation": "Wireframe (makieta) to szkic układu bez szczegółów. Prototyp pozwala przeklikać ścieżki użytkownika i sprawdzić UX przed kodowaniem."
+  },
+  {
+    "id": "dos-012",
+    "difficulty": 2,
+    "question": "Kiedy przeglądarka zastosuje style z reguły `@media (min-width: 768px) { … }`?",
+    "answers": ["gdy szerokość okna wynosi co najmniej 768 px", "gdy szerokość okna jest mniejsza niż 768 px", "tylko przy szerokości dokładnie 768 px", "zawsze, niezależnie od szerokości"],
+    "correct": 0,
+    "explanation": "`min-width` to dolna granica („od 768 px wzwyż”), a `max-width` – górna („do”). Podejście mobile first używa właśnie `min-width`, rozszerzając styl telefonu dla większych ekranów."
   }
 ]

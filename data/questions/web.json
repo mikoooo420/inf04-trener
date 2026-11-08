@@ -371,5 +371,24 @@
     ],
     "correct": 1,
     "explanation": "Argumenty z `process.argv` są napisami (indeksy 0 i 1 to ścieżki node i skryptu), więc `+` je skleja: „5” + „3” = „53”."
+  },
+  {
+    "id": "web-029",
+    "difficulty": 1,
+    "question": "Która właściwość w JavaScripcie mówi, czy pole `<input type=\"checkbox\">` jest zaznaczone?",
+    "answers": ["checked", "value", "selected", "active"],
+    "correct": 0,
+    "explanation": "`checked` ma wartość `true` lub `false`. `value` pola wyboru zwraca jego wartość (domyślnie \"on\") niezależnie od zaznaczenia, a `selected` dotyczy opcji listy `<select>`."
+  },
+  {
+    "id": "web-030",
+    "difficulty": 2,
+    "question": "Co wypisze kod w konsoli?",
+    "code": [
+      { "lang": "javascript", "src": "const t = [3, 8, 5, 10];\nconsole.log(t.filter(x => x > 4).map(x => x / 2));" }
+    ],
+    "answers": ["[4, 2.5, 5]", "[8, 5, 10]", "[1.5, 4, 2.5, 5]", "[4, 5]"],
+    "correct": 0,
+    "explanation": "`filter` zostawia elementy większe od 4: [8, 5, 10]. `map` dzieli każdy z nich przez 2: [4, 2.5, 5]. Obie metody zwracają nowe tablice, a operacje wykonują się od lewej do prawej."
   }
 ]

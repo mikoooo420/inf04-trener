@@ -327,5 +327,29 @@
     ],
     "correct": 2,
     "explanation": "Android: Spinner (pozycje przez ArrayAdapter lub android:entries); WPF/WinForms/JavaFX: ComboBox; MAUI: Picker."
+  },
+  {
+    "id": "dm-026",
+    "difficulty": 1,
+    "question": "Jaką wartość atrybutu `android:inputType` trzeba ustawić w `EditText`, aby znaki wpisywanego hasła były ukryte?",
+    "answers": ["textPassword", "password", "hidden", "textSecret"],
+    "correct": 0,
+    "explanation": "`textPassword` zamienia wpisywane znaki na kropki. Inne przydatne wartości to `textEmailAddress`, `number` i `numberDecimal`. W .NET MAUI ten sam efekt daje `IsPassword=\"True\"`."
+  },
+  {
+    "id": "dm-027",
+    "difficulty": 2,
+    "question": "Pięć kontrolek `ImageView` w poziomym `LinearLayout` ma zajmować równe części szerokości ekranu. Jak ustawić ich atrybuty?",
+    "answers": ["layout_width=\"0dp\" i layout_weight=\"1\"", "layout_width=\"match_parent\" dla każdej", "layout_width=\"20%\"", "layout_gravity=\"fill\" dla każdej"],
+    "correct": 0,
+    "explanation": "`layout_weight` dzieli wolne miejsce w `LinearLayout` proporcjonalnie do wag. Szerokość 0dp oznacza, że całą szerokość wyznacza waga, więc pięć wag 1 daje pięć równych kolumn. Android nie obsługuje wymiarów w procentach."
+  },
+  {
+    "id": "dm-028",
+    "difficulty": 2,
+    "question": "W aplikacji Android z motywem Material kolor tła przycisku `Button` ustawia się atrybutem:",
+    "answers": ["android:backgroundTint", "android:foreground", "android:textColor", "android:colorAccent"],
+    "correct": 0,
+    "explanation": "W motywie Material przycisk rysuje własne tło, a zwykłe `android:background` jest pomijane. Kolor zmienia `android:backgroundTint`. `textColor` zmienia kolor napisu, a nie tła."
   }
 ]

@@ -36,6 +36,11 @@ title: Podstawy programowania
 | Inkrementacja | `++` `--` (brak w Pythonie) |
 | Bitowe | `& \| ^ ~ << >>` |
 
+**Operatory specyficzne dla Pythona:** `//` – dzielenie całkowite (`7 // 2 == 3`), `**` – **potęgowanie** (`2 ** 3 == 8`, `9 ** 0.5 == 3.0`). W C++, C# i Javie nie ma operatora potęgi – używa się funkcji `pow(2, 3)` (C++), `Math.Pow(2, 3)` (C#), `Math.pow(2, 3)` (Java); w JavaScripcie działa zarówno `2 ** 3`, jak i `Math.pow(2, 3)`.
+
+> [!PULAPKA]
+> `^` w C++, C#, Javie, JS i Pythonie to **XOR bitowy**, a nie potęga: `2 ^ 3 == 1`. Potęga to `**` (Python, JS) albo funkcja `pow`.
+
 **Preinkrementacja vs postinkrementacja:** `++i` najpierw zwiększa, potem zwraca wartość; `i++` zwraca starą wartość, a dopiero potem zwiększa.
 
 ```cpp
@@ -109,3 +114,69 @@ Najczęstsze operacje: długość (`s.length()` w C++, `s.Length` w C#, `s.lengt
 
 > [!PULAPKA]
 > W Javie napisy porównujemy metodą `equals()`, a nie `==`. Operator `==` porównuje referencje (czy to ten sam obiekt), a nie treść.
+
+| Operacja | C++ | C# | Java | Python | JavaScript |
+|---|---|---|---|---|---|
+| Czy zawiera „@” | `s.find("@") != string::npos` | `s.Contains("@")` | `s.contains("@")` | `"@" in s` | `s.includes("@")` |
+| Podział po przecinkach | `getline(strumien, czesc, ',')` | `s.Split(',')` | `s.split(",")` | `s.split(",")` | `s.split(",")` |
+| Usunięcie spacji z brzegów | (ręcznie lub pętla) | `s.Trim()` | `s.trim()` | `s.strip()` | `s.trim()` |
+| Napis → liczba całkowita | `stoi(s)` | `int.Parse(s)` / `int.TryParse(s, out n)` | `Integer.parseInt(s)` | `int(s)` | `Number(s)` / `parseInt(s)` |
+| Wielkie / małe litery | `toupper(c)` / `tolower(c)` | `s.ToUpper()` / `s.ToLower()` | `s.toUpperCase()` / `s.toLowerCase()` | `s.upper()` / `s.lower()` | `s.toUpperCase()` / `s.toLowerCase()` |
+
+Podział zwraca **tablicę napisów**: `"5,4,6".split(",")` → `["5", "4", "6"]`. Każdy element trzeba jeszcze zamienić na liczbę.
+
+## Wejście i wyjście w konsoli
+
+Prawie każda aplikacja konsolowa z arkusza zaczyna się od komunikatu i wczytania danych z klawiatury.
+
+| Operacja | C++ | C# | Java | Python |
+|---|---|---|---|---|
+| Wypisanie z nową linią | `cout << x << endl;` | `Console.WriteLine(x);` | `System.out.println(x);` | `print(x)` |
+| Wypisanie bez nowej linii | `cout << x;` | `Console.Write(x);` | `System.out.print(x);` | `print(x, end="")` |
+| Wczytanie liczby całkowitej | `cin >> n;` | `int n = int.Parse(Console.ReadLine());` | `int n = sc.nextInt();` | `n = int(input())` |
+| Wczytanie całej linii (ze spacjami) | `getline(cin, s);` | `string s = Console.ReadLine();` | `String s = sc.nextLine();` | `s = input()` |
+| Wczytanie jednego znaku | `char c; cin >> c;` | `char c = Console.ReadLine()[0];` | `char c = sc.next().charAt(0);` | `c = input()[0]` |
+
+W Javie najpierw tworzy się skaner: `Scanner sc = new Scanner(System.in);` (`import java.util.Scanner;`). W Pythonie `input("Podaj liczbę: ")` od razu wypisuje komunikat.
+
+```cpp
+int n;
+do {
+    cout << "Podaj liczbę z przedziału 3-10: ";
+    cin >> n;
+} while (n < 3 || n > 10);      // pytanie powtarzane do skutku
+```
+
+> [!PULAPKA]
+> `cin >> n` (C++) i `sc.nextInt()` (Java) zostawiają w buforze znak nowej linii. Następne `getline(cin, s)` / `sc.nextLine()` wczyta wtedy **pusty napis**. Wczytuj najpierw linię tekstu, a potem liczbę albo „zjedz” resztę linii (`cin.ignore();` / dodatkowe `sc.nextLine();`). `cin >> s` wczytuje tylko jedno słowo – tekst ze spacjami wymaga `getline`.
+
+## Liczby losowe
+
+| Język | Przygotowanie | Liczba z zakresu **1–100** (oba końce włącznie) |
+|---|---|---|
+| C++ | `#include <cstdlib>`, `#include <ctime>`, raz na starcie `srand(time(nullptr));` | `rand() % 100 + 1` |
+| C# | `Random rnd = new Random();` | `rnd.Next(1, 101)` – górna granica **nie** wchodzi do zakresu |
+| Java | `import java.util.Random;`, `Random rnd = new Random();` | `rnd.nextInt(100) + 1` – `nextInt(n)` daje 0…n−1 |
+| Python | `import random` | `random.randint(1, 100)` – **oba** końce włącznie |
+| JavaScript | – | `Math.floor(Math.random() * 100) + 1` |
+
+> [!WZOR] Zakres od a do b
+> C++: `rand() % (b - a + 1) + a`. Kostka do gry (1–6): `rand() % 6 + 1`, `rnd.Next(1, 7)`, `rnd.nextInt(6) + 1`, `random.randint(1, 6)`.
+
+> [!PULAPKA]
+> Bez `srand(time(nullptr))` program w C++ przy każdym uruchomieniu losuje **te same** liczby. `srand` wywołuj raz, na początku `main`, a nie przed każdym losowaniem.
+
+## Formatowanie liczb
+
+Typowe polecenie: „wypisz średnią z dokładnością do dwóch miejsc po przecinku”.
+
+| Język | Dwa miejsca po przecinku |
+|---|---|
+| C++ | `#include <iomanip>`, `cout << fixed << setprecision(2) << x;` |
+| C# | `Console.WriteLine($"{x:F2}");` albo `x.ToString("F2")` |
+| Java | `System.out.printf("%.2f%n", x);` albo `String.format("%.2f", x)` |
+| Python | `print(f"{x:.2f}")` albo `format(x, ".2f")` |
+| JavaScript | `x.toFixed(2)` (zwraca napis) |
+
+> [!PULAPKA]
+> Bez `fixed` samo `setprecision(2)` w C++ oznacza dwie **cyfry znaczące** (`3.666` → `3.7`). W C# i Javie wynik zależy od ustawień regionalnych: na polskim systemie zobaczysz przecinek (`3,67`). Jeśli polecenie wymaga kropki, użyj `CultureInfo.InvariantCulture` (C#) lub `String.format(Locale.US, "%.2f", x)` (Java).

@@ -13,7 +13,7 @@ Działa w całości w przeglądarce – bez serwera, bez logowania, bez instalac
 | Moduł | Opis |
 |---|---|
 | **Teoria w pigułce** | 13 działów zgodnych z zakresem INF.04, z przykładami kodu w kilku językach, tipami CKE, pułapkami i spisem treści. Na końcu każdego działu – mini-test. |
-| **Quizy tematyczne** | 203 autorskie pytań w formacie CKE (A–D), natychmiastowa informacja zwrotna z wyjaśnieniem, pytania „co wypisze program” z przełącznikiem języka (C++/C#/Java/Python/JS). |
+| **Quizy tematyczne** | 213 autorskich pytań w formacie CKE (A–D), natychmiastowa informacja zwrotna z wyjaśnieniem, pytania „co wypisze program” z przełącznikiem języka (C++/C#/Java/Python/JS). |
 | **Symulacja egzaminu** | 40 pytań, 60 minut, próg 50%, proporcje działów jak na egzaminie, mapa pytań, flagi, wynik z podziałem na działy i przeglądem odpowiedzi. |
 | **Powtórki (Leitner)** | Błędne odpowiedzi wracają częściej, opanowane – rzadziej. |
 | **Code Lab** | 30 zadań: 20 algorytmicznych (tablice, napisy, OOP; wzorcowe rozwiązania w JS, C++, C#, Javie i Pythonie), 5 w **TypeScripcie** (prawdziwy kompilator, błędy typów po polsku) i 5 w **Node.js** (moduły, `fs`, `process.argv`, REST API w **Express**) – testy uruchamiane w Web Workerze. |

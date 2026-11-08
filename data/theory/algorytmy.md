@@ -143,7 +143,18 @@ int nwd(int a, int b) {
 
 **Palindrom** – tekst czytany od tyłu jest taki sam (np. „kajak”). Porównujemy znaki `i` oraz `n-1-i`.
 
-**Szyfr Cezara** – każdą literę przesuwamy o stałą liczbę pozycji w alfabecie, z „zawinięciem” (`(kod - 'a' + klucz) % 26`).
+**Szyfr Cezara** – każdą literę przesuwamy o stałą liczbę pozycji w alfabecie, z „zawinięciem” (`(kod - 'a' + klucz) % 26`). Deszyfrowanie to przesunięcie o `26 - klucz`, więc obie operacje może wykonać jedna metoda pomocnicza.
+
+```cpp
+char przesun(char c, int klucz) {            // klucz z zakresu 0–25
+    if (c >= 'a' && c <= 'z') return 'a' + (c - 'a' + klucz) % 26;
+    if (c >= 'A' && c <= 'Z') return 'A' + (c - 'A' + klucz) % 26;
+    return c;                                // inne znaki bez zmian
+}
+```
 
 > [!WZOR] Operatory, które musisz znać
 > `%` – reszta z dzielenia (parzystość: `x % 2 == 0`), `/` na liczbach całkowitych w C++/C#/Java **obcina część ułamkową** (`7 / 2 == 3`), w Pythonie `//` to dzielenie całkowite, a `/` zawsze daje liczbę zmiennoprzecinkową.
+
+> [!PULAPKA] Reszta z dzielenia liczby ujemnej
+> W C++, C#, Javie i JavaScripcie wynik `%` ma **znak dzielnej**: `-1 % 26 == -1`, `-27 % 26 == -1`. W Pythonie wynik ma znak dzielnika: `-1 % 26 == 25`. Żeby sprowadzić dowolną liczbę (np. ujemny klucz szyfru) do zakresu `0 … n-1` w każdym języku, użyj wzoru `((k % n) + n) % n` – dla `k = -1`, `n = 26` daje 25, dla `k = 29` daje 3.
